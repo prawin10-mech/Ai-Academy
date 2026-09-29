@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { LESSONS, PAPERS, TOPICS, courseById, useAcademy } from '../../../components/Providers.js';
+import { GUIDES, LESSONS, PAPERS, TOPICS, courseById, useAcademy } from '../../../components/Providers.js';
 import Player from '../../../components/Player.js';
 import NotesEditor from '../../../components/NotesEditor.js';
 import Quiz from '../../../components/Quiz.js';
@@ -30,6 +30,7 @@ export default function CoursePage({ params }) {
     );
   }
 
+  const guide = GUIDES[course.id] || null;
   const p = courseProgress(state, course);
   const lesson = (lessonId && LESSONS[lessonId] && LESSONS[lessonId].course.id === course.id ? LESSONS[lessonId].lesson : course.lessons[0]);
   const m = mastery(state, course.topic);
@@ -53,8 +54,38 @@ export default function CoursePage({ params }) {
 
       <div className="tabs" role="tablist">
         <button role="tab" aria-selected={tab === 'learn'} onClick={() => setTab('learn')}>Learn</button>
+        {guide && <button role="tab" aria-selected={tab === 'explained'} onClick={() => setTab('explained')}>Explained</button>}
         <button role="tab" aria-selected={tab === 'quiz'} onClick={() => setTab('quiz')}>Quiz</button>
       </div>
+
+      {tab === 'explained' && guide && (
+        <div className="stack">
+          <div className="panel stack">
+            <div className="eyebrow">In plain words</div>
+            <p>{guide.plain}</p>
+            <div className="eyebrow">You will be able to</div>
+            <ul className="stack" style={{ margin: 0, paddingLeft: 20 }}>
+              {guide.learn.map((x) => <li key={x}>{x}</li>)}
+            </ul>
+            <p className="lead"><strong>Know first:</strong> {guide.prereq}</p>
+          </div>
+          <h2>Key ideas</h2>
+          <div className="grid">
+            {guide.concepts.map((k) => (
+              <div className="card" key={k.term}>
+                <h3>{k.term}</h3>
+                <p>{k.plain}</p>
+                <p className="lead"><strong>Think of it as:</strong> {k.analogy}</p>
+              </div>
+            ))}
+          </div>
+          <div className="panel stack">
+            <p><strong>For a MERN developer:</strong> {guide.mern}</p>
+            <p><strong>Common mistake:</strong> {guide.pitfall}</p>
+          </div>
+          <p className="lead">Stuck on a word? <Link href="/glossary">Open the glossary</Link>.</p>
+        </div>
+      )}
 
       {tab === 'quiz' && (
         hasQuizForCourse ? (
@@ -88,6 +119,9 @@ export default function CoursePage({ params }) {
           <div className="stack">
             <h2>{lesson.t}</h2>
             <Player course={course} lesson={lesson} />
+            {guide && guide.lessons && guide.lessons[lesson.id] && (
+              <div className="why"><strong>What to focus on:</strong> {guide.lessons[lesson.id]}</div>
+            )}
             <div className="row">
               <button className={`btn ${state.done[lesson.id] ? '' : 'primary'}`} onClick={() => toggleDone(lesson.id)}>
                 {state.done[lesson.id] ? 'Marked complete, undo' : 'Mark complete'}

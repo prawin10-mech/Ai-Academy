@@ -179,3 +179,22 @@ test('digest is valid-looking Telegram HTML and under the limit', () => {
   assert.ok(d.length < 3800);
   assert.ok(!/<(?!\/?(b|a)[ >])/.test(d.replace(/<a href="[^"]*">/g, '<a>')));
 });
+
+test('explanation content covers every course, lesson, paper and glossary link', () => {
+  const guides = j('course-guides.json');
+  const pg = j('paper-guides.json');
+  const gl = j('glossary.json');
+  for (const c of courses) {
+    const g = guides[c.id];
+    assert.ok(g, c.id);
+    assert.ok(g.plain && g.learn.length >= 3 && g.concepts.length >= 3 && g.mern && g.pitfall && g.prereq, c.id);
+    for (const l of c.lessons) assert.ok(g.lessons[l.id], l.id);
+  }
+  for (const p of papers) {
+    const g = pg[p.id];
+    assert.ok(g && g.eli5 && g.analogy && g.problem && g.idea && g.terms.length >= 3 && g.lookFor.length === 3 && g.skip && g.limits && g.tryIt, p.id);
+  }
+  const terms = new Set(gl.map((x) => x.term));
+  assert.equal(terms.size, gl.length);
+  for (const g of gl) { assert.ok(topics[g.topic]); for (const r of g.related) assert.ok(terms.has(r), r); }
+});

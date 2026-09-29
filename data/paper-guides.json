@@ -1,0 +1,542 @@
+{
+  "1301.3781": {
+    "eli5": "Computers do not understand words, only numbers. This paper shows a fast way to turn every word into a list of numbers. Words used in similar ways end up with similar numbers. That lets a computer see that 'king' and 'queen' are close cousins.",
+    "analogy": "It is like giving every word a set of coordinates on a map, so related words sit near each other and you can search by distance instead of exact match.",
+    "problem": "Earlier ways to learn word vectors were slow and could not be trained on very large amounts of text.",
+    "idea": "Use two simple, fast models (known as CBOW and Skip-gram) that learn word vectors by predicting a word from its neighbors or neighbors from a word. This made training on huge text collections practical.",
+    "terms": [
+      {"term": "Word vector", "plain": "A list of numbers that stands for one word."},
+      {"term": "Embedding", "plain": "Another name for a vector that represents something, like a word, in a way a model can use."},
+      {"term": "Skip-gram", "plain": "A model that learns a word's vector by trying to predict the words around it."},
+      {"term": "CBOW", "plain": "A model that learns by predicting a word from the words around it."}
+    ],
+    "lookFor": [
+      "Read the abstract and introduction first to see the goal: good vectors, cheaply.",
+      "In the experiments, look at the word analogy tests such as king minus man plus woman.",
+      "On a first pass, ignore the detailed training cost formulas."
+    ],
+    "skip": "A first-time reader can skip the exact computational complexity comparisons between model types.",
+    "limits": "Each word gets one fixed vector, so a word with many meanings is not separated by context, which later contextual models like BERT addressed.",
+    "tryIt": "Load a small pretrained word vector file in Node, write a function that finds the closest words to a given word using cosine similarity, and try a few words."
+  },
+  "1412.6980": {
+    "eli5": "Training a neural network means nudging many numbers a little at a time to make fewer mistakes. How big each nudge should be is hard to pick. Adam is a method that adjusts the nudge size for each number on its own. It works well without much tuning.",
+    "analogy": "It is like an autoscaler that adjusts each server's capacity from recent load, instead of one fixed setting for the whole fleet.",
+    "problem": "Plain gradient descent needs careful tuning of the step size and treats every parameter the same way.",
+    "idea": "Adam keeps a running average of the gradients and of their squares, and uses them to give each parameter its own step size.",
+    "terms": [
+      {"term": "Gradient", "plain": "A number that tells you which direction to change a parameter to reduce the error."},
+      {"term": "Learning rate", "plain": "How big each update step is."},
+      {"term": "Stochastic optimization", "plain": "Improving a model using small random batches of data instead of all the data at once."},
+      {"term": "Moment estimates", "plain": "Running averages of the gradient and its square."}
+    ],
+    "lookFor": [
+      "Find the algorithm box in the method section and read it line by line.",
+      "In the experiments, look at the training curves that compare Adam with other optimizers.",
+      "On a first pass, ignore the convergence analysis."
+    ],
+    "skip": "A first-time reader can skip the theoretical convergence proof and its appendix.",
+    "limits": "Later work showed that the original convergence proof had a flaw, and a variant called AdamW changed how weight decay is handled.",
+    "tryIt": "Write a tiny JavaScript loop that minimizes a simple function like x squared, first with plain gradient descent and then with the Adam update rules, and compare how fast each gets close to zero."
+  },
+  "1512.03385": {
+    "eli5": "Researchers found that making a neural network deeper did not always make it better. Very deep networks became hard to train. This paper adds shortcuts that let information skip over layers. With shortcuts, much deeper networks train well.",
+    "analogy": "It is like middleware that can pass the request through unchanged, so each layer only has to add a small correction.",
+    "problem": "Very deep networks were harder to train and could get worse results than shallower ones.",
+    "idea": "Let each block learn only the change to its input by adding the input back to the output through a skip connection, called a residual connection.",
+    "terms": [
+      {"term": "Residual", "plain": "The difference between what you have and what you want, which the block learns to fix."},
+      {"term": "Skip connection", "plain": "A path that carries the input past a block and adds it to the block's output."},
+      {"term": "Degradation problem", "plain": "The effect where adding more layers makes training results worse."},
+      {"term": "ImageNet", "plain": "A large image dataset commonly used to compare vision models."}
+    ],
+    "lookFor": [
+      "Read the abstract and introduction, then study the diagram of a single residual block in the method.",
+      "In the experiments, compare plain networks with residual networks at the same depth.",
+      "On a first pass, ignore the detailed layer configuration tables."
+    ],
+    "skip": "A first-time reader can skip the extra experiments on other datasets and the fine details of the network layouts.",
+    "limits": "Residual connections became standard, and they are also used in Transformers, but the paper itself focuses on image tasks.",
+    "tryIt": "Write a small function pipeline where each step returns input plus a small change, and compare it with a pipeline where each step replaces the input, to see how the skip keeps the original signal."
+  },
+  "1706.03762": {
+    "eli5": "To understand a sentence, a computer must know which words relate to which. Older models read words one by one in order, which is slow. This paper lets every word look at every other word at the same time. That is called attention, and it made models faster to train and better.",
+    "analogy": "It is like a database join where each word can look up every other word and decide how much each one matters, all in parallel.",
+    "problem": "Recurrent networks read text step by step, which was slow to train and made long-range links hard to learn.",
+    "idea": "Build a model called the Transformer that uses only attention to relate all positions in a sequence, with no recurrence.",
+    "terms": [
+      {"term": "Self-attention", "plain": "A way for each word to weigh how much to look at every other word in the same sentence."},
+      {"term": "Query, key, value", "plain": "Three vectors per word: what it is looking for, what it offers, and the content it passes on."},
+      {"term": "Multi-head attention", "plain": "Running several attention operations side by side so the model can track different kinds of relations."},
+      {"term": "Positional encoding", "plain": "Extra numbers added so the model knows the order of the words."}
+    ],
+    "lookFor": [
+      "Read the abstract and introduction, then look at the model architecture figure.",
+      "Read the section that defines scaled dot-product attention.",
+      "In the experiments, look at the translation results table and ignore the training details on a first pass."
+    ],
+    "skip": "A first-time reader can skip the appendix examples of attention maps and the detailed training settings.",
+    "limits": "Attention cost grows quickly with sequence length, which later work such as FlashAttention and other efficient designs tried to reduce.",
+    "tryIt": "Implement scaled dot-product attention for a tiny made-up set of three word vectors in plain JavaScript and print the attention weights."
+  },
+  "1810.04805": {
+    "eli5": "BERT is a model that first learns language by reading lots of text with some words hidden. It guesses the hidden words using the words on both sides. After that, it can be adjusted with a little extra training for many tasks like answering questions.",
+    "analogy": "It is like a base framework you build once at great cost and then configure for many different apps.",
+    "problem": "Earlier language models read text mostly in one direction, which limited how well they used context.",
+    "idea": "Pre-train a Transformer encoder with masked word prediction so it uses context from both directions, then fine-tune it on each task.",
+    "terms": [
+      {"term": "Pre-training", "plain": "Learning general language skills from a large amount of unlabeled text first."},
+      {"term": "Fine-tuning", "plain": "Training the pre-trained model a bit more on a specific task."},
+      {"term": "Masked language model", "plain": "A training game where some words are hidden and the model guesses them."},
+      {"term": "Bidirectional", "plain": "Using words from both the left and the right of a position."}
+    ],
+    "lookFor": [
+      "Read the abstract and introduction, then the section on pre-training with masked words.",
+      "In the experiments, look at the results table on the GLUE benchmark.",
+      "On a first pass, ignore the ablation details about model size."
+    ],
+    "skip": "A first-time reader can skip the appendix with per-task fine-tuning settings.",
+    "limits": "BERT is an encoder that is not built to generate long text, and later models such as GPT-style decoders became the main choice for generation.",
+    "tryIt": "Use a hosted fill-mask model or a small library in Node to hide a word in a sentence and look at the top guesses the model returns."
+  },
+  "2001.08361": {
+    "eli5": "This paper asks what happens when you make a language model bigger, give it more data, or train it longer. The answer is that the errors go down in a steady, predictable way. That means you can guess how good a bigger model will be before you build it.",
+    "analogy": "It is like load testing that shows a smooth curve, so you can predict performance at a larger scale before you buy the servers.",
+    "problem": "People did not have clear rules for how model size, data, and compute affect the quality of a language model.",
+    "idea": "Measure loss across many sizes and find that it follows power-law trends in model size, dataset size, and compute.",
+    "terms": [
+      {"term": "Scaling law", "plain": "A simple formula that predicts model quality from size, data, or compute."},
+      {"term": "Power law", "plain": "A pattern where one value changes as another value raised to a fixed power."},
+      {"term": "Loss", "plain": "A number that measures how wrong the model's predictions are."},
+      {"term": "Compute", "plain": "The amount of calculation used to train the model."}
+    ],
+    "lookFor": [
+      "Read the abstract and the summary of results near the start, since they list the main findings.",
+      "Look at the plots that show loss falling in straight lines on log scales.",
+      "On a first pass, ignore the detailed fitting equations."
+    ],
+    "skip": "A first-time reader can skip the appendices with the fit details and the extra derivations.",
+    "limits": "A later paper called Chinchilla found that the compute split recommended here gave too little data for the model size.",
+    "tryIt": "Take a few made-up points of model size versus loss, plot them on a log-log chart in a small React page, and draw the straight line through them."
+  },
+  "2005.14165": {
+    "eli5": "This paper trains a very large language model called GPT-3. You do not retrain it for each task. You just show it a few examples in the prompt and it figures out what to do. It can then translate, answer questions, and more.",
+    "analogy": "It is like calling one general API and passing a few sample inputs and outputs in the request instead of deploying a new service for each task.",
+    "problem": "Language models usually needed a new round of training with many labeled examples for every new task.",
+    "idea": "Train a very large model (175 billion parameters) and show that it can learn tasks from a few examples in its prompt, called in-context learning.",
+    "terms": [
+      {"term": "Few-shot learning", "plain": "Doing a task after seeing only a handful of examples."},
+      {"term": "Zero-shot", "plain": "Doing a task from an instruction alone, with no examples."},
+      {"term": "In-context learning", "plain": "Picking up a task from the examples written in the prompt, without changing the model's weights."},
+      {"term": "Parameters", "plain": "The numbers inside the model that were learned during training."}
+    ],
+    "lookFor": [
+      "Read the abstract and introduction, then the figure that shows zero-shot, one-shot, and few-shot settings.",
+      "In the results, see how performance changes as model size grows.",
+      "On a first pass, ignore the long list of individual benchmark details."
+    ],
+    "skip": "A first-time reader can skip most of the per-benchmark result sections and the data contamination appendix.",
+    "limits": "GPT-3 often did not follow instructions well and could produce untrue or harmful text, which later work such as InstructGPT tried to improve.",
+    "tryIt": "Write a prompt with three example input and output pairs for a small task like turning a product title into a slug, send it to any chat model API from Node, and see if it follows the pattern."
+  },
+  "2005.11401": {
+    "eli5": "A language model only knows what it saw in training, and it can be wrong about facts. This paper lets the model look things up in a document collection before it answers. Then its answer can use fresh and specific facts.",
+    "analogy": "It is like a request handler that queries a database for the relevant records first, then builds the response from them.",
+    "problem": "Language models stored knowledge inside their weights, which was hard to update and hard to check.",
+    "idea": "Combine a text generator with a retriever that fetches relevant passages, and train them together so the answer is based on the retrieved text.",
+    "terms": [
+      {"term": "Retriever", "plain": "The part that finds passages relevant to the question."},
+      {"term": "Generator", "plain": "The part that writes the answer using the question and the passages."},
+      {"term": "Non-parametric memory", "plain": "Knowledge kept in an outside index of documents instead of inside the model weights."},
+      {"term": "Knowledge-intensive task", "plain": "A task that needs specific facts, such as open-domain question answering."}
+    ],
+    "lookFor": [
+      "Read the abstract and introduction, then the overview figure of the model.",
+      "In the experiments, look at the open-domain question answering results.",
+      "On a first pass, ignore the math for marginalizing over documents."
+    ],
+    "skip": "A first-time reader can skip the fine details of how the index was built and the extra ablations.",
+    "limits": "The paper trains the retriever and generator together, while many later systems simply attach a search index to a ready-made model without that joint training.",
+    "tryIt": "Store a few paragraphs in MongoDB, find the best match for a question with a simple search, and paste it into a prompt for a chat model to see the answer improve."
+  },
+  "2010.11929": {
+    "eli5": "Transformers worked great for text. This paper asks whether they can work for pictures too. It cuts an image into small square patches and treats each patch like a word. A Transformer then reads the patches and it does well at recognizing images.",
+    "analogy": "It is like splitting a big page into small tiles and processing each tile as one item in a list.",
+    "problem": "Image tasks were dominated by convolutional networks, and it was not clear that plain Transformers could compete.",
+    "idea": "Split an image into fixed-size patches, turn each into a vector, and feed the sequence to a standard Transformer, called the Vision Transformer.",
+    "terms": [
+      {"term": "Patch", "plain": "A small square piece of an image, such as 16 by 16 pixels."},
+      {"term": "Vision Transformer (ViT)", "plain": "A Transformer applied to a sequence of image patches."},
+      {"term": "Convolutional network", "plain": "A common image model that scans small filters across the picture."},
+      {"term": "Pre-training", "plain": "Training first on a large dataset before using the model on a smaller task."}
+    ],
+    "lookFor": [
+      "Read the abstract and introduction, then the model overview figure that shows the patches.",
+      "In the experiments, note the results that depend on how large the pre-training dataset is.",
+      "On a first pass, ignore the fine details of the fine-tuning settings."
+    ],
+    "skip": "A first-time reader can skip the appendix with the extra training details and per-dataset tables.",
+    "limits": "The paper reports that this approach needs a lot of pre-training data to beat convolutional networks, and later work found ways to train them with less data.",
+    "tryIt": "Write a small script that splits a grayscale image into a grid of equal patches and flattens each patch into an array, to see the sequence the Transformer would read."
+  },
+  "2106.09685": {
+    "eli5": "Fine-tuning a huge model changes all of its numbers, which needs a lot of memory and makes a big copy for each task. LoRA freezes the original model. It adds a few small extra pieces and only trains those. The result is cheap to train and easy to store.",
+    "analogy": "It is like keeping the main codebase untouched and shipping a small patch file for each customer.",
+    "problem": "Full fine-tuning of large models was costly in memory and storage, since every task needed a complete copy.",
+    "idea": "Freeze the pre-trained weights and learn small low-rank update matrices that are added to certain layers.",
+    "terms": [
+      {"term": "Low-rank", "plain": "Described by two thin matrices instead of one large matrix, which uses far fewer numbers."},
+      {"term": "Adapter", "plain": "A small add-on module trained for a task while the base model stays frozen."},
+      {"term": "Fine-tuning", "plain": "Continuing training on a specific task."},
+      {"term": "Trainable parameters", "plain": "The numbers that are updated during training."}
+    ],
+    "lookFor": [
+      "Read the abstract and introduction, then the figure that shows the two small matrices next to the frozen weights.",
+      "In the experiments, compare the number of trainable parameters with the quality of results.",
+      "On a first pass, ignore the deeper analysis of why low rank works."
+    ],
+    "skip": "A first-time reader can skip the later empirical study of the rank of the updates.",
+    "limits": "LoRA needs choices such as the rank and which layers to adapt, and later work like QLoRA combined it with quantization to cut memory further.",
+    "tryIt": "Multiply a 1000 by 4 matrix with a 4 by 1000 matrix in JavaScript and count the numbers in each compared with a full 1000 by 1000 matrix to feel the savings."
+  },
+  "2201.11903": {
+    "eli5": "If you ask a language model a hard math question, it often gets it wrong. If you show it examples where the answer includes the steps of thinking, it does much better. This paper shows that asking for the steps helps the model reason.",
+    "analogy": "It is like asking a developer to show their work in the pull request instead of only posting the final answer, which makes mistakes easier to avoid.",
+    "problem": "Large language models did poorly on tasks that need several reasoning steps, such as math word problems.",
+    "idea": "Put examples with written-out intermediate steps in the prompt, called chain-of-thought prompting, so the model writes its steps before the answer.",
+    "terms": [
+      {"term": "Chain of thought", "plain": "A series of short reasoning steps written before the final answer."},
+      {"term": "Prompting", "plain": "Giving the model text instructions or examples to steer what it does."},
+      {"term": "Few-shot", "plain": "Showing a few examples in the prompt."},
+      {"term": "Arithmetic reasoning", "plain": "Solving math word problems that need several steps."}
+    ],
+    "lookFor": [
+      "Read the abstract and look at figure 1, which contrasts a standard prompt with a chain-of-thought prompt.",
+      "In the experiments, see how the gain depends on model size.",
+      "On a first pass, ignore the long lists of example prompts in the appendix."
+    ],
+    "skip": "A first-time reader can skip the appendix with the full prompts and the extra error analysis.",
+    "limits": "The paper finds the benefit appears mainly in very large models, and the written steps are not guaranteed to be correct.",
+    "tryIt": "Ask a chat model a multi-step word problem twice, once with just the question and once with an example that shows steps first, and compare the answers."
+  },
+  "2203.15556": {
+    "eli5": "You have a fixed budget to train a language model. You can spend it on a bigger model or on more training text. This paper finds that many big models were too large for the amount of text they saw. A smaller model trained on more text can do better.",
+    "analogy": "It is like a fixed budget split between server size and traffic testing, where spending it all on bigger servers leaves you with too little real data.",
+    "problem": "Large models were being trained on relatively little data, and it was unclear how to best split a compute budget.",
+    "idea": "Show that model size and the number of training tokens should grow together in about equal proportion, and test it with the Chinchilla model.",
+    "terms": [
+      {"term": "Compute-optimal", "plain": "Getting the best result for a fixed amount of training compute."},
+      {"term": "Token", "plain": "A small piece of text, often a word or part of a word, that the model reads."},
+      {"term": "Chinchilla", "plain": "The smaller model in this paper that was trained on more data."},
+      {"term": "Parameters", "plain": "The numbers inside the model that are learned."}
+    ],
+    "lookFor": [
+      "Read the abstract and introduction for the main claim about size and tokens growing together.",
+      "In the experiments, compare Chinchilla with the larger model Gopher.",
+      "On a first pass, ignore the details of how the three fitting approaches were done."
+    ],
+    "skip": "A first-time reader can skip the appendix on fitting procedures and extra curves.",
+    "limits": "Later models were often trained on much more data than this rule suggests, because a smaller model that is trained longer is cheaper to run after training.",
+    "tryIt": "Write a small calculator in JavaScript that takes a parameter count and returns roughly how many training tokens the paper's rule would suggest, and try a few model sizes."
+  },
+  "2203.02155": {
+    "eli5": "Big language models can write well but often ignore what you ask. This paper trains a model using feedback from people who rate which answers are better. The model learns to follow instructions more helpfully. This is the idea behind the InstructGPT models.",
+    "analogy": "It is like tuning a product using user ratings after launch, not just the developer's own tests.",
+    "problem": "Language models trained only to predict text did not reliably do what users wanted and could be untruthful or toxic.",
+    "idea": "Fine-tune the model using human-written examples, then train a reward model from human rankings and improve the language model with reinforcement learning against it.",
+    "terms": [
+      {"term": "RLHF", "plain": "Reinforcement learning from human feedback, where people's ratings guide training."},
+      {"term": "Reward model", "plain": "A model trained to predict which answers people prefer."},
+      {"term": "Alignment", "plain": "Making a model act in line with what its users intend."},
+      {"term": "Supervised fine-tuning", "plain": "Training on examples of good answers written by people."}
+    ],
+    "lookFor": [
+      "Read the abstract and the diagram that shows the three training steps.",
+      "In the results, see how labelers preferred the smaller InstructGPT model over the larger GPT-3.",
+      "On a first pass, ignore the details of the reinforcement learning algorithm."
+    ],
+    "skip": "A first-time reader can skip the appendices about the labeler instructions and the extra dataset details.",
+    "limits": "The models still made simple mistakes and could follow harmful instructions, and later methods such as DPO simplified the training pipeline.",
+    "tryIt": "Build a tiny React page that shows two model answers side by side and lets you click the better one, and store the choices in MongoDB as preference data."
+  },
+  "2205.14135": {
+    "eli5": "Attention is a core step in Transformers, but it can be slow because of how much data moves in and out of memory. FlashAttention computes the same answer while moving less data. That makes it run faster and use less memory.",
+    "analogy": "It is like processing a huge file in chunks that fit in the cache instead of loading everything into slow storage over and over.",
+    "problem": "Standard attention spent much of its time reading and writing large intermediate results to slow GPU memory.",
+    "idea": "Split the work into blocks that fit in fast on-chip memory so the full attention matrix is never written out, while the result stays exactly the same.",
+    "terms": [
+      {"term": "Exact attention", "plain": "The same result as normal attention, with no approximation."},
+      {"term": "GPU memory hierarchy", "plain": "The GPU has small fast memory and large slow memory, and moving data between them costs time."},
+      {"term": "Tiling", "plain": "Cutting a big computation into small blocks that fit in fast memory."},
+      {"term": "IO-aware", "plain": "Designed with the cost of moving data in mind."}
+    ],
+    "lookFor": [
+      "Read the abstract and introduction to see why memory movement is the bottleneck.",
+      "Look at the figure that explains the memory levels and the block computation.",
+      "In the experiments, look at the speed and memory comparison with standard attention."
+    ],
+    "skip": "A first-time reader can skip the proofs and the detailed backward pass derivation in the appendix.",
+    "limits": "It is tied to GPU hardware details, and later versions such as FlashAttention-2 improved its speed.",
+    "tryIt": "In Node, compute a sum of a large array in one pass and in small chunks and compare the results to see how blocked computation gives the same answer."
+  },
+  "2210.03629": {
+    "eli5": "This paper lets a language model both think and act. The model writes a thought, takes an action like searching, reads what came back, and thinks again. Going around this loop helps it solve tasks and avoid making things up.",
+    "analogy": "It is like a script that alternates between planning in comments and calling an API, then reading the response before the next step.",
+    "problem": "Models that only reasoned could invent facts, and models that only acted lacked a plan.",
+    "idea": "Prompt the model to interleave reasoning steps with actions and observations, so each helps the other.",
+    "terms": [
+      {"term": "ReAct", "plain": "A name that comes from combining reasoning and acting."},
+      {"term": "Action", "plain": "A step the model asks to take, such as searching for a term."},
+      {"term": "Observation", "plain": "The result that comes back from an action."},
+      {"term": "Agent", "plain": "A system that decides on steps and uses tools to reach a goal."}
+    ],
+    "lookFor": [
+      "Read the abstract and the figure that compares reasoning only, acting only, and ReAct.",
+      "In the experiments, look at the question answering and interactive task results.",
+      "On a first pass, ignore the full prompt listings in the appendix."
+    ],
+    "skip": "A first-time reader can skip the appendix with the long example trajectories and prompts.",
+    "limits": "The model can still make mistakes in its reasoning or get stuck in loops, and it depends on the quality of the tools it can call.",
+    "tryIt": "Write a Node loop that asks a chat model for a thought and an action, runs a simple function such as a calculator, feeds the result back, and stops when the model gives a final answer."
+  },
+  "2212.08073": {
+    "eli5": "Making a model safe usually needs many people to label harmful answers. This paper uses a short list of written rules, called a constitution, instead. The model critiques and rewrites its own answers using those rules. Another model then helps judge answers, so far fewer human labels are needed.",
+    "analogy": "It is like an automated linter that checks code against a written style guide instead of a person reviewing every line.",
+    "problem": "Training harmless assistants relied on large amounts of human labeling of harmful content.",
+    "idea": "Use a set of written principles so the model can revise its own answers, and use AI feedback in place of human labels for harmlessness in a method called RLAIF.",
+    "terms": [
+      {"term": "Constitution", "plain": "A short list of written principles that guide the model's behavior."},
+      {"term": "RLAIF", "plain": "Reinforcement learning from AI feedback, where a model provides the preference labels."},
+      {"term": "Harmlessness", "plain": "Avoiding answers that could cause harm."},
+      {"term": "Critique and revision", "plain": "The model points out problems in its answer and then rewrites it."}
+    ],
+    "lookFor": [
+      "Read the abstract and the overview figure of the two training stages.",
+      "In the results, look at how harmlessness and helpfulness trade off.",
+      "On a first pass, ignore the long lists of principles and sample dialogs."
+    ],
+    "skip": "A first-time reader can skip the appendices with the full principles and extra examples.",
+    "limits": "The result depends on how good the written principles are and on the model's own ability to judge, so it does not remove the need for human oversight.",
+    "tryIt": "Write a short list of three rules, ask a chat model to answer a question, then ask it to critique its answer against the rules and rewrite it."
+  },
+  "2302.04761": {
+    "eli5": "Language models are bad at things like exact math and up-to-date facts. This paper lets a model teach itself to call outside tools such as a calculator or a search. It learns when to call a tool and what to do with the result.",
+    "analogy": "It is like a developer who learns when to call a library function instead of doing the work by hand.",
+    "problem": "Language models struggled with arithmetic and recent facts, and teaching them to use tools usually needed lots of human-labeled examples.",
+    "idea": "Have the model insert possible API calls into text, keep only the calls that help it predict the following text, and train on the result.",
+    "terms": [
+      {"term": "API call", "plain": "A request to an outside program, like a calculator or search engine."},
+      {"term": "Self-supervised", "plain": "Learning from labels the system creates itself instead of from people."},
+      {"term": "Tool use", "plain": "When a model relies on outside programs to do part of the work."},
+      {"term": "Zero-shot", "plain": "Doing a task without seeing task-specific examples."}
+    ],
+    "lookFor": [
+      "Read the abstract and the figure that shows text with calls to tools embedded in it.",
+      "In the method, find how useful calls are chosen from many possible ones.",
+      "In the experiments, compare results with and without tools."
+    ],
+    "skip": "A first-time reader can skip the appendix with the tool descriptions and the extra analysis of the data.",
+    "limits": "The model handled each tool call on its own and could not chain tools together or interact step by step, which later agent designs addressed.",
+    "tryIt": "Write a Node function that scans model output for a marker like [Calculator(2+3)], runs the calculation, and puts the result back into the text."
+  },
+  "2303.11366": {
+    "eli5": "When people fail at something, they think about what went wrong and try again. This paper has an AI agent do the same. After a failed try, it writes a short note about the mistake. It reads that note on the next try and does better.",
+    "analogy": "It is like keeping a post-mortem note after a failed deploy and reading it before the next attempt.",
+    "problem": "Teaching agents from trial and error with normal reinforcement learning needs many tries and heavy model training.",
+    "idea": "Let the agent turn feedback into a written reflection stored in memory and use it in the next attempt, with no change to the model weights.",
+    "terms": [
+      {"term": "Reflection", "plain": "A short piece of text where the agent explains what went wrong."},
+      {"term": "Episodic memory", "plain": "A store of notes from past attempts that the agent can read later."},
+      {"term": "Verbal reinforcement", "plain": "Improving by using words as the feedback instead of numeric rewards."},
+      {"term": "Trial", "plain": "One attempt by the agent to complete a task."}
+    ],
+    "lookFor": [
+      "Read the abstract and the overview figure of the loop of acting, evaluating, and reflecting.",
+      "In the experiments, look at how success improves across repeated trials.",
+      "On a first pass, ignore the smaller ablation tables."
+    ],
+    "skip": "A first-time reader can skip the appendix with the full prompts and the extra task details.",
+    "limits": "The approach relies on the model being able to judge its own errors well, and the notes can be wrong or grow long.",
+    "tryIt": "Write a loop where a chat model attempts a small coding task, you run a test, and on failure you append the error as a note to the prompt for the next try."
+  },
+  "2305.14314": {
+    "eli5": "Fine-tuning very large models needs expensive graphics cards with lots of memory. QLoRA shrinks the base model to use fewer bits per number, and then trains small add-on pieces on top. This lets you fine-tune a big model on a single GPU.",
+    "analogy": "It is like compressing a large asset bundle for storage, while keeping a small editable layer on top that you can change freely.",
+    "problem": "Fine-tuning large language models still needed too much GPU memory for most people.",
+    "idea": "Keep the frozen base model in 4-bit precision and train LoRA adapters through it, using tricks such as a 4-bit data type called NF4 and paged optimizers.",
+    "terms": [
+      {"term": "Quantization", "plain": "Storing numbers with fewer bits to save memory."},
+      {"term": "4-bit NormalFloat (NF4)", "plain": "A 4-bit number format designed for how model weights are usually distributed."},
+      {"term": "LoRA adapter", "plain": "A small set of extra trainable weights added to a frozen model."},
+      {"term": "Paged optimizer", "plain": "A way to move optimizer memory to the CPU when the GPU runs short."}
+    ],
+    "lookFor": [
+      "Read the abstract and introduction for the main claim about single-GPU fine-tuning.",
+      "In the method, find the list of the three memory-saving ideas.",
+      "In the experiments, look at how the resulting Guanaco models compare with other chat models."
+    ],
+    "skip": "A first-time reader can skip the appendix details about the quantization math and extra benchmark tables.",
+    "limits": "The authors note that their evaluation of chat quality has limits, and that they did not test the method at the very largest model sizes.",
+    "tryIt": "In JavaScript, round an array of decimal numbers to only 16 levels and measure the average error, to feel what lower precision costs."
+  },
+  "2305.18290": {
+    "eli5": "One way to teach a model human preferences is complicated and needs a second model plus tricky training. This paper shows a simpler way. You give the model pairs of a better and a worse answer. A simple training rule pushes it toward the better one.",
+    "analogy": "It is like replacing a multi-stage build pipeline with one direct build step that gives the same output.",
+    "problem": "Reinforcement learning from human feedback was complex, unstable, and needed a separate reward model.",
+    "idea": "Rewrite the preference objective so a language model can be trained directly on preference pairs with a simple classification-style loss, called DPO.",
+    "terms": [
+      {"term": "Preference data", "plain": "Pairs of answers where people marked which one is better."},
+      {"term": "Reward model", "plain": "A model that scores answers, which DPO does not need to train separately."},
+      {"term": "Reference model", "plain": "A frozen copy of the starting model that keeps the new model from drifting too far."},
+      {"term": "RLHF", "plain": "Reinforcement learning from human feedback."}
+    ],
+    "lookFor": [
+      "Read the abstract and the figure that contrasts RLHF with DPO.",
+      "Read the section that presents the DPO loss function.",
+      "In the experiments, compare DPO with the PPO-based approach on quality and stability."
+    ],
+    "skip": "A first-time reader can skip the derivations in the appendix.",
+    "limits": "DPO depends on the quality of the preference pairs, and later work studied cases where it can behave poorly.",
+    "tryIt": "Make a small JSON file of prompts with a chosen and a rejected answer each, and write a Node script that checks the data has both fields for every row."
+  },
+  "2305.10601": {
+    "eli5": "A model normally writes an answer in one straight line. Some problems need trying ideas, backing up, and trying again. This paper lets the model explore several possible next thoughts, judge them, and pick the promising ones, like searching a tree.",
+    "analogy": "It is like a search over branches in a decision tree, where you can go back when a branch looks bad instead of committing to the first path.",
+    "problem": "Left-to-right generation cannot plan ahead or recover from an early wrong step on hard problems.",
+    "idea": "Treat intermediate thoughts as nodes in a tree, have the model propose and evaluate them, and use a search method to decide which to continue.",
+    "terms": [
+      {"term": "Thought", "plain": "A short chunk of text that is one step toward a solution."},
+      {"term": "Search", "plain": "Exploring options in a structured way, such as breadth-first or depth-first."},
+      {"term": "Backtracking", "plain": "Going back to an earlier step when the current path looks like a dead end."},
+      {"term": "Heuristic evaluation", "plain": "A quick judgment of how promising a partial answer is."}
+    ],
+    "lookFor": [
+      "Read the abstract and the figure that compares different prompting styles as diagrams.",
+      "In the experiments, look at the Game of 24 task and its results.",
+      "On a first pass, ignore the prompt details for the other tasks."
+    ],
+    "skip": "A first-time reader can skip the appendix with the full prompts and the cost analysis.",
+    "limits": "It uses many more model calls than simple prompting, so it costs more time and money.",
+    "tryIt": "Write a small Node function that asks a model for three next-step ideas, has it score each one, and continues only with the best one, for a puzzle like Game of 24."
+  },
+  "2306.05685": {
+    "eli5": "Checking chat model answers by hand is slow and costly. This paper asks whether a strong model, such as GPT-4, can act as the judge. It finds that the judge agrees with human votes about as often as humans agree with each other. It also lists the judge's biases.",
+    "analogy": "It is like using an automated grader in your test suite, as long as you know its blind spots.",
+    "problem": "Traditional benchmarks did not capture how well chat assistants match what people prefer, and human evaluation is expensive.",
+    "idea": "Use a strong language model to judge answers, and measure how well its verdicts match human preferences on the MT-Bench questions and Chatbot Arena votes.",
+    "terms": [
+      {"term": "LLM-as-a-judge", "plain": "Using a language model to grade or compare answers."},
+      {"term": "MT-Bench", "plain": "A set of multi-turn questions used to test chat assistants."},
+      {"term": "Chatbot Arena", "plain": "A site where people vote between two anonymous models."},
+      {"term": "Position bias", "plain": "The judge's tendency to prefer an answer because of where it appears."}
+    ],
+    "lookFor": [
+      "Read the abstract and introduction for the main claim about agreement with humans.",
+      "Look at the section that lists the judge's biases, such as position and length bias.",
+      "In the experiments, look at the agreement numbers between the model judge and human votes."
+    ],
+    "skip": "A first-time reader can skip the appendix with the full question lists and extra prompt variants.",
+    "limits": "The judge has known biases, such as favoring longer answers and answers in a certain position, and it can be weak at grading math and reasoning.",
+    "tryIt": "Write a Node script that sends two answers to a chat model twice, in swapped order, and checks whether its choice stays the same."
+  },
+  "2307.03172": {
+    "eli5": "Long prompts can hold many documents. This paper tests whether the model actually uses everything in them. It finds that models do best when the key fact is at the start or the end, and worse when it is buried in the middle.",
+    "analogy": "It is like a user who reads the top and bottom of a long page and skims past the middle.",
+    "problem": "Models were advertised with longer context windows, but it was unclear how well they used information across that whole window.",
+    "idea": "Move the position of the relevant information within the input and measure accuracy, which reveals a U-shaped pattern.",
+    "terms": [
+      {"term": "Context window", "plain": "The amount of text a model can read in one prompt."},
+      {"term": "Long context", "plain": "A prompt that contains a large amount of text."},
+      {"term": "Multi-document question answering", "plain": "Answering a question using several passages given in the prompt."},
+      {"term": "Key-value retrieval", "plain": "A test where the model must find the value that matches a given key in the prompt."}
+    ],
+    "lookFor": [
+      "Read the abstract and introduction for the main finding.",
+      "Look at the plots that show accuracy by the position of the relevant document.",
+      "On a first pass, ignore the smaller analysis sections about model design."
+    ],
+    "skip": "A first-time reader can skip the appendix with extra model results and prompt formats.",
+    "limits": "The tests were done on models available at the time, and newer models have worked to improve long-context use.",
+    "tryIt": "Build a prompt with ten short facts in different orders, ask a chat model about one fact, and see whether the position of that fact changes the answer."
+  },
+  "2307.09288": {
+    "eli5": "Llama 2 is a family of language models from Meta that were released for many people to use. The paper explains how they were trained and then tuned to be chat assistants. It describes the safety work in some detail.",
+    "analogy": "It is like an open-source project that publishes not only the code but also a full write-up of how it was built.",
+    "problem": "The strongest chat models were mostly closed, and how they were trained was not well documented.",
+    "idea": "Release pre-trained and chat-tuned models, with a detailed account of the training, human feedback tuning, and safety steps.",
+    "terms": [
+      {"term": "Llama 2-Chat", "plain": "The versions of Llama 2 that were tuned for dialogue."},
+      {"term": "RLHF", "plain": "Using human preference ratings to improve the model."},
+      {"term": "Open foundation model", "plain": "A base model whose weights are shared for others to use."},
+      {"term": "Red teaming", "plain": "Testing a model by trying to make it produce harmful output."}
+    ],
+    "lookFor": [
+      "Read the abstract and introduction, then the figure or section that outlines the training pipeline.",
+      "In the sections on fine-tuning, see how the human preference data was used.",
+      "On a first pass, ignore the long safety evaluation tables."
+    ],
+    "skip": "A first-time reader can skip most of the appendix, including the detailed benchmark and safety tables.",
+    "limits": "The license has some usage conditions, so it is not the same as a fully permissive open-source license.",
+    "tryIt": "Run a small Llama-family model locally with a tool such as Ollama and call it from a Node script using its local HTTP API."
+  },
+  "2310.11511": {
+    "eli5": "Basic retrieval always fetches documents, even when they are not needed, and the model may ignore them. Self-RAG teaches a model to decide when it needs to look things up. It also learns to check whether what it found is useful and whether its own answer is supported.",
+    "analogy": "It is like a cache that only calls the database when needed, and then validates the result before returning it.",
+    "problem": "Standard retrieval-augmented generation fetched a fixed number of passages every time, which could add noise and did not check the answer against the sources.",
+    "idea": "Train the model to produce special reflection tokens that control retrieval and rate the relevance and support of passages and its own output.",
+    "terms": [
+      {"term": "Reflection tokens", "plain": "Special marks the model writes to decide whether to retrieve and to grade what it finds."},
+      {"term": "Retrieval-augmented generation", "plain": "Answering with the help of documents fetched from a collection."},
+      {"term": "Critique", "plain": "A judgment of how good a passage or an answer is."},
+      {"term": "Factuality", "plain": "How well the answer matches true information."}
+    ],
+    "lookFor": [
+      "Read the abstract and the overview figure that compares Self-RAG with standard retrieval.",
+      "In the method, find the list of reflection token types.",
+      "In the experiments, look at the results on open-domain question answering and factuality tasks."
+    ],
+    "skip": "A first-time reader can skip the appendix on how the training data was created and the extra ablations.",
+    "limits": "It needs special training of the model, so it cannot be added to any ready-made model by only changing the prompt.",
+    "tryIt": "Extend a simple retrieval script so that it first asks a chat model whether the question needs a lookup, and only queries MongoDB when the answer is yes."
+  },
+  "2312.00752": {
+    "eli5": "Transformers get slow and costly when the text gets very long. Mamba is a different design that reads a sequence step by step while keeping a compact memory. It can choose what to keep and what to forget based on the input, and its cost grows in a straight line with length.",
+    "analogy": "It is like a stream processor that keeps a small running state and updates it per event, instead of re-reading the full history each time.",
+    "problem": "Attention in Transformers costs more and more as sequences get longer, and earlier state space models were weaker at content-based reasoning.",
+    "idea": "Make the parameters of a state space model depend on the input, so it can select what to remember, and run it with a fast hardware-aware algorithm.",
+    "terms": [
+      {"term": "State space model", "plain": "A model that carries a hidden state forward as it reads a sequence."},
+      {"term": "Selective", "plain": "Able to choose what to keep or ignore depending on the current input."},
+      {"term": "Linear time", "plain": "Cost that grows in proportion to the length of the input."},
+      {"term": "Scan", "plain": "A way of computing running results over a sequence that can be done efficiently in parallel."}
+    ],
+    "lookFor": [
+      "Read the abstract and introduction for the goal of linear-time sequence modeling.",
+      "In the method, look for the idea of making the parameters depend on the input.",
+      "In the experiments, look at the language modeling results and the speed comparison."
+    ],
+    "skip": "A first-time reader can skip the mathematical background on state space models and the hardware kernel details.",
+    "limits": "Transformers remain the most widely used design, and some later work mixes Mamba-style layers with attention layers.",
+    "tryIt": "Write a JavaScript loop that reads a list of numbers and keeps a single running state that it updates with a decay factor, to feel how a small state can summarize a long input."
+  },
+  "2501.12948": {
+    "eli5": "This paper shows a model can learn to reason better mostly by practicing on problems with clear right or wrong answers, and getting a reward when it is correct. Over training, the model learns to write longer and more careful step by step thinking without being shown examples of it.",
+    "analogy": "It is like improving a function by running it against automated tests and keeping what passes, without anyone writing the solution for it.",
+    "problem": "Getting strong reasoning from language models seemed to need large sets of human-written step by step examples.",
+    "idea": "Apply large-scale reinforcement learning with rule-based rewards on answers that can be checked, and it produced the DeepSeek-R1-Zero model, then a fuller pipeline for DeepSeek-R1.",
+    "terms": [
+      {"term": "Reinforcement learning", "plain": "Training by giving rewards for good outcomes."},
+      {"term": "Rule-based reward", "plain": "A reward computed by a fixed check, such as whether a math answer is correct."},
+      {"term": "Reasoning model", "plain": "A model that writes out a long chain of thought before it answers."},
+      {"term": "Distillation", "plain": "Training a smaller model to copy the behavior of a larger one."}
+    ],
+    "lookFor": [
+      "Read the abstract and introduction for the main claims about R1-Zero and R1.",
+      "In the approach section, see how the reward is defined.",
+      "In the experiments, look at the reasoning benchmark table and the results for the distilled smaller models."
+    ],
+    "skip": "A first-time reader can skip the details of the reinforcement learning algorithm and the appendix.",
+    "limits": "The authors themselves report that R1-Zero had readability problems such as mixed languages, which is why the full R1 pipeline added extra training stages.",
+    "tryIt": "Write a Node script that gives a model ten arithmetic questions, checks each answer automatically, and prints the fraction it got right as a simple reward."
+  }
+}

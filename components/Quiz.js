@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { TOPICS, useAcademy } from './Providers.js';
+import { COURSES, GUIDES, TOPICS, useAcademy } from './Providers.js';
 import { level, mastery } from '../lib/scoring.js';
 
 export default function Quiz({ onDone }) {
@@ -31,6 +31,7 @@ export default function Quiz({ onDone }) {
           })}
         </div>
         {missed > 0 && <p className="lead">Missed {missed}. They will show up again soon.</p>}
+        <Review quiz={quiz} />
         <div className="row">
           <button className="btn primary" onClick={() => startQuiz(quiz.topics, quiz.mode)}>Another round</button>
           <button className="btn" onClick={() => { exitQuiz(); if (onDone) onDone(); }}>Done</button>
@@ -69,6 +70,46 @@ export default function Quiz({ onDone }) {
           </div>
         </>
       )}
+    </div>
+  );
+}
+
+// After the last question: every question with the right answer and the reason, plus the ideas to revise.
+function Review({ quiz }) {
+  const wrongTopics = [...new Set(quiz.results.filter((r) => !r.ok).map((r) => r.t))];
+  return (
+    <div className="stack">
+      <h3>Review your answers</h3>
+      {quiz.items.map((it, i) => {
+        const r = quiz.results[i];
+        if (!r) return null;
+        return (
+          <details className="panel" key={it.id} open={!r.ok}>
+            <summary>
+              <span className={`pill ${r.ok ? 'ok' : 'bad'}`}>{r.ok ? 'Right' : 'Missed'}</span> {it.q}
+            </summary>
+            <div className="stack" style={{ marginTop: 12 }}>
+              {!r.ok && r.pick != null && <p className="lead">You chose: {it.o[r.pick]}</p>}
+              <p><strong>Answer:</strong> {it.o[it.a]}</p>
+              <div className="why">{it.why}</div>
+            </div>
+          </details>
+        );
+      })}
+      {wrongTopics.map((t) => {
+        const c = COURSES.find((x) => x.topic === t && GUIDES[x.id]);
+        if (!c) return null;
+        const g = GUIDES[c.id];
+        return (
+          <div className="panel stack" key={t}>
+            <div className="eyebrow">Revise: {TOPICS[t]}</div>
+            {g.concepts.slice(0, 3).map((k) => (
+              <p key={k.term}><strong>{k.term}.</strong> {k.plain}</p>
+            ))}
+            <Link className="linkbtn" href={`/courses/${c.id}`}>Open {c.title}</Link>
+          </div>
+        );
+      })}
     </div>
   );
 }

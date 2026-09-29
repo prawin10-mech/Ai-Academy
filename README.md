@@ -8,6 +8,7 @@ One Next.js app: the interactive learning site, the API, and the daily job. Depl
 - Quizzes (Daily 5 and per course) that come back harder on topics and questions you miss
 - A learner evaluation: mastery per topic, streak, recommended focus
 - A daily plan built from that evaluation, with a digest sent to your phone through a Telegram bot
+- Plain-language explanations everywhere: an "Explained" tab on every course (key ideas with web-developer analogies), a "what to focus on" tip on each step, an "Explain it simply" panel on every paper, a 70-term glossary, and an answer review with revision notes after every quiz
 - A Logs page showing everything recorded and what goes to Telegram
 
 ## How it fits together
@@ -98,7 +99,7 @@ npm test
 app/            pages (Today, Courses, Course, Papers, Notes, Progress, Logs, Quiz) and app/api routes
 components/     Providers (state, sync, quiz), Shell, Player, NotesEditor, Quiz
 lib/            scoring, plan, feed, telegram, db, auth, log, daily, state, events, dates
-data/           courses.json, quizzes.json, papers.json, topics.json, daily-seed.json
+data/           courses, quizzes, papers, topics, daily-seed, plus course-guides, paper-guides and glossary (the explanations)
 tests/          logic.test.mjs
 ```
 
@@ -106,6 +107,7 @@ tests/          logic.test.mjs
 
 - Add a course: append to `data/courses.json` (`id`, `phase`, `topic`, `title`, `by`, `url`, `cost`, `hrs`, `about`, `lessons`). YouTube lessons use `yt` (a video id) or `list` (a playlist id).
 - Add quiz questions: append `{q, o, a, why}` to a topic in `data/quizzes.json`. `a` is the index of the right option.
-- Add a paper: append to `data/papers.json` with its arXiv id.
+- Add a paper: append to `data/papers.json` with its arXiv id, and add a matching entry to `data/paper-guides.json`.
+- Add a course: also add its entry to `data/course-guides.json` (`npm test` fails if an explanation is missing).
 
 Course links were checked when written. Third-party sites change, so open the course page if a link fails and update the URL.

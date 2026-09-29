@@ -1,0 +1,1186 @@
+{
+ "py-dlai": {
+  "plain": "This course teaches Python, the main language of AI work, while using an AI assistant to help you write, test and fix code. It matters because almost every AI tool, library and model is used through Python.",
+  "learn": [
+   "Write small Python scripts that read data and print useful results",
+   "Use functions and split code across more than one file",
+   "Test and debug code with the help of an AI assistant",
+   "Build a small app that calls an AI model"
+  ],
+  "concepts": [
+   {
+    "term": "Function",
+    "plain": "A named block of code that takes inputs and returns an output. You write it once and call it many times.",
+    "analogy": "It is like a JavaScript function or an Express route handler, just written with def and indentation."
+   },
+   {
+    "term": "List and dictionary",
+    "plain": "A list holds ordered items. A dictionary holds key and value pairs.",
+    "analogy": "A list is like a JS array and a dictionary is like a JS object or a parsed JSON document."
+   },
+   {
+    "term": "Module and import",
+    "plain": "A module is a Python file you can load into another file to reuse its code.",
+    "analogy": "It works like require or import between files in a Node project."
+   },
+   {
+    "term": "Unit test",
+    "plain": "A small piece of code that checks that one function gives the answer you expect.",
+    "analogy": "It is like a Jest test for a single function."
+   }
+  ],
+  "mern": "You already know variables, loops, functions and JSON, so most of this is new syntax for ideas you know. Your Node habits with files, modules and testing carry over directly.",
+  "pitfall": "Beginners paste AI-written code without reading it, then cannot fix it when it breaks.",
+  "prereq": "Nothing",
+  "lessons": {
+   "py-dlai-1": "Skim the course outline first, then pick a pace. Focus on how the AI assistant is used to explain errors, not just to write code.",
+   "py-dlai-2": "Start with a tiny CSV and print the raw rows before cleaning anything. A good result is a script that runs from top to bottom and prints three numbers you can check by hand, such as a count, an average and a maximum.",
+   "py-dlai-3": "Put your function in its own file and import it from a second file. A good result is one test that passes, and you should also make it fail on purpose once to see the failure message."
+  }
+ },
+ "py-cs50": {
+  "plain": "CS50P is Harvard's free introduction to programming in Python, with graded problem sets. It builds solid fundamentals, so later AI code feels less like magic and more like something you can reason about.",
+  "learn": [
+   "Write Python functions, loops and conditionals with confidence",
+   "Read and write files from a script",
+   "Handle errors and unexpected input without crashing",
+   "Solve problems by breaking them into small steps"
+  ],
+  "concepts": [
+   {
+    "term": "Exception handling",
+    "plain": "A way to catch errors while a program runs and decide what to do instead of crashing.",
+    "analogy": "It is like try and catch in JavaScript, or an Express error-handling middleware."
+   },
+   {
+    "term": "File I/O",
+    "plain": "Reading data from files and writing data back to them.",
+    "analogy": "It is like using fs.readFile and fs.writeFile in Node."
+   },
+   {
+    "term": "Loop",
+    "plain": "Code that repeats the same steps for each item or until a condition is met.",
+    "analogy": "It is like a for loop or an array map in JavaScript."
+   },
+   {
+    "term": "Function",
+    "plain": "A reusable, named piece of logic with inputs and an output.",
+    "analogy": "It is like a helper function you import into your Express routes."
+   }
+  ],
+  "mern": "Your JavaScript experience means the logic will feel familiar. Focus on Python's syntax and its habits, like indentation and built-in data types.",
+  "pitfall": "Skipping the problem sets and only watching the lectures, which gives the feeling of learning without the skill.",
+  "prereq": "Nothing",
+  "lessons": {
+   "py-cs50-1": "Open the course and look at how the weeks are organized. Focus on the lecture, then the problem set, in that order each week.",
+   "py-cs50-2": "Solve each problem yourself before you look for hints. A good result is that your code passes the course checks and you can explain each loop and function in plain words."
+  }
+ },
+ "py-kaggle": {
+  "plain": "Kaggle Learn gives short lessons with a notebook that runs in your browser. It teaches Python, Pandas (tables of data) and charts, which are the daily tools for looking at data before you train any model.",
+  "learn": [
+   "Load a dataset into a Pandas table and inspect it",
+   "Clean missing or messy values",
+   "Filter, group and summarize data",
+   "Draw simple charts that show a pattern"
+  ],
+  "concepts": [
+   {
+    "term": "DataFrame",
+    "plain": "A Pandas table with rows and named columns.",
+    "analogy": "It is like a MongoDB collection, or an array of objects, but stored as columns so it is fast to compute on."
+   },
+   {
+    "term": "Filtering",
+    "plain": "Selecting only the rows that match a condition.",
+    "analogy": "It is like a find query with a filter, or Array.filter in JavaScript."
+   },
+   {
+    "term": "Groupby",
+    "plain": "Splitting rows into groups and computing a summary for each group.",
+    "analogy": "It is like a MongoDB aggregation with $group."
+   },
+   {
+    "term": "Missing values",
+    "plain": "Cells with no data, which you must drop or fill before most analysis.",
+    "analogy": "It is like null or undefined fields in documents that break your code if you ignore them."
+   }
+  ],
+  "mern": "If you have used MongoDB queries and aggregations, groupby and filtering will feel very natural. The difference is that you work on the whole table in memory.",
+  "pitfall": "Writing loops over rows when a single Pandas operation on the whole column would be shorter and much faster.",
+  "prereq": "Basic programming ideas",
+  "lessons": {
+   "py-kaggle-1": "Do the lessons in the browser notebook and run every cell. Focus on how each Pandas step changes the table.",
+   "py-kaggle-2": "Pick a small public dataset and look at df.head() and df.info() first. A good result is a notebook where you cleaned at least one column and made three charts, each with a one-line note about what it shows."
+  }
+ },
+ "math-la": {
+  "plain": "This video series shows linear algebra as pictures: vectors, matrices and how space gets stretched and rotated. It matters because neural networks are mostly matrix math, so seeing what a matrix does makes model code easier to understand.",
+  "learn": [
+   "Picture a vector as an arrow and as a list of numbers",
+   "Explain what a matrix does to space",
+   "Describe matrix multiplication as applying one transformation after another",
+   "Read shapes in ML code and know why they must match"
+  ],
+  "concepts": [
+   {
+    "term": "Vector",
+    "plain": "A list of numbers that can be seen as an arrow pointing somewhere in space.",
+    "analogy": "It is like an array of numbers, and an embedding in AI is exactly such an array."
+   },
+   {
+    "term": "Matrix",
+    "plain": "A grid of numbers that describes a transformation, such as a rotation or a stretch.",
+    "analogy": "It is like a function that takes a vector in and returns a new vector."
+   },
+   {
+    "term": "Matrix multiplication",
+    "plain": "Combining two transformations into one, so the result does both in order.",
+    "analogy": "It is like function composition, where you pipe the output of one function into the next."
+   },
+   {
+    "term": "Linear transformation",
+    "plain": "A change of space that keeps grid lines straight and keeps the origin fixed.",
+    "analogy": "It is like a predictable pure function with no side effects."
+   }
+  ],
+  "mern": "Think of matrices as functions and vectors as data. Your habit of thinking about inputs, outputs and composition is exactly what helps here.",
+  "pitfall": "Treating matrix multiplication as a memorized recipe of rows and columns instead of understanding what it does to space.",
+  "prereq": "School algebra",
+  "lessons": {
+   "math-la-1": "Watch with a pen ready and pause to predict what the next picture will show. Notice how each idea is drawn as a change to the grid, not just as numbers.",
+   "math-la-2": "Explain it out loud or in writing without formulas first. A good answer says that the columns of a matrix show where the basis vectors land, and that multiplying matrices means doing one transformation after another."
+  }
+ },
+ "math-calc": {
+  "plain": "This video series explains derivatives and integrals with pictures. A derivative tells you how fast something changes, and models learn by following those changes to reduce their errors.",
+  "learn": [
+   "Explain a derivative as a rate of change",
+   "Apply the chain rule to nested functions",
+   "Explain why a gradient points toward faster increase",
+   "Compute simple derivatives by hand"
+  ],
+  "concepts": [
+   {
+    "term": "Derivative",
+    "plain": "How much the output of a function changes when you nudge its input a tiny bit.",
+    "analogy": "It is like measuring how much response time changes when you add one more request per second."
+   },
+   {
+    "term": "Chain rule",
+    "plain": "A rule for finding the derivative of a function inside another function by multiplying the rates of each step.",
+    "analogy": "It is like tracing how a change flows through a chain of function calls."
+   },
+   {
+    "term": "Gradient",
+    "plain": "A list of derivatives, one per input, that shows which way to move to increase the output fastest.",
+    "analogy": "It is like a report saying which of many config settings affects latency most."
+   },
+   {
+    "term": "Integral",
+    "plain": "The total amount that builds up when you add up many tiny pieces.",
+    "analogy": "It is like summing a stream of events into a running total."
+   }
+  ],
+  "mern": "You do not need calculus for web apps, but the idea of tracing how a change passes through a pipeline of functions is familiar from debugging. Backpropagation uses the same idea.",
+  "pitfall": "Trying to memorize derivative formulas instead of understanding what a derivative means.",
+  "prereq": "School algebra; the linear algebra series helps",
+  "lessons": {
+   "math-calc-1": "Focus on the meaning of a derivative before the rules, and notice how the chain rule is shown as changes passing along a chain. Pause and try the ideas on a simple function.",
+   "math-calc-2": "Treat x and y separately and hold the other one fixed as a constant. A good result is two partial derivatives, one for x and one for y, that you can check by plugging in a small number."
+  }
+ },
+ "ml-mlcc": {
+  "plain": "Google's Machine Learning Crash Course covers the basic ideas of machine learning: predicting numbers, sorting things into classes, preparing data and judging results. It gives you the shared vocabulary that every AI team uses.",
+  "learn": [
+   "Explain how a model learns from examples",
+   "Tell regression and classification apart",
+   "Split data into training, validation and test sets",
+   "Choose a metric that fits the problem"
+  ],
+  "concepts": [
+   {
+    "term": "Overfitting",
+    "plain": "When a model memorizes the training data and does badly on new data.",
+    "analogy": "It is like code that passes only the exact test cases it was written for."
+   },
+   {
+    "term": "Regularization",
+    "plain": "A way to discourage a model from becoming too complex so it generalizes better.",
+    "analogy": "It is like a linter rule that keeps code simple."
+   },
+   {
+    "term": "Train, validation and test split",
+    "plain": "Data is divided so you train on one part, tune on another and do a final check on a third that the model never saw.",
+    "analogy": "It is like dev, staging and production, where you should not tune against production."
+   },
+   {
+    "term": "Precision and recall",
+    "plain": "Precision asks how many flagged items were truly positive. Recall asks how many true positives were found.",
+    "analogy": "It is like a search that can return only exact matches or cast a wide net."
+   }
+  ],
+  "mern": "Your experience with testing and separate environments maps to splitting data. The idea that a model must work on unseen input is like making sure code works outside your test fixtures.",
+  "pitfall": "Judging a model only by its accuracy on the training data.",
+  "prereq": "Basic Python and some comfort with numbers",
+  "lessons": {
+   "ml-mlcc-1": "Go through the modules in order and try the exercises. Focus on the words overfitting, generalization and metrics, since later courses use them constantly.",
+   "ml-mlcc-2": "Explain each idea with a simple example and no jargon. A good result covers that overfitting means doing well on training data and badly on new data, that regularization limits complexity, and that the test set is used only at the end.",
+   "ml-mlcc-3": "Think about what each kind of mistake costs. A good answer states which error is worse for the user (a real email marked as spam, or a spam email let through), picks the metric that guards against it, and says what you give up."
+  }
+ },
+ "ml-kaggle": {
+  "plain": "This Kaggle course teaches you to build real models with scikit-learn, the standard Python library for classic machine learning. You practice on tabular data, which is the kind of data most business problems use.",
+  "learn": [
+   "Train a decision tree and a random forest",
+   "Check a model on data it has not seen",
+   "Deal with missing values and text categories",
+   "Submit a baseline model to a competition"
+  ],
+  "concepts": [
+   {
+    "term": "Decision tree",
+    "plain": "A model that makes predictions by asking a series of yes or no questions about the data.",
+    "analogy": "It is like a nested if and else chain that was learned from data instead of written by hand."
+   },
+   {
+    "term": "Random forest",
+    "plain": "Many decision trees whose answers are combined, which is usually more accurate than one tree.",
+    "analogy": "It is like asking several reviewers and going with the majority."
+   },
+   {
+    "term": "Validation",
+    "plain": "Checking a model on held-out data to see how it will do on new examples.",
+    "analogy": "It is like running tests against data that was not used to write the code."
+   },
+   {
+    "term": "Baseline",
+    "plain": "A simple first model that gives you a score to beat.",
+    "analogy": "It is like a first working version of a feature before you optimize it."
+   }
+  ],
+  "mern": "Working with tabular data feels like working with collections of documents with fixed fields. The workflow of build, measure and improve is the same loop you use for app performance.",
+  "pitfall": "Tuning the model on the same data used to score it, which makes results look better than they will be.",
+  "prereq": "Python and Pandas basics",
+  "lessons": {
+   "ml-kaggle-1": "Run every exercise and change one thing at a time. Focus on how validation scores change when you change the model.",
+   "ml-kaggle-2": "Aim for a working submission first, not a high rank. A good result is a submitted file with a score, a short note of what you tried, and one idea for what to improve next."
+  }
+ },
+ "ml-cs229": {
+  "plain": "CS229 is Stanford's math-heavy machine learning course. It explains why algorithms work, not only how to call them, which matters if you want to build or improve models rather than just use them.",
+  "learn": [
+   "Derive the update rules of basic learning algorithms",
+   "Explain how gradient descent finds good parameters",
+   "Read the math in ML papers with less fear",
+   "Compare algorithms by their assumptions"
+  ],
+  "concepts": [
+   {
+    "term": "Loss function",
+    "plain": "A number that says how wrong the model is. Learning means making it smaller.",
+    "analogy": "It is like an error rate metric that you try to push down."
+   },
+   {
+    "term": "Gradient descent",
+    "plain": "A method that repeatedly changes the parameters a small step in the direction that lowers the loss.",
+    "analogy": "It is like tuning a setting up or down after each load test until performance stops improving."
+   },
+   {
+    "term": "Logistic regression",
+    "plain": "A model that predicts a probability between 0 and 1 for a yes or no question.",
+    "analogy": "It is like a scoring function whose output is squashed into a percentage."
+   },
+   {
+    "term": "Generalization",
+    "plain": "How well a model works on data it has not seen.",
+    "analogy": "It is like code that handles real user input, not only your test data."
+   }
+  ],
+  "mern": "There is little direct overlap with web work, so treat this as new territory. Your comfort with reading code and debugging helps when you turn the math into working code.",
+  "pitfall": "Reading the derivations without doing them on paper, which leaves you unable to reproduce them.",
+  "prereq": "Linear algebra, basic calculus, probability and Python",
+  "lessons": {
+   "ml-cs229-1": "Pick the lecture notes and problem sets that match your goals and do not try to finish everything at once. Focus on the ideas of a loss and of gradient descent, as they come back in every model.",
+   "ml-cs229-2": "Write the loss first, then differentiate step by step using the chain rule. A good result is a clean formula for the gradient that you can check with a tiny example or by comparing with a numerical estimate."
+  }
+ },
+ "ml-ng": {
+  "plain": "This specialization by Andrew Ng is a well-known structured path through supervised learning, neural networks, decision trees, unsupervised learning and recommenders. It gives a broad and clear base before you go deeper.",
+  "learn": [
+   "Build and explain linear and logistic regression",
+   "Describe how a small neural network makes a prediction",
+   "Use decision trees and tree ensembles",
+   "Explain clustering and recommender systems"
+  ],
+  "concepts": [
+   {
+    "term": "Supervised learning",
+    "plain": "Learning from examples where each input comes with the correct answer.",
+    "analogy": "It is like learning an API from examples of requests paired with their expected responses."
+   },
+   {
+    "term": "Unsupervised learning",
+    "plain": "Finding structure in data that has no answers attached.",
+    "analogy": "It is like grouping documents in a collection by similar content without any tags."
+   },
+   {
+    "term": "Neural network",
+    "plain": "A stack of simple math units, arranged in layers, that learns patterns from data.",
+    "analogy": "It is like a pipeline of small functions whose settings are learned instead of hand-coded."
+   },
+   {
+    "term": "Recommender system",
+    "plain": "A system that predicts what a user may like based on past behavior of similar users.",
+    "analogy": "It is like the suggested items on a store page."
+   }
+  ],
+  "mern": "The course builds ideas step by step in a way that suits a developer who learns by doing. Recommenders connect nicely to the product features you may have built.",
+  "pitfall": "Passively watching videos without doing the labs and quizzes.",
+  "prereq": "Basic Python and high school math",
+  "lessons": {
+   "ml-ng-1": "Check the course page for current terms, then follow the three courses in order. Focus on the intuition behind each algorithm first and the code second."
+  }
+ },
+ "dl-3b1b": {
+  "plain": "This short video series shows what a neural network is, how it learns from examples and what backpropagation computes. It is the friendliest first look at the core idea behind modern AI.",
+  "learn": [
+   "Describe a neural network as layers of simple units",
+   "Explain what the weights and biases are",
+   "Explain how gradient descent lowers the error",
+   "Say in plain words what backpropagation does"
+  ],
+  "concepts": [
+   {
+    "term": "Neuron",
+    "plain": "A small unit that takes numbers in, weighs them, adds them up and passes on a result.",
+    "analogy": "It is like a tiny function that scores its inputs."
+   },
+   {
+    "term": "Weights and biases",
+    "plain": "The numbers inside a network that are adjusted during learning.",
+    "analogy": "They are like config values that the training process tunes for you."
+   },
+   {
+    "term": "Gradient descent",
+    "plain": "Repeatedly nudging the weights in the direction that reduces the error.",
+    "analogy": "It is like an automatic tuner that keeps adjusting settings until the results improve."
+   },
+   {
+    "term": "Backpropagation",
+    "plain": "A method that works out how much each weight contributed to the error, going backward from the output.",
+    "analogy": "It is like tracing an error back through a call stack to find which step caused it."
+   }
+  ],
+  "mern": "Layers of functions passing data forward will feel like middleware. Backpropagation is like tracing a bug back through the chain.",
+  "pitfall": "Thinking the network follows rules someone wrote, when in fact the rules are learned as numbers.",
+  "prereq": "Linear algebra and calculus videos help, but are not required",
+  "lessons": {
+   "dl-3b1b-1": "Watch the videos in order and pause to think before each new step. Notice how the network is drawn as layers, and how learning is shown as making a cost number smaller."
+  }
+ },
+ "dl-zth": {
+  "plain": "In this series Andrej Karpathy builds neural networks from the ground up in code, ending with a small GPT. Writing it yourself shows what libraries like PyTorch do under the hood.",
+  "learn": [
+   "Build a tiny automatic differentiation engine",
+   "Train a simple language model that predicts the next character",
+   "Explain why activations, gradients and normalization matter",
+   "Follow how a GPT and its tokenizer work in code"
+  ],
+  "concepts": [
+   {
+    "term": "Autograd",
+    "plain": "Code that records the math steps of a calculation and uses them to compute gradients automatically.",
+    "analogy": "It is like a call trace that lets you replay a computation backward."
+   },
+   {
+    "term": "Language model",
+    "plain": "A model that predicts the next piece of text from what came before.",
+    "analogy": "It is like autocomplete that gets better with training."
+   },
+   {
+    "term": "Batch normalization",
+    "plain": "A technique that keeps the numbers in a network well scaled so training stays stable.",
+    "analogy": "It is like normalizing input data so values do not blow up."
+   },
+   {
+    "term": "Tokenizer",
+    "plain": "A tool that splits text into pieces and maps each piece to a number.",
+    "analogy": "It is like a parser that turns a string into a list of IDs."
+   }
+  ],
+  "mern": "It is code-first, so your habit of learning by building and running things fits well. Python here reads much like the JavaScript you know.",
+  "pitfall": "Only watching the videos. You learn far more when you type the code along and try to predict what it will do.",
+  "prereq": "Python, and basic calculus and neural network ideas",
+  "lessons": {
+   "zth-1": "Focus on how each small operation records what it needs for the backward pass. Type the code along with the video and check your gradients.",
+   "zth-2": "Notice how text becomes a table of counts, then a model, and how the loss is used to judge it. Focus on the idea of predicting the next character from the previous one.",
+   "zth-3": "Focus on how embeddings turn characters into vectors and how several characters are fed in as context. Notice how splitting data helps you detect overfitting.",
+   "zth-4": "Pay attention to how the scale of activations and gradients affects training, and why normalization helps. Try to explain in your own words why a bad starting scale slows learning.",
+   "zth-5": "This one is about doing backpropagation by hand instead of relying on autograd. Focus on how each layer's gradient follows from the chain rule, and check your results against the library.",
+   "zth-6": "Focus on how the model is built in a tree-like way so that information from characters is combined gradually. Notice how the code is organized into reusable layers.",
+   "zth-7": "Focus on self-attention and how it lets each token look at earlier tokens. Notice how the pieces (embeddings, attention, feed-forward layers) are stacked to form the GPT.",
+   "zth-8": "Focus on how text is turned into tokens and why the choices made in a tokenizer affect what a model can do. Notice how the byte-pair method merges common pairs."
+  }
+ },
+ "tr-karp": {
+  "plain": "These talks by Andrej Karpathy explain what a large language model is, how models like ChatGPT are trained and how GPT-2 is rebuilt in code. They give you a clear mental model of the tools you will build products on.",
+  "learn": [
+   "Describe an LLM in simple terms",
+   "Explain the stages of training a chat model",
+   "Understand why models make things up",
+   "Follow how a GPT-2 style model is trained and made efficient"
+  ],
+  "concepts": [
+   {
+    "term": "Pretraining",
+    "plain": "The first stage, where a model reads huge amounts of text and learns to predict the next token.",
+    "analogy": "It is like a search index built by reading the whole web before any user asks a question."
+   },
+   {
+    "term": "Fine-tuning",
+    "plain": "Further training on chosen examples so the model behaves in a wanted way, such as answering as an assistant.",
+    "analogy": "It is like customizing a general framework for your app."
+   },
+   {
+    "term": "Token",
+    "plain": "A small piece of text, often part of a word, that the model reads and writes.",
+    "analogy": "It is like a unit of billing and of length, similar to bytes for a network request."
+   },
+   {
+    "term": "Hallucination",
+    "plain": "When a model states something false in a confident way because it predicts likely text, not checked facts.",
+    "analogy": "It is like an API that always returns a well-formed answer, even when it has no data."
+   }
+  ],
+  "mern": "Knowing how the model works helps you design better prompts, limits and checks in the apps you build. Tokens and context length are like payload limits you already handle.",
+  "pitfall": "Believing the model looks facts up, when by default it only predicts likely text.",
+  "prereq": "Nothing for the first talk; Python and neural network basics for the rest",
+  "lessons": {
+   "tr-karp-1": "Focus on the big picture: what the model is made of, how it is trained and what it can and cannot do. This is a good talk to watch before starting other LLM material.",
+   "tr-karp-2": "Focus on the stages of training and how they differ, and on why the model behaves as it does. Notice how the talk separates knowledge learned in training from what you put in the prompt.",
+   "tr-karp-3": "This is a long coding session, so watch it in parts. Focus on how the model is built and trained in code, and notice which choices are made to make training faster."
+  }
+ },
+ "tr-illus": {
+  "plain": "This article uses pictures to explain how a transformer works, especially self-attention, which lets a model decide which words in a sentence matter for each other. Transformers power almost all modern language models.",
+  "learn": [
+   "Explain self-attention in simple terms",
+   "Describe queries, keys and values",
+   "Say what the parts of a transformer block do",
+   "Explain why position information has to be added"
+  ],
+  "concepts": [
+   {
+    "term": "Self-attention",
+    "plain": "A step where each word looks at all the other words and takes in more information from those that matter most.",
+    "analogy": "It is like a database join where each row pulls in the rows most relevant to it."
+   },
+   {
+    "term": "Query, key and value",
+    "plain": "Each word makes three vectors: a query (what it is looking for), a key (what it offers) and a value (the content it passes along).",
+    "analogy": "It is like a search where the query is matched against keys and the matching values are returned."
+   },
+   {
+    "term": "Attention weights",
+    "plain": "Numbers that add up to 1 and say how much focus each word gets.",
+    "analogy": "It is like relevance scores that decide how much of each result you blend in."
+   },
+   {
+    "term": "Positional encoding",
+    "plain": "Extra information that tells the model the order of words.",
+    "analogy": "It is like adding an index to each item, since a set of items has no order by itself."
+   }
+  ],
+  "mern": "The query, key and value pattern looks like a lookup in a key and value store, but a soft one that blends results by relevance. Think of it as a fuzzy version of a map lookup.",
+  "pitfall": "Thinking attention means the model understands like a human, when it is a weighted average calculated with matrix math.",
+  "prereq": "Basic neural network ideas and vectors",
+  "lessons": {
+   "illus-1": "Read slowly and follow the diagrams step by step. Focus on how the same sentence is turned into queries, keys and values, then into weights, then into a new vector.",
+   "illus-2": "Use tiny vectors with two or three numbers so you can do the math by hand. A good result shows a score for each pair of words, a softmax that turns the scores into weights that add up to 1, and a weighted sum of the values."
+  }
+ },
+ "dl-fastai": {
+  "plain": "Practical Deep Learning for Coders lets you train real models in the first lesson and explains the theory afterward. It is a good fit if you learn by building and want results early.",
+  "learn": [
+   "Train an image classifier on your own data",
+   "Use a pretrained model as a starting point",
+   "Judge whether a model is doing well or overfitting",
+   "Share a working notebook or demo"
+  ],
+  "concepts": [
+   {
+    "term": "Transfer learning",
+    "plain": "Starting from a model already trained on a large dataset and adapting it to your task with less data.",
+    "analogy": "It is like building on a library or framework instead of writing everything from scratch."
+   },
+   {
+    "term": "Pretrained model",
+    "plain": "A model someone else has already trained that you can download and reuse.",
+    "analogy": "It is like an npm package you install instead of writing yourself."
+   },
+   {
+    "term": "Data augmentation",
+    "plain": "Creating slightly changed copies of training data, like flipped images, so the model sees more variety.",
+    "analogy": "It is like generating extra test cases from real ones."
+   },
+   {
+    "term": "Validation set",
+    "plain": "Data kept aside to check how the model does on examples it did not train on.",
+    "analogy": "It is like testing on data your code has not seen."
+   }
+  ],
+  "mern": "The top-down way of getting something running first and then studying the parts matches how many web developers learn. Deploying a small model as a web demo will feel familiar.",
+  "pitfall": "Judging a model by its training results and not by results on held-out data.",
+  "prereq": "Python; some comfort with notebooks",
+  "lessons": {
+   "fastai-1": "Run the notebooks as you go and change something in each one. Focus on the habit of building first, then understanding, and note what you do not yet understand so you can return to it.",
+   "fastai-2": "Collect a small clean set of images for two or three classes and check for wrong labels. A good result is a notebook that trains, shows accuracy on held-out images, and includes a note about where the model makes mistakes."
+  }
+ },
+ "dl-d2l": {
+  "plain": "Dive into Deep Learning is a free online textbook where the text, math and runnable code sit together. It works well as a reference you return to while following other courses.",
+  "learn": [
+   "Read explanations of core deep learning ideas next to working code",
+   "Implement simple models from scratch",
+   "Compare your own code with the library version",
+   "Look up a topic when another course moves too fast"
+  ],
+  "concepts": [
+   {
+    "term": "Softmax regression",
+    "plain": "A model that turns scores for several classes into probabilities that add up to 1.",
+    "analogy": "It is like turning raw scores into percentages that add up to 100."
+   },
+   {
+    "term": "Loss function",
+    "plain": "A number that measures how wrong the predictions are, which training tries to reduce.",
+    "analogy": "It is like an error metric on a dashboard."
+   },
+   {
+    "term": "Tensor",
+    "plain": "A multi-dimensional array of numbers, the basic data type in deep learning libraries.",
+    "analogy": "It is like a nested JavaScript array, but with fast math and a fixed shape."
+   },
+   {
+    "term": "Optimizer",
+    "plain": "The piece of code that updates the model's numbers after each step using the gradients.",
+    "analogy": "It is like the reducer that applies each update to state."
+   }
+  ],
+  "mern": "Reading a book with live code is like reading framework docs with examples. Use it the way you use docs: look up what you need and then try it.",
+  "pitfall": "Trying to read it cover to cover like a novel, instead of using it as a reference next to hands-on practice.",
+  "prereq": "Python, basic calculus and linear algebra",
+  "lessons": {
+   "d2l-1": "Choose a chapter that matches what you are studying now and run the code cells. Focus on the link between each formula and the lines of code that implement it.",
+   "d2l-2": "First write the softmax and the loss by hand with tensors, then train it. A good result is that your version reaches accuracy close to the library version, and you can explain any small differences."
+  }
+ },
+ "tr-cs224n": {
+  "plain": "CS224n is Stanford's course on natural language processing (teaching computers to work with human language) using deep learning. It goes from word vectors to transformers and pretraining, which is the base of modern language models.",
+  "learn": [
+   "Explain how words are represented as vectors",
+   "Describe how sequence models led to transformers",
+   "Implement attention in code",
+   "Explain how pretraining and fine-tuning work for language models"
+  ],
+  "concepts": [
+   {
+    "term": "Word vector",
+    "plain": "A list of numbers that represents a word so that words with similar meaning end up close together.",
+    "analogy": "It is like coordinates on a map, where similar words are neighbors."
+   },
+   {
+    "term": "Attention",
+    "plain": "A way for a model to weigh which parts of the input matter most for each output.",
+    "analogy": "It is like a relevance ranking over the input."
+   },
+   {
+    "term": "Masking",
+    "plain": "Hiding some positions from attention, for example so a model cannot look at future words when predicting the next one.",
+    "analogy": "It is like a permission check that hides fields a user must not see."
+   },
+   {
+    "term": "Pretraining",
+    "plain": "Training a large model on lots of text first so it can be adapted to many tasks later.",
+    "analogy": "It is like a base image that you customize for each service."
+   }
+  ],
+  "mern": "Word vectors are the same idea as the embeddings used for semantic search in modern apps. If you plan to build search or RAG features, this course explains what is going on inside.",
+  "pitfall": "Skipping the coding assignments, since they are where the ideas become clear.",
+  "prereq": "Python, linear algebra, calculus and basic machine learning",
+  "lessons": {
+   "cs224n-1": "Start with the lectures on word vectors and neural networks, and follow the order the course sets. Focus on how each topic sets up the next, from vectors to attention to transformers.",
+   "cs224n-2": "Compute the scores from queries and keys, scale them, apply the mask, then apply softmax and use the result to weight the values. A good result has the right shapes at every step and gives zero weight to masked positions, which you can check on a small example."
+  }
+ },
+ "llm-dlai-prompt": {
+  "plain": "A short course on how to write clear instructions (prompts) for a large language model and how to call one from code. It matters because most AI apps are built by sending well-shaped prompts to a model and using the reply in your program.",
+  "learn": [
+   "Write prompts that give clear instructions, use delimiters, and ask for a set format",
+   "Use an LLM from code to summarize, classify, extract and transform text",
+   "Ask for JSON output and check it before your app uses it",
+   "Improve a prompt step by step by testing it on real examples"
+  ],
+  "concepts": [
+   {
+    "term": "Prompt",
+    "plain": "The text you send to a model to tell it what to do. A clear, specific prompt gives more reliable answers than a vague one.",
+    "analogy": "A prompt is like the request body of an API call: unclear input gives unpredictable output."
+   },
+   {
+    "term": "Delimiters",
+    "plain": "Marks such as triple quotes or XML-style tags that separate your instructions from the text the model should work on. They help the model see where the data starts and ends.",
+    "analogy": "It is like using parameterized queries in MongoDB so user data is kept apart from the query logic."
+   },
+   {
+    "term": "Structured output",
+    "plain": "Asking the model to reply in a fixed format such as JSON, so your code can read it. You still need to check that the reply is valid.",
+    "analogy": "It works like a response schema for an endpoint: the client can only rely on it if the shape is checked."
+   },
+   {
+    "term": "Iterative prompting",
+    "plain": "Writing a first prompt, looking at the result, and refining the prompt until it works on many inputs. Prompting is closer to debugging than to one-shot writing.",
+    "analogy": "It is like tuning a MongoDB query with explain(): you run it, look at the result, and adjust."
+   }
+  ],
+  "mern": "You already call APIs from Node and parse JSON responses, and that is exactly what an LLM call is. Your habits around validation and error handling apply directly.",
+  "pitfall": "Beginners trust the model's output as if it were always valid, and skip parsing checks and retries when the JSON comes back wrong.",
+  "prereq": "Basic Python or JavaScript and comfort calling an HTTP API",
+  "lessons": {
+   "prompt-1": "Focus on the two big ideas: give clear and specific instructions, and give the model room to think. Notice how each example prompt is changed step by step to get a better result.",
+   "prompt-2": "Build one Node route that sends text to an LLM, asks for JSON, then parses and validates it with a schema library. A good result rejects bad output, retries or returns a clear error, and never crashes on malformed JSON."
+  }
+ },
+ "llm-hf": {
+  "plain": "A free course on the Hugging Face libraries, which are the standard open-source toolbox for working with transformer models. It shows how text becomes numbers, how models are loaded and run, and how to adapt them to your own data.",
+  "learn": [
+   "Load a pretrained model and run it with the transformers library",
+   "Explain how a tokenizer turns text into token IDs",
+   "Prepare a dataset and fine-tune a small model on it",
+   "Explain why LoRA makes fine-tuning cheaper than training all weights"
+  ],
+  "concepts": [
+   {
+    "term": "Tokenizer",
+    "plain": "A tool that splits text into small pieces called tokens and maps each piece to a number. The model only sees these numbers, not the raw text.",
+    "analogy": "It is like serializing an object to JSON before sending it over HTTP: the model needs a fixed format, not your raw data."
+   },
+   {
+    "term": "Pretrained model",
+    "plain": "A model that someone already trained on a huge amount of data. You download it and use it or adapt it instead of training from zero.",
+    "analogy": "It is like installing an npm package instead of writing the library yourself."
+   },
+   {
+    "term": "Fine-tuning",
+    "plain": "Continuing to train a pretrained model on a smaller, focused dataset so it does one task or style better.",
+    "analogy": "It is like taking a general framework and customizing it for one app."
+   },
+   {
+    "term": "LoRA",
+    "plain": "A method that trains only a small set of extra weights instead of the whole model. This uses much less memory and time.",
+    "analogy": "It is like applying a small patch on top of a big codebase instead of rewriting the codebase."
+   }
+  ],
+  "mern": "The Hugging Face Hub works a lot like npm and GitHub combined: you pull models and datasets by name and version. Reading library docs and running scripts feels familiar.",
+  "pitfall": "Many beginners jump to fine-tuning when better prompting or retrieval would solve the problem with far less work.",
+  "prereq": "Basic Python and a first idea of what a neural network is",
+  "lessons": {
+   "hf-llm-1": "Focus on the course outline first so you see how tokenizers, datasets and fine-tuning fit together. Pick the chapters that match the two checkpoints below.",
+   "hf-llm-2": "Load a small model and tokenizer, encode a sentence, and print the tokens and IDs. A good result is that you can explain why a word or a typo splits into several tokens.",
+   "hf-llm-3": "Start with a small model and a small, clean, narrow dataset, and train with a LoRA adapter. A good result compares outputs before and after training on a few held-out examples, and you can say what changed."
+  }
+ },
+ "llm-smol": {
+  "plain": "A hands-on course from Hugging Face about post-training, which means teaching a base language model to follow instructions and match human preferences. It uses small models so you can practice on modest hardware.",
+  "learn": [
+   "Explain the difference between a base model and an instruction-tuned model",
+   "Describe supervised fine-tuning with instruction and answer pairs",
+   "Explain preference alignment and why it uses good and bad answer pairs",
+   "Follow a small post-training run end to end"
+  ],
+  "concepts": [
+   {
+    "term": "Post-training",
+    "plain": "The training done after the main pretraining, to make a model useful and safe to talk to. It turns a text predictor into an assistant.",
+    "analogy": "Pretraining is like building the framework, and post-training is like the product polish before release."
+   },
+   {
+    "term": "Instruction tuning",
+    "plain": "Training the model on examples of instructions paired with good answers so it learns to follow requests.",
+    "analogy": "It is like teaching by example, similar to writing test cases that show the expected output for each input."
+   },
+   {
+    "term": "Preference alignment",
+    "plain": "Training the model to prefer answers people rate as better, using pairs of a chosen and a rejected answer.",
+    "analogy": "It is like A/B testing, where user choices decide which version wins."
+   }
+  ],
+  "mern": "If you have cleaned and shaped data in MongoDB collections, you have the mindset for building training datasets. The quality of the data drives the result, just as in a real app.",
+  "pitfall": "Beginners think more data always helps, but a small set of clean, consistent examples often beats a large noisy one.",
+  "prereq": "Basic Python and the idea of fine-tuning a model",
+  "lessons": {
+   "smol-1": "Focus on the order of the modules: instruction tuning first, then preference alignment. Notice what the training data looks like at each stage, since that shows what the model is learning."
+  }
+ },
+ "llm-dlai-genai": {
+  "plain": "A course that walks through the full life of a generative AI project: how transformers work, how models are trained and tuned, and how they are used at inference time. It gives you the big picture that later hands-on work depends on.",
+  "learn": [
+   "Describe at a high level how the transformer architecture processes text",
+   "Compare prompting, fine-tuning and other ways to adapt a model",
+   "Explain why fine-tuning every weight is costly and what cheaper options exist",
+   "Name the steps of a generative AI project from choosing a model to deploying it"
+  ],
+  "concepts": [
+   {
+    "term": "Transformer",
+    "plain": "The neural network design behind modern LLMs. Its attention mechanism lets each word look at other words in the text to decide what matters.",
+    "analogy": "Attention is a bit like a join, where each token looks up the other tokens most relevant to it."
+   },
+   {
+    "term": "Generative AI lifecycle",
+    "plain": "The steps of a project: define the use case, pick a model, adapt it, evaluate it, and deploy it. You loop back when results are not good enough.",
+    "analogy": "It is like a normal software lifecycle of plan, build, test and ship, with model choice as a new step."
+   },
+   {
+    "term": "Inference",
+    "plain": "Using a trained model to produce output for new input. It is the run-time phase, as opposed to training.",
+    "analogy": "Training is like building and inference is like serving requests in production."
+   }
+  ],
+  "mern": "Thinking about latency, cost per request and deployment is the same systems thinking you use for a Node service. The course gives you the vocabulary for the model side of those trade-offs.",
+  "pitfall": "Beginners think the model understands text like a person does, when it actually predicts the next token from patterns.",
+  "prereq": "Basic Python and a first idea of machine learning",
+  "lessons": {
+   "genai-1": "Focus on the lifecycle diagram and use it as a map for the rest of your learning. Notice which choices affect cost and quality the most, such as model size and how you adapt it."
+  }
+ },
+ "llm-dlai-post": {
+  "plain": "A short hands-on course on three ways to improve a model after pretraining: supervised fine-tuning, direct preference optimization, and online reinforcement learning. It shows how these methods change how a model behaves.",
+  "learn": [
+   "Explain what supervised fine-tuning (SFT) does",
+   "Explain how direct preference optimization (DPO) uses chosen and rejected answers",
+   "Describe how online reinforcement learning uses a reward signal to improve a model",
+   "Choose which method fits a given goal"
+  ],
+  "concepts": [
+   {
+    "term": "SFT",
+    "plain": "Supervised fine-tuning trains the model on examples of the exact outputs you want. It is the simplest way to teach a format or style.",
+    "analogy": "It is like writing unit tests with expected outputs and training until the code passes them."
+   },
+   {
+    "term": "DPO",
+    "plain": "Direct preference optimization trains on pairs of a better and a worse answer, so the model learns to prefer the better kind. It does not need a separate reward model.",
+    "analogy": "It is like learning from thumbs-up and thumbs-down data."
+   },
+   {
+    "term": "Online reinforcement learning",
+    "plain": "The model generates answers, gets a reward score for them, and is updated to score higher over time. The data is created while training, not fixed in advance.",
+    "analogy": "It is like a feedback loop in a live system, where new results shape the next change."
+   }
+  ],
+  "mern": "Preparing training data is much like designing a schema and cleaning documents. Your habit of checking data shape before using it helps here.",
+  "pitfall": "Beginners mix up these methods: SFT teaches by copying good examples, while DPO and reinforcement learning teach by comparing or scoring outputs.",
+  "prereq": "Basic Python and the idea of fine-tuning a language model",
+  "lessons": {
+   "post-1": "Focus on what data each method needs: examples for SFT, answer pairs for DPO, and a reward for online reinforcement learning. Notice how the same base model behaves differently after each method."
+  }
+ },
+ "rag-dlai": {
+  "plain": "A course on Retrieval Augmented Generation, where your app first finds relevant documents and then gives them to the model as context. It matters because it lets a model answer from your own data without retraining it.",
+  "learn": [
+   "Explain the parts of a RAG pipeline: chunking, embedding, retrieval and generation",
+   "Build a retriever over your own documents using a vector store",
+   "Make answers cite the sources they used",
+   "Measure retrieval quality with test questions and a hit rate"
+  ],
+  "concepts": [
+   {
+    "term": "Embedding",
+    "plain": "A list of numbers that represents the meaning of a piece of text. Texts with similar meaning get numbers that are close together.",
+    "analogy": "It is like a search index key, but it matches by meaning instead of exact words."
+   },
+   {
+    "term": "Vector store",
+    "plain": "A database that stores embeddings and can quickly find the ones closest to a query embedding.",
+    "analogy": "It is like a MongoDB collection with a special index, but queried by similarity instead of by field value."
+   },
+   {
+    "term": "Chunking",
+    "plain": "Splitting long documents into smaller pieces before embedding them. Each piece should be small enough to be focused but big enough to make sense.",
+    "analogy": "It is like pagination or splitting a big payload so each piece is easy to handle."
+   },
+   {
+    "term": "Hit rate at k",
+    "plain": "The share of test questions where the correct source appears in the top k retrieved results. It tells you if retrieval works before you blame the model.",
+    "analogy": "It is like a test-suite pass rate for your search."
+   }
+  ],
+  "mern": "A RAG backend is a Node or Python service with a database, an API route and a call to an external API. Indexing and querying will feel like the CRUD and search work you already do.",
+  "pitfall": "Beginners blame the model for bad answers when the real problem is that retrieval did not fetch the right text.",
+  "prereq": "Basic Python or JavaScript and a first idea of what an LLM API call is",
+  "lessons": {
+   "rag-1": "Focus on how the pipeline splits into an indexing stage and a query stage. Notice where evaluation fits, since it is what makes a demo into a reliable system.",
+   "rag-2": "Load the five PDFs, split them into chunks, embed and store them, then answer with the retrieved chunks in the prompt. A good result shows the file name and page for every claim and says it does not know when nothing relevant is found.",
+   "rag-3": "Write 20 realistic questions and note which document should answer each one. For each, check if that document is in the top 4 results and report the fraction found, then look at the misses to see if chunking or the query is the cause."
+  }
+ },
+ "agents-dlai": {
+  "plain": "A course about agentic workflows, where an LLM works in several steps instead of one answer. It plans, uses tools, checks its own work and improves it. This matters because many useful AI apps are agents.",
+  "learn": [
+   "Describe the main agent patterns: reflection, tool use, planning and multi-agent work",
+   "Let a model call tools and use the results in its next step",
+   "Add a step limit and error handling so an agent cannot loop forever",
+   "Judge if a task needs an agent or just a single prompt"
+  ],
+  "concepts": [
+   {
+    "term": "Agent",
+    "plain": "A program where an LLM decides what to do next, such as calling a tool, and repeats until the task is done.",
+    "analogy": "It is like a loop that picks which API to call next based on the last response."
+   },
+   {
+    "term": "Tool use",
+    "plain": "Giving the model a set of functions it can ask your code to run, such as search or a database lookup. The model returns which tool to call and with what arguments, and your code runs it.",
+    "analogy": "It is like a route table where the model picks the endpoint and sends the parameters."
+   },
+   {
+    "term": "Reflection",
+    "plain": "Having the model review its own output and improve it in another pass. A second look often catches mistakes.",
+    "analogy": "It is like code review before merging."
+   },
+   {
+    "term": "Step limit",
+    "plain": "A maximum number of loop turns that stops the agent even if it is not finished. It protects against endless loops and runaway cost.",
+    "analogy": "It is like a request timeout or a retry cap."
+   }
+  ],
+  "mern": "An agent loop is async control flow with API calls, error handling and state, which is what you write in Node already. Tools are just functions you expose.",
+  "pitfall": "Beginners build a complex agent when a fixed sequence of a few prompts would be simpler and more reliable.",
+  "prereq": "Basic Python or JavaScript and how to call an LLM API",
+  "lessons": {
+   "agentic-1": "Focus on the four patterns and when each one helps. Notice how the course compares results with and without a workflow, since that shows the value of each step.",
+   "agentic-2": "Give the agent two clear tools with typed inputs, cap the number of steps, and catch tool errors and return them to the model. A good result finishes a real task, stops cleanly at the limit, and logs each step so you can debug it."
+  }
+ },
+ "agents-mcp": {
+  "plain": "A course about the Model Context Protocol (MCP), an open standard for connecting AI apps to tools, data and prompts. Instead of writing custom code for each connection, you build a server once and any MCP-aware app can use it.",
+  "learn": [
+   "Explain the roles of an MCP host, client and server",
+   "Expose a function as an MCP tool with a clear description and input schema",
+   "Expose data as resources and reusable prompts",
+   "Connect a client to a server and call its tools"
+  ],
+  "concepts": [
+   {
+    "term": "MCP server",
+    "plain": "A small program that offers tools, data and prompts in a standard format. AI apps connect to it to get new abilities.",
+    "analogy": "It is like a REST API, but the shared standard means any compatible client can use it without custom code."
+   },
+   {
+    "term": "Tool",
+    "plain": "A function the server offers, with a name, a description and a schema for its inputs. The model reads the description to decide when to use it.",
+    "analogy": "It is like an endpoint with an OpenAPI description."
+   },
+   {
+    "term": "Resource",
+    "plain": "Read-only data the server can provide, such as a file or a record, that the app can add to the model's context.",
+    "analogy": "It is like a GET endpoint that returns a document."
+   },
+   {
+    "term": "Host and client",
+    "plain": "The host is the AI app the user runs. It uses a client to talk to each server.",
+    "analogy": "It is like a browser that uses an HTTP client to talk to many web servers."
+   }
+  ],
+  "mern": "Writing an MCP server in Node feels like writing a small Express service: define handlers, validate inputs and return structured results. Your JSON and schema skills carry over.",
+  "pitfall": "Beginners write vague tool descriptions, and then the model picks the wrong tool or passes the wrong arguments.",
+  "prereq": "Basic Python or JavaScript and how tool use with an LLM works",
+  "lessons": {
+   "mcp-1": "Focus on how host, client and server relate and what messages pass between them. Notice how a tool description and schema are what the model sees.",
+   "mcp-2": "Build a server with one tool that does one small useful job, such as looking up a record. A good result has a clear description, a strict input schema, useful error messages, and works when you connect a client and call it."
+  }
+ },
+ "agents-hf": {
+  "plain": "A free course from Hugging Face that teaches how to build and deploy AI agents, starting from the basics and moving to popular agent frameworks. It gives you a practical view of how agents are put together.",
+  "learn": [
+   "Explain what an agent is and how its think, act and observe loop works",
+   "Build a simple agent with tools using an agent framework",
+   "Compare a few agent frameworks and their trade-offs",
+   "Share or deploy an agent you built"
+  ],
+  "concepts": [
+   {
+    "term": "Agent loop",
+    "plain": "The cycle where the model thinks about the task, takes an action such as calling a tool, and reads the result before deciding the next step.",
+    "analogy": "It is like an event loop, where each result triggers the next action."
+   },
+   {
+    "term": "Tool",
+    "plain": "A function the agent may call to do things the model cannot do alone, like search the web or run code.",
+    "analogy": "It is like a helper module the main program imports and calls."
+   },
+   {
+    "term": "Agent framework",
+    "plain": "A library that gives you the loop, tool handling and memory so you do not write them from scratch.",
+    "analogy": "It is like using Express instead of writing an HTTP server by hand."
+   }
+  ],
+  "mern": "Deploying an agent is like deploying any web service, so your knowledge of hosting, environment variables and APIs helps. Frameworks are libraries you install and configure like any other.",
+  "pitfall": "Beginners pick a framework first and only later learn the basic loop, which makes debugging hard because they cannot see what the framework does.",
+  "prereq": "Basic Python and how to call an LLM API",
+  "lessons": {
+   "hf-agents-1": "Focus on the fundamentals unit first, since it explains the loop that every framework builds on. Then choose one framework and finish a working agent before comparing others."
+  }
+ },
+ "llm-docs": {
+  "plain": "The official documentation for the Claude API. It explains how to send messages, let the model call your tools, stream replies, get structured output and cache prompts. Reading it well is a core skill for building real apps.",
+  "learn": [
+   "Send a request to the Messages API and read the response",
+   "Define tools and handle tool calls in your code",
+   "Stream a reply to a browser as it is generated",
+   "Use prompt caching to reduce cost and latency on repeated context",
+   "Set up a simple evaluation to check output quality"
+  ],
+  "concepts": [
+   {
+    "term": "Messages API",
+    "plain": "The main endpoint where you send a list of messages and get the model's reply. You send the whole conversation each time.",
+    "analogy": "It is like a stateless HTTP API: the server keeps no session, so the client sends full context on each call."
+   },
+   {
+    "term": "Streaming",
+    "plain": "Receiving the reply in small pieces as it is generated instead of waiting for the full answer. The user sees text appear early.",
+    "analogy": "It is like Server-Sent Events, where the server pushes data as it becomes ready."
+   },
+   {
+    "term": "Prompt caching",
+    "plain": "Saving a repeated part of the prompt, like a long system prompt, so later requests reuse it and are cheaper and faster.",
+    "analogy": "It is like an HTTP cache for the stable part of your request."
+   },
+   {
+    "term": "Tool use",
+    "plain": "You describe functions to the model. It replies asking to call one with certain arguments, your code runs it, and you send the result back.",
+    "analogy": "It is like the model calling your REST endpoints through you as the middle layer."
+   }
+  ],
+  "mern": "Calling the API from a Node route, keeping the API key on the server, and streaming to a React page is the same full-stack pattern you already use. Streaming maps to reading a response body chunk by chunk.",
+  "pitfall": "Beginners put the API key in front-end code, where anyone can read it, instead of calling the API from a server route.",
+  "prereq": "Basic Node or Python and how to make HTTP requests",
+  "lessons": {
+   "docs-1": "Focus on the quickstart, then the pages on tool use, streaming and structured outputs. Keep the API reference open, and always check the docs for current model names and parameters.",
+   "docs-2": "Create a Node route that calls the API with streaming turned on and forwards the chunks to the browser. A good result shows text appearing token by token in React, keeps the key on the server, and handles errors and a closed connection."
+  }
+ },
+ "ops-fastapi": {
+  "plain": "A tutorial for FastAPI, a Python framework for building web APIs. It matters because most model and LLM code is written in Python, and FastAPI is a common way to turn that code into a service other apps can call.",
+  "learn": [
+   "Create routes with path and query parameters",
+   "Validate request bodies with Pydantic models",
+   "Read the automatic API docs that FastAPI generates",
+   "Serve a trained model behind a prediction endpoint",
+   "Handle errors and return correct status codes"
+  ],
+  "concepts": [
+   {
+    "term": "Route",
+    "plain": "A function tied to a URL and an HTTP method, which runs when a request arrives.",
+    "analogy": "It is the same as an Express route handler."
+   },
+   {
+    "term": "Pydantic model",
+    "plain": "A Python class that describes the shape and types of data. FastAPI uses it to check incoming requests and reject bad ones.",
+    "analogy": "It is like a Zod or Joi schema for request validation."
+   },
+   {
+    "term": "Automatic docs",
+    "plain": "FastAPI builds an interactive API page from your code and type hints, where you can try requests in the browser.",
+    "analogy": "It is like getting Swagger docs for free."
+   },
+   {
+    "term": "Model serving",
+    "plain": "Loading a trained model once when the app starts and using it to answer prediction requests.",
+    "analogy": "It is like opening a database connection once at startup and reusing it per request."
+   }
+  ],
+  "mern": "If you know Express, FastAPI will feel familiar: routes, middleware, JSON in and JSON out. Pydantic plays the role that Zod or Joi play in Node.",
+  "pitfall": "Beginners load the model inside the request handler, which reloads it on every call and makes the API very slow.",
+  "prereq": "Basic Python and how HTTP APIs work",
+  "lessons": {
+   "fastapi-1": "Focus on routes, type hints and request bodies with Pydantic. Run each example yourself and open the generated docs page to see how your code becomes an API description.",
+   "fastapi-2": "Train or load a small scikit-learn model once at startup and add a POST /predict route with a Pydantic model for the input. A good result rejects bad input with a clear 422 error, returns the prediction as JSON, and you can test it from the docs page."
+  }
+ },
+ "ops-mwml": {
+  "plain": "A free course on how to build machine learning systems that work in production, not just in a notebook. It covers the full path from design and development to deployment and improving a model over time.",
+  "learn": [
+   "Turn notebook code into organized, testable Python packages",
+   "Track experiments so results can be compared and repeated",
+   "Explain how testing applies to data, code and models",
+   "Describe how a model goes from a repository to a served API through automation"
+  ],
+  "concepts": [
+   {
+    "term": "Experiment tracking",
+    "plain": "Recording the settings, data version and results of each training run so you can compare them later.",
+    "analogy": "It is like git history plus logs for your model runs."
+   },
+   {
+    "term": "Testing ML systems",
+    "plain": "Checking not only code but also the data and the model's behavior, since bugs can come from any of the three.",
+    "analogy": "It is like adding integration tests for data shape on top of normal unit tests."
+   },
+   {
+    "term": "CI/CD for ML",
+    "plain": "Automation that runs checks and deploys changes whenever the code or model is updated.",
+    "analogy": "It is the same idea as a GitHub Actions pipeline for a web app."
+   }
+  ],
+  "mern": "Code structure, testing, git workflow and CI pipelines all carry over from web development. You bring engineering habits that many notebook-first ML learners lack.",
+  "pitfall": "Beginners keep everything in one notebook and cannot repeat their own results later.",
+  "prereq": "Basic Python, git and the idea of training a simple model",
+  "lessons": {
+   "mwml-1": "Focus on how the lessons move from a script to a packaged, tested and deployed system. Notice how each step adds a habit you already use in web projects, like tests and automation."
+  }
+ },
+ "ops-fsdl": {
+  "plain": "A course that shows the whole process of shipping a machine learning product, from collecting data to training, deployment and monitoring. It also covers how teams work together on such products.",
+  "learn": [
+   "Name the stages of an ML project and what can go wrong at each",
+   "Explain why data collection and labeling need as much care as modeling",
+   "Describe how models are deployed and monitored after release",
+   "Discuss how to plan and organize an ML project in a team"
+  ],
+  "concepts": [
+   {
+    "term": "ML project lifecycle",
+    "plain": "The loop of planning, data work, training, deployment and monitoring. Problems found late send you back to earlier steps.",
+    "analogy": "It is like an agile cycle where feedback from production drives the next change."
+   },
+   {
+    "term": "Data quality",
+    "plain": "How correct, complete and representative your data is. A model can only be as good as the data it learns from.",
+    "analogy": "It is like garbage in, garbage out for any database-backed app."
+   },
+   {
+    "term": "Monitoring and drift",
+    "plain": "Watching a deployed model to notice when real-world data changes and its accuracy drops.",
+    "analogy": "It is like application monitoring, but you watch prediction quality as well as errors and latency."
+   }
+  ],
+  "mern": "Deploying, monitoring and working in a team are things you already do on web products. This course shows where ML adds new kinds of risk to that process.",
+  "pitfall": "Beginners believe that a good model is the finished product, but most of the effort in production goes into data, deployment and monitoring.",
+  "prereq": "Basic Python and a first idea of machine learning",
+  "lessons": {
+   "fsdl-1": "Focus on the big picture and the stages of the lifecycle rather than on any one tool. Notice which problems appear after deployment, since those are often skipped in basic courses."
+  }
+ },
+ "ops-mlz": {
+  "plain": "A free, hands-on course on MLOps, which is the practice of running machine learning in production reliably. It covers tracking experiments, building pipelines, deploying models and monitoring them.",
+  "learn": [
+   "Track experiments and compare model runs",
+   "Build a repeatable training pipeline with an orchestrator",
+   "Deploy a model as a web service or batch job",
+   "Monitor a deployed model for problems"
+  ],
+  "concepts": [
+   {
+    "term": "MLOps",
+    "plain": "A set of practices for building, deploying and maintaining ML models in a reliable, repeatable way.",
+    "analogy": "It is like DevOps, with extra care for data and models."
+   },
+   {
+    "term": "Pipeline",
+    "plain": "A series of automated steps, such as loading data, training and saving the model, that run in order.",
+    "analogy": "It is like a build pipeline in CI, where each stage feeds the next."
+   },
+   {
+    "term": "Model registry",
+    "plain": "A place that stores model versions and their status, so you know which one is in production.",
+    "analogy": "It is like a package registry with version tags."
+   }
+  ],
+  "mern": "Ideas like CI, containers, environment config and monitoring transfer directly. You will mostly learn new tools for the same kinds of jobs.",
+  "pitfall": "Beginners try to learn every tool in the course, when the important skill is understanding what each stage is for.",
+  "prereq": "Basic Python, the command line and some knowledge of Docker helps",
+  "lessons": {
+   "mlz-1": "Focus on the module order: tracking, orchestration, deployment, then monitoring. Notice what problem each tool solves so you can swap tools later without confusion."
+  }
+ },
+ "ops-vllm": {
+  "plain": "A short course on vLLM, an open-source engine for running large language models quickly and with less memory. It matters when you host your own model and need to serve many users at once.",
+  "learn": [
+   "Explain why serving an LLM is slow and memory hungry",
+   "Run an open-source model with vLLM",
+   "Benchmark speed and throughput of a served model",
+   "Describe how batching and memory management improve performance"
+  ],
+  "concepts": [
+   {
+    "term": "Inference server",
+    "plain": "A program that loads a model and answers requests from other apps over the network.",
+    "analogy": "It is like a database server that many clients connect to."
+   },
+   {
+    "term": "Throughput and latency",
+    "plain": "Throughput is how many requests or tokens you handle per second. Latency is how long one request takes.",
+    "analogy": "They are the same measures you use for any web backend."
+   },
+   {
+    "term": "Batching",
+    "plain": "Processing several requests together so the hardware is used well. Serving engines like vLLM add new requests to a running batch as others finish.",
+    "analogy": "It is like batching database writes to reduce overhead."
+   },
+   {
+    "term": "KV cache",
+    "plain": "Stored intermediate results from earlier tokens that the model reuses while generating, so it does not repeat work. It takes a lot of GPU memory, and vLLM manages it efficiently.",
+    "analogy": "It is like caching computed results so later steps skip repeated work."
+   }
+  ],
+  "mern": "Load testing, latency percentiles and capacity planning are skills you may already use on Node services. The same thinking applies to model servers.",
+  "pitfall": "Beginners measure only single-request speed, while real serving performance depends on many requests at once.",
+  "prereq": "Basic Python, the command line and how LLM inference works at a high level",
+  "lessons": {
+   "vllm-1": "Focus on what makes LLM serving costly and how the engine addresses it. Notice which metrics the course uses for benchmarking, and try to use the same ones on your own setup."
+  }
+ },
+ "ops-docker": {
+  "plain": "A guide to Docker, a tool that packages your app and everything it needs into a container. A container runs the same on your laptop, a server or the cloud, which makes deploying AI services much easier.",
+  "learn": [
+   "Write a Dockerfile that builds an image for your service",
+   "Run and stop containers and map their ports",
+   "Use environment variables and volumes for config and data",
+   "Run several services together with Docker Compose"
+  ],
+  "concepts": [
+   {
+    "term": "Image",
+    "plain": "A read-only package with your code, runtime and dependencies. You build it once and can start many containers from it.",
+    "analogy": "It is like a built artifact of your app, similar to a production build folder."
+   },
+   {
+    "term": "Container",
+    "plain": "A running instance of an image, isolated from other processes on the machine.",
+    "analogy": "It is like a running process of your app in its own clean environment."
+   },
+   {
+    "term": "Dockerfile",
+    "plain": "A text file with the steps to build an image, such as choosing a base image, copying files and installing dependencies.",
+    "analogy": "It is like a build script or package.json scripts for the whole environment."
+   },
+   {
+    "term": "Docker Compose",
+    "plain": "A tool that starts several containers together from one YAML file, such as an API, a database and a vector store.",
+    "analogy": "It is like one command that starts your whole MERN stack."
+   }
+  ],
+  "mern": "If you have run a Node app with a MongoDB service, Compose lets you describe that setup in one file. Environment variables and ports work the way you already know.",
+  "pitfall": "Beginners store data inside the container, and it is lost when the container is removed, instead of using a volume.",
+  "prereq": "Basic command line and a small app to package",
+  "lessons": {
+   "docker-1": "Focus on images, containers, the Dockerfile and volumes. Try each command on a tiny app so the ideas become concrete.",
+   "docker-2": "Write a Dockerfile for the backend and a compose file that also starts the vector store, passing secrets through environment variables. A good result starts everything with one docker compose up command, keeps data in a volume, and does not bake API keys into the image."
+  }
+ }
+}

@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useState } from 'react';
-import { COURSES, PAPERS, TOPICS, useAcademy } from '../../components/Providers.js';
+import { COURSES, PAPERS, PAPER_GUIDES, TOPICS, useAcademy } from '../../components/Providers.js';
 
 const STATUS = { todo: 'To read', reading: 'Reading', done: 'Done' };
 const PASSES = ['Pass 1: skim title, abstract, headings, conclusion (10 min)', 'Pass 2: read with figures, skip proofs (1 h)', 'Pass 3: re-derive or reimplement the key idea'];
@@ -14,6 +14,31 @@ function PaperNote({ id }) {
       <h3>Your notes</h3>
       <textarea rows={5} value={note} onChange={(e) => setPaper(id, { note: e.target.value })} placeholder="What is the core idea? What would you try with it?" aria-label="Paper notes" />
     </div>
+  );
+}
+
+function Explain({ g }) {
+  return (
+    <details className="panel">
+      <summary>Explain it simply</summary>
+      <div className="stack" style={{ marginTop: 12 }}>
+        <p>{g.eli5}</p>
+        <p className="lead"><strong>Think of it as:</strong> {g.analogy}</p>
+        <p><strong>The problem:</strong> {g.problem}</p>
+        <p><strong>The idea:</strong> {g.idea}</p>
+        <div className="stack" style={{ gap: 4 }}>
+          <strong>Words you will meet</strong>
+          {g.terms.map((t) => <span key={t.term}><em>{t.term}</em>: {t.plain}</span>)}
+        </div>
+        <div className="stack" style={{ gap: 4 }}>
+          <strong>While reading, look for</strong>
+          <ul style={{ margin: 0, paddingLeft: 20 }}>{g.lookFor.map((x) => <li key={x}>{x}</li>)}</ul>
+        </div>
+        <p><strong>Safe to skip at first:</strong> {g.skip}</p>
+        <p><strong>Limits:</strong> {g.limits}</p>
+        <p><strong>Try it:</strong> {g.tryIt}</p>
+      </div>
+    </details>
   );
 }
 
@@ -102,6 +127,7 @@ export default function Papers() {
               <span className="meta lead">{p.authors} · arXiv {p.id}</span>
               <p>{p.summary}</p>
               <p className="lead"><strong>Why it matters:</strong> {p.why}</p>
+              {PAPER_GUIDES[p.id] && <Explain g={PAPER_GUIDES[p.id]} />}
               {after && <p className="lead">Read after <Link href={`/courses/${after.id}`}>{after.title}</Link>.</p>}
               <div className="passes" role="group" aria-label="Reading passes">
                 {PASSES.map((label, i) => (

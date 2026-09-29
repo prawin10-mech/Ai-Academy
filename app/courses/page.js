@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { COURSES, PHASES, TOPICS, useAcademy } from '../../components/Providers.js';
+import { COURSES, GUIDES, PHASES, TOPICS, useAcademy } from '../../components/Providers.js';
 import { courseProgress, mastery } from '../../lib/scoring.js';
 
 export default function Courses() {
@@ -31,6 +31,7 @@ export default function Courses() {
                     </div>
                     <h3>{c.title}</h3>
                     <span className="meta">{c.by} · about {c.hrs} h</span>
+                    {GUIDES[c.id] && <span className="meta">{GUIDES[c.id].plain.split('. ')[0].replace(/\.$/, '')}.</span>}
                     <div className="bar"><i style={{ width: `${p.pct}%` }} /></div>
                     <span className="meta">{p.done} of {p.total} steps done{m != null ? ` · topic ${m}%` : ''}</span>
                   </Link>

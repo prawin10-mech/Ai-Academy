@@ -5,6 +5,9 @@ import quizzes from '../data/quizzes.json';
 import topicsData from '../data/topics.json';
 import papers from '../data/papers.json';
 import seed from '../data/daily-seed.json';
+import courseGuides from '../data/course-guides.json';
+import paperGuides from '../data/paper-guides.json';
+import glossary from '../data/glossary.json';
 import { buildQuiz, courseProgress, freshState, normalizeState, streak as calcStreak } from '../lib/scoring.js';
 import { mergeState } from '../lib/state.js';
 import { dateInZone } from '../lib/dates.js';
@@ -20,6 +23,9 @@ export const PHASES = topicsData.phases;
 export const COURSES = courses;
 export const PAPERS = papers;
 export const QUIZ = quizzes;
+export const GUIDES = courseGuides;
+export const PAPER_GUIDES = paperGuides;
+export const GLOSSARY = glossary;
 
 const LESSONS = {};
 courses.forEach((c) => c.lessons.forEach((l, idx) => { LESSONS[l.id] = { course: c, lesson: l, idx }; }));
@@ -185,7 +191,7 @@ export default function Providers({ children }) {
     setQuiz((q) => {
       if (!q || q.picked != null) return q;
       const it = q.items[q.i];
-      return { ...q, picked: i, results: [...q.results, { id: it.id, t: it.t, ok: i === it.a }] };
+      return { ...q, picked: i, results: [...q.results, { id: it.id, t: it.t, ok: i === it.a, pick: i }] };
     });
   }, []);
 
