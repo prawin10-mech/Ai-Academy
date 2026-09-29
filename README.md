@@ -1,113 +1,73 @@
 # AI Engineer Academy
 
-One Next.js app: the interactive learning site, the API, and the daily job. Deploy it once on Vercel.
+A free, public learning site that takes a developer to job-ready AI application engineer in about 6 months. It focuses on what employers hire for: LLM apps, RAG, agents, evals and shipping.
 
-- 32 free courses in five phases with an in-page video player, per-lesson notes and checklists
-- 27 curated research papers with summaries, a three-pass reading tracker, notes and an inline PDF viewer
-- A live feed of new papers from arXiv and Hugging Face
-- Quizzes (Daily 5 and per course) that come back harder on topics and questions you miss
-- A learner evaluation: mastery per topic, streak, recommended focus
-- A daily plan built from that evaluation, with a digest sent to your phone through a Telegram bot
-- Plain-language explanations everywhere: an "Explained" tab on every course (key ideas with web-developer analogies), a "what to focus on" tip on each step, an "Explain it simply" panel on every paper, a 70-term glossary, and an answer review with revision notes after every quiz
-- A Logs page showing everything recorded and what goes to Telegram
+- Accounts and guest mode (guests keep progress in their browser and can sign up later without losing it)
+- A personalised path: tell it what you know and it skips or fast-tracks topics
+- 26-week roadmap, 35 job-focused courses, 13 optional deep dives, plain-language explanations
+- Practice lab with 46 coding exercises tested in your browser (hidden test cases, timeout, no network)
+- Career page: readiness score, portfolio projects, interview practice
+- AI Radar: new model launches (OpenAI, Google, Meta, xAI, Groq and more)
+- Daily Telegram digest per learner, linked with one tap
 
-## How it fits together
+It is one Next.js app: UI, API routes and cron in a single deployment.
 
-```
-Browser (React)  ──►  /api/state, /api/attempts, /api/log   ──►  MongoDB Atlas
-                      /api/daily
-Vercel Cron 03:00 UTC ─► /api/cron/daily ─► paper feed + evaluation + plan ─► MongoDB + Telegram
-```
+## Deploy (Vercel + MongoDB Atlas)
 
-The browser keeps a local copy of your progress, so the site works offline and syncs when it can.
+1. Create a free MongoDB Atlas cluster. In Network Access allow `0.0.0.0/0` (Vercel has no fixed IP). Copy the connection string with your real password in it.
+2. Import this repo in Vercel and set the environment variables below.
+3. Redeploy. Open `/api/health`. It should return `{"ok":true}`. If storage fails it shows a short reason.
+4. Sign up with the email you set as `ADMIN_EMAIL` to get owner access.
 
-## Database: MongoDB Atlas (free M0)
-
-Your data is one small document per learner plus daily plans and logs, so MongoDB fits well. Create a free M0 cluster, add a database user, allow access from anywhere (Vercel uses changing IPs), and copy the connection string into `MONGODB_URI`. Collections are created on first write: `state`, `daily`, `feed`, `logs` (logs expire after 90 days).
-
-Without `MONGODB_URI` the app uses a local file (`.data/academy.json`). That is for development only. On Vercel the file system is temporary, so set the variable before relying on it.
-
-## Deploy on Vercel
-
-1. Push this repo to GitHub, then import it at vercel.com/new. No build settings are needed.
-2. Add the environment variables below in Project Settings, then redeploy.
-3. Open the site, enter your `ACCESS_KEY`, and go to Logs. It should show Database: mongodb.
-4. On Logs press "Send Telegram test". You should get a message on your phone.
-5. Run the daily job once by hand (see below) to check the digest.
-
-| Variable | Required | What it is |
-| --- | --- | --- |
+| Variable | Needed | Purpose |
+|---|---|---|
 | `MONGODB_URI` | yes | Atlas connection string |
 | `MONGODB_DB` | no | Database name, default `ai_academy` |
-| `TELEGRAM_BOT_TOKEN` | for phone updates | From @BotFather |
-| `TELEGRAM_CHAT_ID` | for phone updates | Your chat id (send any message to your bot, then open `https://api.telegram.org/bot<TOKEN>/getUpdates` and read `chat.id`) |
-| `ACCESS_KEY` | yes | Long random string. Protects the site and API. |
-| `CRON_SECRET` | yes | Long random string. Vercel sends it to the cron route automatically. |
-| `TZ_NAME` | no | Time zone for "today", default `Asia/Dubai` |
-| `APP_URL` | no | Link shown in the digest |
+| `SESSION_SECRET` | yes | 32+ random characters, signs login cookies |
+| `CRON_SECRET` | yes | Bearer token for the hourly job |
+| `ADMIN_EMAIL` | yes | This account gets owner rights |
+| `APP_URL` | yes | Your site URL |
+| `TELEGRAM_BOT_TOKEN` | for Telegram | From @BotFather |
+| `TELEGRAM_BOT_USERNAME` | for Telegram | Bot name without @ |
+| `TELEGRAM_WEBHOOK_SECRET` | for Telegram | Random string |
+| `TELEGRAM_CHAT_ID` | for owner alerts | Your own chat id |
 
-Keep the bot token, the Mongo string and the keys in Vercel only. Never commit them or paste them into chats.
+Secrets live only in Vercel. Never commit them.
 
-## The daily job
+## Telegram
 
-`vercel.json` runs `/api/cron/daily` every day at 03:00 UTC (07:00 in Dubai). Change the schedule there. It:
+1. Create a bot with @BotFather and set the variables above.
+2. Register the webhook once: `node --env-file=.env.local scripts/set-webhook.mjs https://your-app.vercel.app`
+3. Learners open Settings, tap Link Telegram, and press Start in the bot. `/stop` unlinks.
 
-1. Pulls new papers from arXiv (cs.CL, cs.LG, cs.AI) and Hugging Face daily papers. If a source is down it carries on and reports the error.
-2. Evaluates your progress: mastery per topic (last 10 answers, needs 3), streak, yesterday's activity.
-3. Writes today's plan: the next lesson for your weakest topic, the Daily 5, one paper for that topic, a new paper, and news.
-4. Sends the digest to Telegram and logs the run.
+Learners get: their morning digest, Daily 5 results, streak milestones and course completions. You get: the job summary, errors, feedback and new signups.
 
-It is safe to run twice: an existing plan for the day is kept unless you add `?force=1`.
+## Daily job
 
-Run it by hand:
+`/api/cron/daily` builds each learner's plan and sends digests at their own local morning. It needs an hourly trigger. The included GitHub Action `.github/workflows/hourly.yml` does this: add repository secrets `APP_URL` and `CRON_SECRET`. `vercel.json` keeps a once-a-day fallback.
 
-```
-curl -H "Authorization: Bearer $CRON_SECRET" "https://YOUR-APP.vercel.app/api/cron/daily?force=1"
-```
+New model news is refreshed daily by a scheduled task that edits `data/whatsnew.json` and pushes to main.
 
-or locally: `node --env-file=.env.local scripts/run-daily.mjs --force`
-
-## What goes to Telegram
-
-| Event | Sent | Contents |
-| --- | --- | --- |
-| `daily_digest` | yes | Date, streak, steps done, yesterday, mastery per topic, focus, plan, three new papers |
-| `cron_error` | yes | Paper source down, Telegram failure, or the job crashed |
-| `quiz_daily_done` | yes | Daily 5 score and weakest topic |
-| `streak_milestone` | yes | 3, 7, 14, 30, 60, 100 days |
-| `course_complete` | yes | All steps of a course ticked |
-| `client_error` | yes | Browser error, at most 3 per 10 minutes |
-| `health_test` | yes | Test message from the Logs page |
-| `quiz_course_done`, `lesson_complete`, `paper_done`, `note_saved`, `cron_ok` | no | Stored in the log only |
-
-Notes are never sent. Edit the table in `lib/events.js` to change what is sent.
-
-## Develop locally
+## Develop
 
 ```
 npm install
-cp .env.example .env.local
 npm run dev
 npm test
 ```
 
-`npm test` covers the scoring, plan, feed parsing, Telegram formatting, merge and daily job logic with no network.
+Without `MONGODB_URI` the app uses a local file store (`.data/academy.json`), fine for development only.
 
-## Project layout
+## Launch checklist
 
-```
-app/            pages (Today, Courses, Course, Papers, Notes, Progress, Logs, Quiz) and app/api routes
-components/     Providers (state, sync, quiz), Shell, Player, NotesEditor, Quiz
-lib/            scoring, plan, feed, telegram, db, auth, log, daily, state, events, dates
-data/           courses, quizzes, papers, topics, daily-seed, plus course-guides, paper-guides and glossary (the explanations)
-tests/          logic.test.mjs
-```
+- `SESSION_SECRET` and `CRON_SECRET` set, `ADMIN_EMAIL` is your account
+- `/api/health` returns ok, sign-up works in a private window
+- Telegram link works end to end
+- Skim the AI-written guides in `data/course-guides.json` and `data/paper-guides.json`
 
-## Editing content
+## Known limits
 
-- Add a course: append to `data/courses.json` (`id`, `phase`, `topic`, `title`, `by`, `url`, `cost`, `hrs`, `about`, `lessons`). YouTube lessons use `yt` (a video id) or `list` (a playlist id).
-- Add quiz questions: append `{q, o, a, why}` to a topic in `data/quizzes.json`. `a` is the index of the right option.
-- Add a paper: append to `data/papers.json` with its arXiv id, and add a matching entry to `data/paper-guides.json`.
-- Add a course: also add its entry to `data/course-guides.json` (`npm test` fails if an explanation is missing).
-
-Course links were checked when written. Third-party sites change, so open the course page if a link fails and update the URL.
+- No password reset and no email verification yet. Users can change their password when signed in.
+- Practice exercises are JavaScript only.
+- Rate limits and the daily job are sized for thousands of learners, not millions.
+- No course can guarantee a job. The readiness score measures evidence you have produced.

@@ -37,6 +37,9 @@ function CourseCard({ c, state, badge, reason }) {
 export default function Courses() {
   const { state } = useAcademy();
   const [view, setView] = useState(state.profile ? 'path' : 'all');
+  const [q, setQ] = useState('');
+  const query = q.trim().toLowerCase();
+  const found = query ? COURSES.filter((c) => `${c.title} ${c.provider || ''} ${c.topic || ''} ${(GUIDES[c.id] && GUIDES[c.id].plain) || ''}`.toLowerCase().includes(query)) : [];
   const path = buildPath(state, COURSES, TOPICS);
   const core = COURSES.filter((c) => c.track !== 'archive');
   const archive = COURSES.filter((c) => c.track === 'archive');
@@ -47,6 +50,8 @@ export default function Courses() {
         <div className="eyebrow">{core.length} job-focused courses · {archive.length} optional deep dives</div>
         <h1>Courses</h1>
         <p className="lead">Every course here was picked because it builds a skill employers ask for. Videos play in the page. Each has a checklist, notes, explanations and a quiz.</p>
+        <p className="meta">Nothing is locked. Open any course whenever you like; the path only suggests an order.</p>
+        <input className="field search" type="search" placeholder="Search all courses" aria-label="Search courses" value={q} onChange={(e) => setQ(e.target.value)} />
         <div className="tabs" role="tablist">
           <button role="tab" aria-selected={view === 'path'} onClick={() => setView('path')}>Your path</button>
           <button role="tab" aria-selected={view === 'all'} onClick={() => setView('all')}>By phase</button>
@@ -54,7 +59,14 @@ export default function Courses() {
         </div>
       </div>
 
-      {view === 'path' && (
+      {query && (
+        <section className="stack">
+          <h2>{found.length} {found.length === 1 ? 'course' : 'courses'} match</h2>
+          {found.length ? <div className="grid">{found.map((c) => <CourseCard key={c.id} c={c} state={state} />)}</div> : <p className="lead">Nothing matches. Try a shorter word such as rag, agents or python.</p>}
+        </section>
+      )}
+
+      {!query && view === 'path' && (
         !state.profile ? (
           <div className="panel stack"><h2>Get a path that fits you</h2><p className="lead">Tell us what you already know and we will mark what to learn, fast-track or skip.</p><div className="row"><Link className="btn primary" href="/start">Shape my path</Link></div></div>
         ) : (
@@ -85,7 +97,7 @@ export default function Courses() {
         )
       )}
 
-      {view === 'all' && [1, 2, 3, 4, 5].map((ph) => {
+      {!query && view === 'all' && [1, 2, 3, 4, 5].map((ph) => {
         const list = core.filter((c) => c.phase === ph);
         if (!list.length) return null;
         return (
@@ -96,7 +108,7 @@ export default function Courses() {
         );
       })}
 
-      {view === 'archive' && (
+      {!query && view === 'archive' && (
         <section className="stack">
           <p className="lead">Good courses, but not needed to get hired as an AI application engineer. Take them later if you want more theory or research depth.</p>
           <div className="grid">{archive.map((c) => <CourseCard key={c.id} c={c} state={state} />)}</div>

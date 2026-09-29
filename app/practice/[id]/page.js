@@ -21,6 +21,8 @@ export default function Exercise({ params }) {
 
   if (!ex) return <div className="stack"><h1>Exercise not found</h1><Link className="btn" href="/practice">All exercises</Link></div>;
   const course = COURSES.find((c) => c.id === ex.course);
+  const idx = EXERCISES.findIndex((e) => e.id === ex.id);
+  const nextEx = [...EXERCISES.slice(idx + 1), ...EXERCISES.slice(0, idx)].find((e) => !(state.practice[e.id] && state.practice[e.id].passed));
   const change = (v) => { setCode(v); savePractice(ex.id, { code: v }); };
 
   const onKey = (e) => {
@@ -63,7 +65,7 @@ export default function Exercise({ params }) {
           <h3>Your code</h3>
           <textarea className="code" value={code} disabled={!ready} onChange={(e) => change(e.target.value)} onKeyDown={onKey} spellCheck={false} aria-label="Code editor" />
           <div className="row">
-            <button className="btn primary" onClick={runTests} disabled={busy || !ready}>{busy ? 'Running' : 'Run tests'}</button>
+            <button className="btn primary" onClick={runTests} disabled={busy || !ready}>{busy ? <><span className="spinner" aria-hidden="true" />Running</> : 'Run tests'}</button>
             <button className="btn" onClick={() => { change(ex.starter); setRun(null); }}>Reset</button>
           </div>
           <span className="lead" style={{ fontSize: '0.85rem' }}>Runs in your browser in a sandbox with no network. Tab inserts two spaces.</span>
@@ -99,7 +101,7 @@ export default function Exercise({ params }) {
           <div className="eyebrow">Why it works</div>
           <p>{ex.explain}</p>
           <p className="lead"><strong>In production:</strong> {ex.connects}</p>
-          <div className="row"><Link className="btn primary" href="/practice">Next exercise</Link></div>
+          <div className="row">{nextEx ? <Link className="btn primary" href={`/practice/${nextEx.id}`}>Next: {nextEx.title}</Link> : <span className="pill ok">All exercises passed</span>}<Link className="btn" href="/practice">All exercises</Link></div>
         </div>
       )}
 

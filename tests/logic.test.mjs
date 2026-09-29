@@ -449,3 +449,10 @@ test('readiness: empty learner is not job-ready, gates hold', () => {
   assert.equal(r.label, 'Getting started');
   assert.equal(r.gates.knowledge && r.gates.practice && r.gates.projects, false);
 });
+
+test('exercise ids are unique and levels are known', () => {
+  const ex = JSON.parse(readFileSync(new URL('../data/exercises.json', import.meta.url), 'utf8'));
+  assert.equal(new Set(ex.map((e) => e.id)).size, ex.length);
+  for (const e of ex) assert.ok(['starter', 'core', 'stretch'].includes(e.level), `${e.id} level ${e.level}`);
+  assert.ok(ex.length >= 46);
+});

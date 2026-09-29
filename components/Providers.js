@@ -283,7 +283,11 @@ export default function Providers({ children }) {
     startQuiz, answer, nextQuestion, exitQuiz, api,
   }), [mode, user, botUsername, state, ready, sync, plans, feed, radar, quiz, login, register, continueGuest, logout, refreshUser, reportEvent, toggleDone, setNote, setLast, setEmbed, setProfile, setPaper, savePractice, setProject, rateInterview, startQuiz, answer, nextQuestion, exitQuiz, api]);
 
-  if (mode === 'loading') return <div className="shell"><main><p className="lead" style={{ paddingBlock: 48 }}>Loading</p></main></div>;
+  if (mode === 'loading') return (
+    <div className="shell"><main style={{ paddingBlock: 32 }} aria-busy="true" aria-label="Loading">
+      <div className="stack"><div className="skel" style={{ height: 18, width: 120 }} /><div className="skel" style={{ height: 36, width: '60%' }} /><div className="skel" style={{ height: 16, width: '85%' }} /><div className="skel" style={{ height: 120 }} /><div className="skel" style={{ height: 120 }} /></div>
+    </main></div>
+  );
   if (mode === 'anon' && pathname === '/privacy') return <div className="shell"><main style={{ paddingBlock: 32 }}>{children}</main></div>;
   if (mode === 'anon') return <AuthScreen onLogin={login} onRegister={register} onGuest={continueGuest} />;
   return <Ctx.Provider value={value}><Shell>{children}</Shell></Ctx.Provider>;

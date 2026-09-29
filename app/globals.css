@@ -155,3 +155,11 @@ textarea.code { font: 0.9rem/1.5 var(--font-mono); min-height: 260px; white-spac
 .result code { font: 0.85rem var(--font-mono); background: var(--surface-2); padding: 1px 6px; border-radius: 4px; word-break: break-all; }
 .dial { font: 700 3rem/1 var(--font-display); font-variant-numeric: tabular-nums; }
 .foot { margin-top: 48px; padding-block: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.85rem; }
+
+/* loading states */
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+.skel { border-radius: 10px; background: linear-gradient(90deg, var(--surface-2) 25%, var(--surface) 50%, var(--surface-2) 75%); background-size: 200% 100%; animation: shimmer 1.4s linear infinite; }
+.spinner { display: inline-block; width: 14px; height: 14px; margin-right: 8px; vertical-align: -2px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin .7s linear infinite; }
+.search { width: 100%; max-width: 420px; }
+@media (prefers-reduced-motion: reduce) { .skel, .spinner { animation: none; } }
