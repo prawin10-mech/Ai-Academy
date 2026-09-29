@@ -1182,5 +1182,682 @@
    "docker-1": "Focus on images, containers, the Dockerfile and volumes. Try each command on a tiny app so the ideas become concrete.",
    "docker-2": "Write a Dockerfile for the backend and a compose file that also starts the vector store, passing secrets through environment variables. A good result starts everything with one docker compose up command, keeps data in a volume, and does not bake API keys into the image."
   }
+ },
+ "agents-effective": {
+  "plain": "An engineering essay on how to build LLM apps that act in steps. It says to start simple, use fixed workflows when the steps are known, and use a true agent only when the model must decide the steps itself.",
+  "learn": [
+   "Name the five workflow patterns: prompt chaining, routing, parallelization, orchestrator-workers and evaluator-optimizer",
+   "Explain the difference between a workflow, where code sets the path, and an agent, where the model sets the path",
+   "Decide when a single prompt or a simple workflow is enough",
+   "Explain why direct API calls are often a good start before a framework"
+  ],
+  "concepts": [
+   {
+    "term": "Workflow",
+    "plain": "A set of LLM calls and tools that follow a path your code defines. The steps are known in advance.",
+    "analogy": "It is like a fixed chain of Express middleware where the order never changes."
+   },
+   {
+    "term": "Agent",
+    "plain": "A system where the LLM decides its own steps and tools, and loops until the task is done or it hits a stop rule.",
+    "analogy": "It is like a loop that chooses the next API call from the last response."
+   },
+   {
+    "term": "Routing",
+    "plain": "A first step that reads the input and sends it to the best specialised prompt or handler.",
+    "analogy": "It is like a router that maps a URL to the right controller."
+   },
+   {
+    "term": "Evaluator-optimizer",
+    "plain": "One model call writes an answer and another judges it. The feedback goes back until the answer is good enough.",
+    "analogy": "It is like a CI check that fails a build and sends the developer back to fix it."
+   }
+  ],
+  "mern": "Chaining, routing and parallel calls map to middleware, route handlers and Promise.all. You already know how to build these with plain Node and no framework.",
+  "pitfall": "Reaching for an agent or a big framework when a chain of two or three prompts would be cheaper, faster and easier to debug.",
+  "prereq": "Basic idea of an LLM API call and prompts, and comfort with async JavaScript or Python",
+  "job": "Interviewers ask you to design a system for a task and to justify why it is a workflow and not an agent. Real tasks include choosing a pattern and cutting complexity from an over-built agent.",
+  "lessons": {
+   "agents-effective-1": "Write down the essay's own line between a workflow and an agent, and the reasons it gives for starting simple. Note what it says about frameworks so you can explain the trade-off later.",
+   "agents-effective-2": "Sketch each pattern as boxes and arrows: the augmented LLM, chaining, routing and parallelization. For each, write one product example where it fits.",
+   "agents-effective-3": "Compare orchestrator-workers with parallelization, and note what the evaluator-optimizer loop needs to work. Read both appendices and note how the essay describes real agent use cases and tool design.",
+   "agents-effective-4": "Log every step so you can see each prompt and output. Give the loop a hard cap of 3 rounds and check that it stops on a good score or on the cap, whichever comes first."
+  }
+ },
+ "agents-langgraph-academy": {
+  "plain": "A LangChain Academy course that teaches LangGraph, a library for building agents as graphs. Nodes do work, edges decide what runs next, and a shared state carries data between them.",
+  "learn": [
+   "Build a graph with state, nodes and edges in Python",
+   "Use reducers to control how state updates merge",
+   "Add memory with a checkpointer so a conversation can continue",
+   "Pause a run for human approval with a breakpoint",
+   "Describe how a graph is deployed as a service"
+  ],
+  "concepts": [
+   {
+    "term": "State",
+    "plain": "A typed object that every node in the graph reads from and writes to. It holds the messages and any other data the run needs.",
+    "analogy": "It is like a shared React state object that every component updates."
+   },
+   {
+    "term": "Reducer",
+    "plain": "A rule that says how a new value is combined with the old one for a state key. For example, append new messages instead of replacing the list.",
+    "analogy": "It is like a Redux reducer that merges an action into state."
+   },
+   {
+    "term": "Checkpointer",
+    "plain": "A component that saves the state after each step. It lets you resume a run or continue a chat thread later.",
+    "analogy": "It is like saving a session in a database so a user can return to it."
+   },
+   {
+    "term": "Breakpoint",
+    "plain": "A stop set before or after a node so a person can look at the state and approve the next step.",
+    "analogy": "It is like a manual approval step in a CI pipeline before deploy."
+   }
+  ],
+  "mern": "A graph is a state machine, like a Redux store with reducers, and nodes are async functions like route handlers. The checkpointer plays the role of a session store.",
+  "pitfall": "Putting too much into the state or forgetting a reducer, so new messages overwrite old ones instead of adding to them.",
+  "prereq": "Python basics, and one working LLM call with tools",
+  "job": "Agent roles often list LangGraph, and interviews ask how you keep state, add memory and put a human approval step before risky actions. You may be asked to draw a graph for a support or research agent.",
+  "lessons": {
+   "agents-langgraph-academy-1": "Get one small graph running end to end first. Pay attention to how nodes, edges and state fit, and note what the deployment part adds.",
+   "agents-langgraph-academy-2": "Practice with state schemas and reducers until you can say why the messages key needs one. Then follow how the chatbot keeps memory across turns.",
+   "agents-langgraph-academy-3": "Watch how streaming shows progress to a user, and how a breakpoint stops the graph before a step. Try approving and rejecting a step yourself.",
+   "agents-langgraph-academy-4": "This module puts the pieces into one assistant, adds long-term memory and covers deployment. Keep notes on which memory is per thread and which lasts longer.",
+   "agents-langgraph-academy-5": "Put the breakpoint before every node that writes. When you reject an action, check the data store or a log to prove nothing was written, not only that the graph ended."
+  }
+ },
+ "agents-langgraph-dlai": {
+  "plain": "A short DeepLearning.AI course that first builds an agent by hand and then rebuilds it in LangGraph. It adds search tools, saved state, streaming and human approval.",
+  "learn": [
+   "Write an agent loop from scratch so you see what a framework does for you",
+   "Rebuild the agent as a LangGraph graph",
+   "Give the agent search tools for real information",
+   "Save state with persistence so a run can resume",
+   "Add a human approval step"
+  ],
+  "concepts": [
+   {
+    "term": "Agent loop",
+    "plain": "Call the model, run any tool it asks for, add the result to the messages, and call the model again until it gives a final answer.",
+    "analogy": "It is like a while loop that calls APIs until a condition is met."
+   },
+   {
+    "term": "Persistence",
+    "plain": "Saving the graph state so it can be reloaded later by thread. It allows resume and long chats.",
+    "analogy": "It is like storing a session in MongoDB keyed by a session id."
+   },
+   {
+    "term": "Streaming",
+    "plain": "Sending partial output or step updates to the user as they happen, instead of waiting for the end.",
+    "analogy": "It is like server-sent events sending progress to a React UI."
+   },
+   {
+    "term": "Human in the loop",
+    "plain": "A point where the graph waits for a person to approve or edit before it goes on.",
+    "analogy": "It is like an admin approval queue before a change goes live."
+   }
+  ],
+  "mern": "The scratch version is a plain async loop you can write in Node today. The graph version replaces your hand-made state and control flow with a framework.",
+  "pitfall": "Skipping the from-scratch lesson and using the framework as a black box, then being lost when a run behaves oddly.",
+  "prereq": "Python, and a first LLM call with tool use",
+  "job": "Interviewers ask you to explain an agent loop without a framework, then how you would add memory, streaming and approval. This course gives a clean story for that answer.",
+  "lessons": {
+   "agents-langgraph-dlai-1": "Write the loop yourself and keep it small: call the model, run the tool, append the result. Everything later is this loop with more structure.",
+   "agents-langgraph-dlai-2": "Match each part of your scratch loop to a LangGraph component. Notice how the search tools plug in as tools the agent can call.",
+   "agents-langgraph-dlai-3": "Focus on what a saved thread lets you do, how streaming shows steps as they run, and where the human approval sits in the flow.",
+   "agents-langgraph-dlai-4": "This is a multi-step project. Try to name each node's job and what state passes from one node to the next before you run it.",
+   "agents-langgraph-dlai-5": "Use a persistent checkpointer, not an in-memory one, or the saved thread will vanish when the process dies. Resume with the same thread id and check it continues from the saved step."
+  }
+ },
+ "agents-crewai-dlai": {
+  "plain": "A DeepLearning.AI course on crewAI, where you make a team of agents that each have a role. They get tools and tasks and work together on business jobs like research, support and planning.",
+  "learn": [
+   "Define agents with a role, a goal and a backstory",
+   "Write tasks with clear expected output",
+   "Give agents tools such as search",
+   "Combine agents and tasks into a crew",
+   "Judge when several agents are worth the extra cost"
+  ],
+  "concepts": [
+   {
+    "term": "Agent role",
+    "plain": "The description of who the agent is and what it should do, such as researcher or writer. It shapes how the model behaves.",
+    "analogy": "It is like a job title and job description for a service in your system."
+   },
+   {
+    "term": "Task",
+    "plain": "A unit of work with a description and an expected output, assigned to an agent.",
+    "analogy": "It is like a ticket with acceptance criteria."
+   },
+   {
+    "term": "Crew",
+    "plain": "The group of agents and tasks that run together in a set process.",
+    "analogy": "It is like a pipeline that wires several workers into one job."
+   },
+   {
+    "term": "Tool",
+    "plain": "A function an agent can call, such as web search or reading a file.",
+    "analogy": "It is like a helper module that a route handler imports."
+   }
+  ],
+  "mern": "A crew is a job pipeline where each worker has its own prompt and tools. That is much like queued workers in Node, except each worker is an LLM call.",
+  "pitfall": "Adding more agents than the task needs. Each extra agent adds cost and more places for errors.",
+  "prereq": "Python basics and a first LLM call",
+  "job": "Multi-agent frameworks come up in interviews as a design choice, and you are asked when they help and when they do not. Being able to show a cost comparison with a single prompt is a strong answer.",
+  "lessons": {
+   "agents-crewai-dlai-1": "Pay attention to how role, goal and backstory change the output. Note which parts of the research-and-write crew are agents and which are tasks.",
+   "agents-crewai-dlai-2": "Look at how tools are given to agents in the support and outreach crews. Ask what the agent could not do without each tool.",
+   "agents-crewai-dlai-3": "Watch how tasks pass results to each other and how agents work together in the event planning and financial analysis crews.",
+   "agents-crewai-dlai-4": "Treat this as a full example to build and change. Try altering one agent's role and see how the result differs.",
+   "agents-crewai-dlai-5": "Use the same topic for both runs and count tokens from the usage data. Judge quality with a simple rubric, then write your three lines on cost and quality."
+  }
+ },
+ "agents-autogen-dlai": {
+  "plain": "A DeepLearning.AI course, made with Microsoft, on agent design patterns using AutoGen. You learn multi-agent chat, reflection, tool use, coding agents and planning.",
+  "learn": [
+   "Set up agents that talk to each other in a conversation",
+   "Chain conversations in a sequence",
+   "Add reflection so one agent critiques another",
+   "Let agents use tools and write code",
+   "Use a planner agent for a multi-step task"
+  ],
+  "concepts": [
+   {
+    "term": "Multi-agent conversation",
+    "plain": "Two or more agents that send messages to each other until a stop condition, such as a keyword or a turn cap.",
+    "analogy": "It is like two services calling each other until one returns a final status."
+   },
+   {
+    "term": "Reflection",
+    "plain": "One agent writes and another reviews, so the writer can improve the draft.",
+    "analogy": "It is like a pull request review before merge."
+   },
+   {
+    "term": "Tool use",
+    "plain": "An agent asks for a function to be run and gets the result back in the chat.",
+    "analogy": "It is like calling an endpoint from a handler and using the response."
+   },
+   {
+    "term": "Planning",
+    "plain": "Splitting a big goal into smaller steps and assigning them to agents.",
+    "analogy": "It is like breaking an epic into tickets."
+   }
+  ],
+  "mern": "Agent chats are message passing with a stop rule, much like event handlers that respond to each other. Set a turn cap the way you would set a retry cap.",
+  "pitfall": "Letting agents chat with no turn limit, which can run up cost when they never reach a stop condition.",
+  "prereq": "Python basics and a first LLM call",
+  "job": "Interviews ask you to name agent design patterns and pick one for a task. Reflection is the one most often asked about, and you can back it with before and after scores.",
+  "lessons": {
+   "agents-autogen-dlai-1": "Note how a conversation ends. Look for the stop condition and the difference between a two-agent chat and a sequence of chats.",
+   "agents-autogen-dlai-2": "This is a short lesson on the writer and critic pattern. Focus on what the critic is told to look for and how its notes reach the writer.",
+   "agents-autogen-dlai-3": "Watch how an agent gets tools and how code gets written and run in the coding and financial analysis examples. Note where running code needs care.",
+   "agents-autogen-dlai-4": "See how a plan is split into steps for the stock report. Try to state the plan in your own words before it runs.",
+   "agents-autogen-dlai-5": "Write the rubric before you run anything and use the same rubric on the same 10 inputs for both versions. Then compare the scores honestly, even if reflection did not help."
+  }
+ },
+ "agents-tools-writing": {
+  "plain": "An Anthropic engineering guide on how to write the tools that agents call. Tool names, descriptions, inputs and responses all affect whether the model uses them well.",
+  "learn": [
+   "Build a quick tool prototype and test it",
+   "Run an evaluation of your tools with realistic tasks",
+   "Read results to find where the agent picks the wrong tool",
+   "Design tools with clear names, namespacing and helpful descriptions",
+   "Return useful, compact responses and clear error messages"
+  ],
+  "concepts": [
+   {
+    "term": "Tool description",
+    "plain": "The text that tells the model what a tool does and when to use it. The model picks tools mostly from this text.",
+    "analogy": "It is like API docs, but the reader is the model."
+   },
+   {
+    "term": "Namespacing",
+    "plain": "Using a shared prefix in tool names so related tools are grouped and easier to tell apart.",
+    "analogy": "It is like route prefixes such as /users and /orders."
+   },
+   {
+    "term": "Token efficiency",
+    "plain": "Returning only the data the model needs, with limits or pagination, so the context is not filled with noise.",
+    "analogy": "It is like paginating a MongoDB query and projecting fields."
+   },
+   {
+    "term": "Tool evaluation",
+    "plain": "A set of realistic tasks run against an agent, with a check for whether it used the tools correctly.",
+    "analogy": "It is like an integration test suite for your API."
+   }
+  ],
+  "mern": "You already design APIs. A tool is an API whose caller is a model, so clear names, small responses and helpful error messages matter even more.",
+  "pitfall": "Writing tools that mirror your raw database or REST endpoints one to one, with vague descriptions and huge responses.",
+  "prereq": "A first agent with tool calls, and a small API you can wrap",
+  "job": "Tool design is a daily task for agent engineers, and interviews ask how you would improve an agent that keeps calling the wrong tool. The answer starts with evaluation, then descriptions.",
+  "lessons": {
+   "agents-tools-writing-1": "Learn the tool contract: a name, a description and an input schema. Build one quick prototype before reading further.",
+   "agents-tools-writing-2": "This is the key habit. Run the tasks, then read the agent's calls and reasoning to find where it goes wrong.",
+   "agents-tools-writing-3": "Take each principle and check your prototype against it: which tools to build, names, context returned, response size and descriptions.",
+   "agents-tools-writing-4": "Keep the 10 questions fixed between runs. Record the wrong-call count before and after the rewrite so the change is measurable, and change only descriptions in the second run."
+  }
+ },
+ "agents-mcp-server": {
+  "plain": "Model Context Protocol, or MCP, is an open standard for connecting AI apps to tools and data. This course builds an MCP server that exposes tools, and shows how a host such as an AI app connects to it.",
+  "learn": [
+   "Explain what MCP is and why a shared standard helps",
+   "Name the parts: host, client and server",
+   "Build a server that exposes tools",
+   "Connect the server to a client and call its tools",
+   "Know the transports a server can use"
+  ],
+  "concepts": [
+   {
+    "term": "MCP server",
+    "plain": "A program that exposes tools, and other capabilities, in a standard way so any MCP client can use them.",
+    "analogy": "It is like a REST API, but with one shared contract that AI apps already understand."
+   },
+   {
+    "term": "Host and client",
+    "plain": "The host is the AI app the user runs. It creates a client for each server it connects to.",
+    "analogy": "It is like a browser app that holds one connection per backend."
+   },
+   {
+    "term": "Tool",
+    "plain": "A function the server exposes, with a name, a description and an input schema, that the model can ask to run.",
+    "analogy": "It is like an endpoint with a typed request body."
+   },
+   {
+    "term": "Transport",
+    "plain": "The way client and server exchange messages, such as standard input and output for a local server or HTTP for a remote one.",
+    "analogy": "It is like choosing between a local socket and an HTTP call."
+   }
+  ],
+  "mern": "Writing an MCP server feels like writing a small Node service with typed routes. The tool handlers are functions that call your database or an API.",
+  "pitfall": "For a server that uses standard input and output, printing logs to stdout can break the protocol messages. Log to stderr or a file instead.",
+  "prereq": "Node or Python basics and one experience with LLM tool calls",
+  "job": "MCP is now common in agent job descriptions. Tasks include wrapping an internal API or database as an MCP server, and interviews ask how you keep such tools safe and limited.",
+  "lessons": {
+   "agents-mcp-server-1": "Get the one-paragraph idea: one standard so tools are written once and used by many AI apps.",
+   "agents-mcp-server-2": "Learn the roles of host, client and server and what a server can offer. Draw the message flow for one tool call.",
+   "agents-mcp-server-3": "Follow the tutorial step by step and run it. Pay attention to how the get_alerts and get_forecast tools are described and registered.",
+   "agents-mcp-server-4": "Keep the tools read-only and limit what they return. For the check, ask three questions that need your data and confirm the answers came from tool calls."
+  }
+ },
+ "agents-anthropic-courses": {
+  "plain": "A free set of Anthropic notebooks on GitHub. They teach the Claude API basics, how to use tools, and how to write prompt evaluations.",
+  "learn": [
+   "Call the Claude API and read its response",
+   "Define tools and run the tool use loop",
+   "Handle tool results and errors in the loop",
+   "Write prompt evaluations that grade outputs",
+   "Move a Python example to Node"
+  ],
+  "concepts": [
+   {
+    "term": "Messages API",
+    "plain": "The API where you send a list of messages and get the model's reply back.",
+    "analogy": "It is like a POST endpoint that takes a conversation array."
+   },
+   {
+    "term": "Tool use loop",
+    "plain": "The model asks for a tool, your code runs it and returns the result, and the model continues until it answers.",
+    "analogy": "It is like a request handler that keeps calling services until it can respond."
+   },
+   {
+    "term": "Prompt evaluation",
+    "plain": "A repeatable test that runs prompts on sample inputs and grades the results.",
+    "analogy": "It is like a unit test suite for a prompt."
+   },
+   {
+    "term": "Grader",
+    "plain": "The part of an eval that scores an output, by code, by a model or by a person.",
+    "analogy": "It is like the assertion in a test."
+   }
+  ],
+  "mern": "The notebooks are in Python, but the API is just HTTP with JSON. Porting the tool loop to Node is a good way to prove you understand it.",
+  "pitfall": "Running the notebooks without changing anything, so you can follow along but cannot write the loop yourself.",
+  "prereq": "Basic Python to read notebooks, and an API key for the Claude API",
+  "job": "Expect to write a tool loop live or explain how you would test a prompt. These notebooks cover both, and the Node port is a good portfolio piece.",
+  "lessons": {
+   "agents-anthropic-courses-1": "Send a few requests and read the full response object. Change one setting at a time and see what changes.",
+   "agents-anthropic-courses-2": "This is the main one for agents. Work through the tool use flow until you can explain each message in the loop.",
+   "agents-anthropic-courses-3": "Learn how test cases and graders fit together. Try writing one extra case for your own prompt.",
+   "agents-anthropic-courses-4": "Test the failure paths on purpose: make the model call a tool name you did not define and make a tool throw. The loop should send a clear error back and keep running."
+  }
+ },
+ "rag-agentic-llamaindex": {
+  "plain": "A DeepLearning.AI course with LlamaIndex that builds agentic RAG. A router picks the right way to answer, an agent can call tools, and it can work across many documents.",
+  "learn": [
+   "Build a router that picks between query engines",
+   "Give an LLM tools to call, such as a query engine",
+   "Build an agent reasoning loop over documents",
+   "Extend it to an agent that works across many documents"
+  ],
+  "concepts": [
+   {
+    "term": "Router query engine",
+    "plain": "A component that reads the question and picks which index or engine should answer it, such as a summary or a vector search.",
+    "analogy": "It is like a router that sends a request to the right controller."
+   },
+   {
+    "term": "Query engine",
+    "plain": "An object that takes a question, retrieves from an index and returns an answer.",
+    "analogy": "It is like a service function that wraps a database query."
+   },
+   {
+    "term": "Agentic RAG",
+    "plain": "RAG where an agent decides what to retrieve, from where, and how many times, instead of one fixed lookup.",
+    "analogy": "It is like a handler that chooses its queries based on earlier results."
+   },
+   {
+    "term": "Reasoning loop",
+    "plain": "The agent repeats: think, call a tool, read the result, and think again until it can answer.",
+    "analogy": "It is like a loop that keeps querying until it has enough data."
+   }
+  ],
+  "mern": "A router is like branching logic in a handler that picks a collection or a query, and each index is like a collection with its own query style.",
+  "pitfall": "Using an agent for every question when a single retrieval would work, which adds cost and delay.",
+  "prereq": "Basic RAG: chunking, embeddings and vector search, and Python",
+  "job": "Companies ask how you would answer questions that need several documents or several steps. Routing and agentic retrieval are the usual answers, and you should also state the extra cost.",
+  "lessons": {
+   "rag-agentic-llamaindex-1": "Watch how the router decides between engines. Think about what a good description of each engine looks like, since the choice depends on it.",
+   "rag-agentic-llamaindex-2": "See how a function becomes a tool and how the model picks arguments. Compare it with plain retrieval.",
+   "rag-agentic-llamaindex-3": "Trace the loop step by step and note what makes it stop. Look at how earlier tool results feed the next step.",
+   "rag-agentic-llamaindex-4": "Notice how the agent picks which document to use for a question. Try a question that needs two documents.",
+   "rag-agentic-llamaindex-5": "Write the expected index for each of the 10 questions before you run, then compare. Look at misses to see if a better index description would fix them."
+  }
+ },
+ "rag-advanced-eval": {
+  "plain": "A DeepLearning.AI course on better retrieval and on measuring RAG quality. It teaches sentence-window and auto-merging retrieval, and the RAG triad of metrics to score an app.",
+  "learn": [
+   "Build a basic RAG pipeline as a baseline",
+   "Score an app with the RAG triad: context relevance, groundedness and answer relevance",
+   "Use sentence-window retrieval to give the model more surrounding text",
+   "Use auto-merging retrieval to combine small chunks into larger ones",
+   "Compare methods with numbers instead of a feeling"
+  ],
+  "concepts": [
+   {
+    "term": "RAG triad",
+    "plain": "Three checks: is the retrieved context relevant to the question, is the answer grounded in that context, and does the answer address the question.",
+    "analogy": "It is like testing each layer of a stack separately: data, logic and response."
+   },
+   {
+    "term": "Groundedness",
+    "plain": "How well each claim in the answer is supported by the retrieved text. Low groundedness suggests made-up content.",
+    "analogy": "It is like checking that a UI value really comes from the API response."
+   },
+   {
+    "term": "Sentence-window retrieval",
+    "plain": "Small sentence chunks are embedded for precise search, then the sentences around the match are added before the model sees it.",
+    "analogy": "It is like finding a row by a narrow index and then fetching its neighbours."
+   },
+   {
+    "term": "Auto-merging retrieval",
+    "plain": "The text is stored in a hierarchy of chunks. If several small chunks of one parent are retrieved, they are merged into the parent chunk.",
+    "analogy": "It is like grouping child documents under a parent when most of them match."
+   }
+  ],
+  "mern": "The triad is like testing each layer of a stack on its own. That way you know if the bug is in the query, the data or the response.",
+  "pitfall": "Trying advanced retrieval without a baseline score, so you cannot tell if it helped.",
+  "prereq": "Basic RAG and Python",
+  "job": "Interviews ask how you know your RAG app is good. Naming the triad and showing a before and after table is a strong answer, and many teams have you build this eval set.",
+  "lessons": {
+   "rag-advanced-eval-1": "Build the baseline and keep its code. Every later technique will be compared with it.",
+   "rag-advanced-eval-2": "Learn the three metrics and which part of the pipeline each one points at. Low relevance points to retrieval, and low groundedness points to the answer step.",
+   "rag-advanced-eval-3": "Understand the chunk size trade-off: small for search, larger for context. Look at the window size setting.",
+   "rag-advanced-eval-4": "Follow how small chunks get merged into parents. Compare the retrieved context with the sentence-window version.",
+   "rag-advanced-eval-5": "Use the same 20 questions for both methods and score both on the same metrics. Write the table down even if the advanced method does not win."
+  }
+ },
+ "rag-mongodb-atlas": {
+  "plain": "MongoDB's official guide to RAG on Atlas Vector Search. It explains ingestion, retrieval and generation, compares chunking strategies, and has a Node.js tutorial.",
+  "learn": [
+   "Explain RAG in three stages: ingestion, retrieval and generation",
+   "Choose a chunking strategy",
+   "Store embeddings next to your data in MongoDB",
+   "Run a vector search and pass the results to an LLM",
+   "Return answers with sources"
+  ],
+  "concepts": [
+   {
+    "term": "Ingestion",
+    "plain": "The stage where documents are split into chunks, turned into embeddings and stored.",
+    "analogy": "It is like an ETL script that loads data into your collection."
+   },
+   {
+    "term": "Vector search",
+    "plain": "Finding the stored chunks whose embeddings are closest in meaning to the question embedding.",
+    "analogy": "It is like a query that ranks documents by similarity instead of exact match."
+   },
+   {
+    "term": "Chunking",
+    "plain": "Splitting long text into smaller pieces so each can be embedded and retrieved on its own.",
+    "analogy": "It is like paginating a big document into records."
+   },
+   {
+    "term": "Generation",
+    "plain": "Giving the retrieved chunks and the question to an LLM so it writes the answer from them.",
+    "analogy": "It is like a template that renders a response from query results."
+   }
+  ],
+  "mern": "This is the closest course to your stack. Your data is already in MongoDB, so vector search is one more query, and the ask route is a normal Express handler.",
+  "pitfall": "Embedding questions with a different model or size than the stored chunks, which makes results poor or fails the search.",
+  "prereq": "Node.js, Express and MongoDB, and an LLM API key",
+  "job": "Many teams already use MongoDB, so building RAG on it is a common task. Interviews ask about chunking, how you keep the index fresh and how you cite sources.",
+  "lessons": {
+   "rag-mongodb-atlas-1": "Get the big picture and why keeping vectors and data in one database is attractive. Note the problems RAG solves.",
+   "rag-mongodb-atlas-2": "Study the three stages and study the chunking table. Decide which strategy suits your own kind of documents.",
+   "rag-mongodb-atlas-3": "Pick the Node.js tab and run every step. Make sure you know which model makes embeddings and that the same model is used for questions.",
+   "rag-mongodb-atlas-4": "Return the source of each chunk with the answer. Test an off-topic question and make sure the route says it does not know instead of guessing."
+  }
+ },
+ "llm-tools-openai": {
+  "plain": "OpenAI's docs on function calling and structured outputs. Function calling lets the model ask your code to run a function. Structured outputs make the model's reply follow a JSON Schema you give it.",
+  "learn": [
+   "Define a function with a name, a description and a JSON Schema for parameters",
+   "Handle a tool call from the model and send back the result",
+   "Use structured outputs so a reply matches a schema",
+   "Know when to use response_format and when to use function calling",
+   "Tell structured outputs apart from JSON mode"
+  ],
+  "concepts": [
+   {
+    "term": "Function calling",
+    "plain": "The model replies with a function name and arguments, your code runs it, and you send the result back.",
+    "analogy": "It is like the model choosing a route and sending the request body."
+   },
+   {
+    "term": "Structured outputs",
+    "plain": "A feature that makes the reply follow a JSON Schema you supply, so you can parse it without guessing.",
+    "analogy": "It is like validating a request body with a schema before your handler runs."
+   },
+   {
+    "term": "JSON mode",
+    "plain": "An older option that makes the reply valid JSON, but does not make it match your schema.",
+    "analogy": "It is like checking a body parses, without checking its fields."
+   },
+   {
+    "term": "Refusal",
+    "plain": "A case where the model declines to answer, so there is no data that fits the schema. Your code must handle it.",
+    "analogy": "It is like a 403 response that your client must handle."
+   }
+  ],
+  "mern": "Schemas and validation are familiar. Zod or JSON Schema in an Express route works the same way here, and the model is just a caller you must not trust blindly.",
+  "pitfall": "Assuming the model output is always usable. You still need to handle refusals, errors and cut-off responses.",
+  "prereq": "Node basics, JSON Schema or Zod, and one LLM API call",
+  "job": "Extracting fields from messy text into a typed object is one of the most common AI engineer tasks. Interviews ask how you make the output reliable and what happens when it fails.",
+  "lessons": {
+   "llm-tools-openai-1": "Learn how a function is described to the model. Notice that the description and parameter names guide the model, so write them clearly.",
+   "llm-tools-openai-2": "Focus on the round trip: read the call, run your function, return the result. Look at how token usage grows with the tool list.",
+   "llm-tools-openai-3": "Learn the difference between using the schema for a reply and using functions for actions. Also learn how it differs from JSON mode.",
+   "llm-tools-openai-4": "Track two counts over the 20 samples: schema failures and refusals. Validate on your side too, and decide what your endpoint returns when a sample fails."
+  }
+ },
+ "llm-owasp-top10": {
+  "plain": "A guide to the main security risks of LLM apps, from the OWASP GenAI Security Project, plus practical defenses from Anthropic docs. It covers prompt injection, excessive agency, unsafe output handling and more.",
+  "learn": [
+   "Name the risks on the OWASP LLM Top 10 list",
+   "Explain prompt injection, including instructions hidden in content the model reads",
+   "Explain why an agent with too much power is dangerous",
+   "Apply defenses: input checks, treating tool output as untrusted and least privilege",
+   "Test your own app by attacking it"
+  ],
+  "concepts": [
+   {
+    "term": "Prompt injection",
+    "plain": "Text in the input or in fetched content that tries to change what the model does. The model may treat it as an instruction.",
+    "analogy": "It is like SQL injection, where data is mixed with commands."
+   },
+   {
+    "term": "Excessive agency",
+    "plain": "Giving an LLM system more tools, permissions or freedom than the task needs, so a bad output can do real harm.",
+    "analogy": "It is like giving a service an admin database user."
+   },
+   {
+    "term": "Improper output handling",
+    "plain": "Using the model output in another system without checking it, such as putting it in HTML or a shell command.",
+    "analogy": "It is like rendering user input without escaping it."
+   },
+   {
+    "term": "Least privilege",
+    "plain": "Give each tool only the access it needs, such as read-only, so a successful attack has less effect.",
+    "analogy": "It is like a database user with only the permissions the route needs."
+   }
+  ],
+  "mern": "You know XSS, injection and auth. The same ideas apply: treat model output and retrieved text as untrusted input, and limit what each tool can do.",
+  "pitfall": "Relying on a prompt that says to ignore bad instructions. Real safety needs limits in code, not just words.",
+  "prereq": "Basic web security ideas and an app that reads outside content, such as a RAG app or an agent",
+  "job": "Security questions are common in interviews for agent roles, especially about prompt injection through documents or web pages. Tasks include adding guardrails and reviewing tool permissions.",
+  "lessons": {
+   "llm-owasp-top10-1": "Read the whole list once and mark the ones that apply to your own app. Look for the ones about agency and output handling.",
+   "llm-owasp-top10-2": "Study how input validation and separating untrusted content from your instructions reduce injection. Note that tool results can hold attacker text.",
+   "llm-owasp-top10-3": "Focus on limiting access to data and actions, checking what tools return, and running red-team tests against your agent.",
+   "llm-owasp-top10-4": "Use a test page you control, never a real site. Log the attack working first, then add both defenses, then run the same attack and show a clear before and after."
+  }
+ },
+ "ops-langsmith-eval": {
+  "plain": "A LangChain Academy course on seeing and testing LLM apps with LangSmith. You trace runs, build datasets, run evaluators and experiments, version prompts, collect human feedback and monitor production.",
+  "learn": [
+   "Trace an LLM app so you can see every step",
+   "Build a dataset of test examples",
+   "Write evaluators and run experiments to compare changes",
+   "Collect human feedback on outputs",
+   "Monitor an app in production"
+  ],
+  "concepts": [
+   {
+    "term": "Trace",
+    "plain": "A record of one run showing every step, such as model calls and tool calls, with inputs, outputs and timing.",
+    "analogy": "It is like request logs with spans in an APM tool."
+   },
+   {
+    "term": "Dataset",
+    "plain": "A saved set of example inputs, and often expected outputs, used to test your app.",
+    "analogy": "It is like test fixtures."
+   },
+   {
+    "term": "Evaluator",
+    "plain": "A function that scores an output, by code or by a model.",
+    "analogy": "It is like an assertion in a test."
+   },
+   {
+    "term": "Experiment",
+    "plain": "A run of your app over a dataset, scored by evaluators, so you can compare versions.",
+    "analogy": "It is like a CI run that you compare to the last build."
+   }
+  ],
+  "mern": "Tracing is like adding logging and APM to Express routes, and experiments are like a regression suite that runs when you change code.",
+  "pitfall": "Judging a prompt change by trying two or three inputs by hand instead of running the whole dataset.",
+  "prereq": "An LLM app you built, in Python or JavaScript",
+  "job": "Teams want engineers who can prove a change helped. Tasks include setting up tracing, building eval sets and reading traces to find bugs, and interviews ask how you would monitor a live LLM feature.",
+  "lessons": {
+   "ops-langsmith-eval-1": "Get tracing working on a real app early. Read a trace and find the exact step where an output went wrong.",
+   "ops-langsmith-eval-2": "Learn how datasets, evaluators and experiments link together. Run an experiment and look at how results are compared.",
+   "ops-langsmith-eval-3": "See how prompts are versioned and how people can score outputs. Human feedback helps you check that automatic scores are reasonable.",
+   "ops-langsmith-eval-4": "Learn what to watch in production, such as online evaluation and dashboards. Think about which few signals would tell you a feature got worse.",
+   "ops-langsmith-eval-5": "Make the 15 examples cover normal and hard cases. After the prompt change, open the per-example results and look at what got worse, not only the average."
+  }
+ },
+ "ops-evals-claude": {
+  "plain": "Anthropic's guide to defining success for an LLM feature and testing it. You write measurable goals, build test cases and grade outputs with code, humans or another model.",
+  "learn": [
+   "Write success criteria that can be measured",
+   "Build test cases that reflect real use, including edge cases",
+   "Choose a grading method: code, human or LLM",
+   "Compare models or prompts using the same tests",
+   "Balance quality against latency and price"
+  ],
+  "concepts": [
+   {
+    "term": "Success criteria",
+    "plain": "Clear, measurable goals for a feature, such as accuracy, consistency, speed and cost.",
+    "analogy": "It is like acceptance criteria and performance budgets for a feature."
+   },
+   {
+    "term": "Code-based grading",
+    "plain": "A check written in code, such as exact match or a string test. It is fast and reliable when the answer is well defined.",
+    "analogy": "It is like a unit test assertion."
+   },
+   {
+    "term": "LLM-based grading",
+    "plain": "Another model call scores the output against a rubric. It handles open answers, but you should test that the grader is reliable.",
+    "analogy": "It is like a linter that checks style, but it can be wrong sometimes."
+   },
+   {
+    "term": "Human grading",
+    "plain": "A person reviews outputs. It is the most flexible and the slowest and most costly.",
+    "analogy": "It is like manual QA."
+   }
+  ],
+  "mern": "Evals are tests for prompts. You already know unit tests, fixtures and CI, so treat the test set as code and run it on every change.",
+  "pitfall": "Using only easy or made-up test cases, so the score looks good but real users still hit failures.",
+  "prereq": "An LLM feature to test, and basic API use",
+  "job": "Interviews ask how you would measure a feature that has no single right answer. Tasks include writing test sets, picking graders and reporting a quality, cost and latency trade-off.",
+  "lessons": {
+   "ops-evals-claude-1": "Turn a vague goal like good answers into numbers. Note the four areas listed: task fidelity, consistency, latency and price.",
+   "ops-evals-claude-2": "Learn what makes a test case good, and study the example evals for how they are set up.",
+   "ops-evals-claude-3": "Learn when each grading type fits. Use code where you can, and use an LLM grader for open answers with a clear rubric.",
+   "ops-evals-claude-4": "Write cases that include hard and unusual inputs. Run both models on the same 25 cases and put accuracy, cost and latency in one table."
+  }
+ },
+ "ops-cost-caching": {
+  "plain": "Anthropic's guide to lowering the cost and delay of LLM calls. Prompt caching reuses a repeated start of the prompt, and the Message Batches API runs non-urgent work at a lower price.",
+  "learn": [
+   "Explain how prompt caching works and what it saves",
+   "Place cache breakpoints after the stable part of a prompt",
+   "Know what changes stop the cache from being used",
+   "Read the usage fields to confirm cache hits",
+   "Use the Message Batches API for work that can wait"
+  ],
+  "concepts": [
+   {
+    "term": "Prompt caching",
+    "plain": "The API stores the start of your prompt, such as a long system prompt or tool list. Later calls with the same start read it at a lower cost and faster.",
+    "analogy": "It is like caching a repeated expensive computation with a key."
+   },
+   {
+    "term": "Cache breakpoint",
+    "plain": "A marker that says where the reusable prefix ends. Everything before it can be cached.",
+    "analogy": "It is like choosing what goes into the cache key."
+   },
+   {
+    "term": "Cache invalidation",
+    "plain": "A change in the cached part of the prompt means the old cache no longer matches, so the next call pays full price to write it again.",
+    "analogy": "It is like a cache that is cleared when the source data changes."
+   },
+   {
+    "term": "Message Batches API",
+    "plain": "An API for sending many requests at once to be processed later, at a lower price. It suits jobs that do not need an instant answer.",
+    "analogy": "It is like a background job queue instead of a live request."
+   }
+  ],
+  "mern": "This is caching and queues, ideas you already use. Put the stable content first and the changing content last, like designing a good cache key.",
+  "pitfall": "Putting changing content, such as a timestamp, at the start of the prompt so the cached part never matches.",
+  "prereq": "Basic use of the Claude API and a prompt with a long fixed part",
+  "job": "Cost control is a real production task. Interviews ask how you would cut the bill of an LLM feature, and prompt caching and batching are the first answers, with numbers to back them.",
+  "lessons": {
+   "ops-cost-caching-1": "Learn the core rule: the cache matches an exact prefix. Read the pricing section to see how cache writes and reads are priced differently.",
+   "ops-cost-caching-2": "Look at how to order the prompt for good hits and read the troubleshooting section for cases where the cache is not used.",
+   "ops-cost-caching-3": "Learn which jobs suit batches, such as bulk classification or evals, and note the limits and how caching can work with batches.",
+   "ops-cost-caching-4": "Read the usage fields on both calls. The first should show cache creation and the second cache reads. Use the prices from the docs to compute the saving over 100 calls."
+  }
  }
 }

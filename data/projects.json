@@ -1,0 +1,512 @@
+[
+ {
+  "id": "p1-tabular",
+  "title": "Tabular ML with Honest Evaluation",
+  "level": "foundation",
+  "topics": [
+   "python",
+   "ml"
+  ],
+  "requires": [
+   "py-kaggle",
+   "ml-kaggle",
+   "ml-mlcc"
+  ],
+  "hours": 20,
+  "why": "Shows you can frame a prediction problem, avoid data leakage, and report results without fooling yourself. Hiring managers trust engineers who beat a baseline for the right reasons.",
+  "brief": "Pick a public tabular dataset (for example Adult Income or Telco Churn from OpenML or Kaggle) and build a full scikit-learn pipeline. Compare a dummy baseline, logistic regression, and gradient boosting using a held-out test set and cross-validation, then analyze where the model fails.",
+  "stack": [
+   "Python",
+   "pandas",
+   "scikit-learn",
+   "Jupyter",
+   "matplotlib",
+   "Kaggle datasets or OpenML"
+  ],
+  "milestones": [
+   {
+    "title": "Frame the problem and split data",
+    "done": "Target, metric, and a stratified train/test split are written down before any modeling; test set is untouched afterwards"
+   },
+   {
+    "title": "Baseline and simple model",
+    "done": "DummyClassifier and logistic regression scores are recorded in a results table"
+   },
+   {
+    "title": "Pipeline with cross-validation",
+    "done": "Preprocessing lives inside a scikit-learn Pipeline and 5-fold CV mean and std are reported"
+   },
+   {
+    "title": "Stronger model and tuning",
+    "done": "Gradient boosting tuned with CV only; test set scored exactly once"
+   },
+   {
+    "title": "Error analysis",
+    "done": "Confusion matrix plus at least 3 slices of data where the model does worse, with a written hypothesis for each"
+   },
+   {
+    "title": "Publish",
+    "done": "Repo runs end to end from a fresh clone with one command"
+   }
+  ],
+  "deliverables": [
+   "Public GitHub repo with notebook and a reusable train.py",
+   "README with problem, metric choice, and results table (baseline vs models)",
+   "Error analysis section with plots",
+   "Short write-up of what you would do next"
+  ],
+  "rubric": [
+   "A naive baseline is reported and the final model is compared against it",
+   "No preprocessing is fit on test data (pipeline used)",
+   "Metric choice is justified for the class balance",
+   "Cross-validation mean and spread are reported, not just one score",
+   "Error analysis names concrete failure slices"
+  ],
+  "stretch": [
+   "Add calibration curves and a threshold analysis",
+   "Explain predictions with SHAP or permutation importance",
+   "Serve the model behind a small FastAPI endpoint"
+  ],
+  "skills": [
+   "scikit-learn pipelines",
+   "Model evaluation and cross-validation",
+   "Error analysis",
+   "Data leakage prevention",
+   "pandas"
+  ],
+  "resumeBullet": "Built a [model type] classifier on [dataset] with a scikit-learn pipeline and [k]-fold cross-validation, improving [metric] from [baseline value] to [final value] over a naive baseline and documenting [n] failure slices.",
+  "pitfalls": [
+   "Scaling or imputing before the split, which leaks test information",
+   "Tuning hyperparameters against the test set",
+   "Reporting accuracy on an imbalanced dataset"
+  ],
+  "required": true
+ },
+ {
+  "id": "p2-rag",
+  "title": "RAG Chatbot Over Your Own Documents",
+  "level": "core",
+  "topics": [
+   "llm",
+   "rag",
+   "python"
+  ],
+  "requires": [
+   "rag-dlai",
+   "llm-docs",
+   "llm-dlai-prompt"
+  ],
+  "hours": 35,
+  "why": "RAG is the most common AI application job today. Measuring retrieval and answer quality separately shows you can debug and improve a system instead of guessing.",
+  "brief": "Build a chatbot that answers questions over a document set you choose (your notes, a docs site, or public PDFs), with chunking, embeddings, vector search, and citations for every answer. Create a small evaluation set and report retrieval and answer quality.",
+  "stack": [
+   "Python",
+   "FastAPI",
+   "sentence-transformers or a hosted embeddings API",
+   "Chroma or MongoDB Atlas Vector Search",
+   "Claude API or a local model via Ollama",
+   "React"
+  ],
+  "milestones": [
+   {
+    "title": "Ingest and chunk",
+    "done": "Documents are parsed and chunked; you have compared at least 2 chunk sizes"
+   },
+   {
+    "title": "Embed and index",
+    "done": "All chunks are stored in a vector store and a top-k query returns sensible results for 5 manual tests"
+   },
+   {
+    "title": "Answer with citations",
+    "done": "Every answer includes source file and passage references, and refuses when nothing relevant is retrieved"
+   },
+   {
+    "title": "Build the eval set",
+    "done": "At least 30 question and expected-source pairs, including some unanswerable questions"
+   },
+   {
+    "title": "Measure and iterate",
+    "done": "Hit rate at k and answer quality are reported for at least 2 configurations"
+   },
+   {
+    "title": "Simple UI",
+    "done": "Chat page shows answers with clickable citations"
+   }
+  ],
+  "deliverables": [
+   "Public GitHub repo",
+   "README with architecture and chunking decisions",
+   "Eval set file and results table comparing configurations",
+   "Demo video or hosted link"
+  ],
+  "rubric": [
+   "Retrieval hit rate is measured on at least 30 questions",
+   "Answers cite the source passages used",
+   "The system declines to answer on out-of-scope questions, tested with examples",
+   "At least two configurations are compared with numbers",
+   "Eval set is committed and reproducible"
+  ],
+  "stretch": [
+   "Add hybrid search (BM25 plus vectors) or a reranker and measure the change",
+   "Add metadata filtering",
+   "Add incremental re-indexing when documents change"
+  ],
+  "skills": [
+   "RAG pipelines",
+   "Embeddings and vector search",
+   "Chunking strategies",
+   "Retrieval evaluation",
+   "Prompt design with citations"
+  ],
+  "resumeBullet": "Built a RAG chatbot over [n] documents using [vector store] and [model], raising retrieval hit rate@[k] from [baseline]% to [final]% on a [n]-question eval set and producing cited answers with [x]% judged faithful.",
+  "pitfalls": [
+   "Only testing with a few hand-picked questions and no eval set",
+   "Chunks that split tables or sentences so the answer is never retrievable",
+   "Not testing questions the documents cannot answer"
+  ],
+  "required": true
+ },
+ {
+  "id": "p3-agent-mcp",
+  "title": "Tool-Using Agent with an MCP Server",
+  "level": "core",
+  "topics": [
+   "llm",
+   "agents",
+   "python"
+  ],
+  "requires": [
+   "agents-mcp",
+   "agents-dlai",
+   "llm-docs"
+  ],
+  "hours": 30,
+  "why": "Shows you can give a model safe, well-specified capabilities and control its behavior. Tool schemas, guardrails, and traces are what separate a real agent from a demo.",
+  "brief": "Write an MCP server that exposes 3 to 5 tools with JSON schemas for a domain you pick (for example tasks, notes, or a public API), then build an agent loop that calls them. Add error handling, guardrails such as confirmation for write actions and step limits, and record traces of every run.",
+  "stack": [
+   "Python or TypeScript",
+   "MCP SDK",
+   "Claude API",
+   "SQLite",
+   "Pydantic or Zod",
+   "Langfuse or JSON trace files"
+  ],
+  "milestones": [
+   {
+    "title": "Design tools",
+    "done": "Each tool has a clear description, JSON schema, and validated inputs"
+   },
+   {
+    "title": "Working MCP server",
+    "done": "Server runs and its tools can be listed and called from an MCP client such as MCP Inspector"
+   },
+   {
+    "title": "Agent loop",
+    "done": "Agent completes a multi-step task by calling at least 2 tools in sequence"
+   },
+   {
+    "title": "Errors and guardrails",
+    "done": "Tool failures, bad arguments, and a max-step limit are handled; write actions need confirmation"
+   },
+   {
+    "title": "Traces",
+    "done": "Every run saves prompts, tool calls, results, and token usage"
+   },
+   {
+    "title": "Task suite",
+    "done": "At least 15 scripted tasks with pass or fail results, including adversarial ones"
+   }
+  ],
+  "deliverables": [
+   "Public GitHub repo",
+   "README describing tools, schemas, and guardrails",
+   "Sample trace files or screenshots",
+   "Task suite results table"
+  ],
+  "rubric": [
+   "Every tool has a schema and input validation",
+   "The loop has a step limit and a tested failure path",
+   "Destructive actions are gated",
+   "Traces let a reviewer reconstruct each run",
+   "Task suite reports success rate including failure cases"
+  ],
+  "stretch": [
+   "Add an authenticated remote MCP server",
+   "Add a second agent or planner and compare success rates",
+   "Add prompt injection tests through tool outputs"
+  ],
+  "skills": [
+   "MCP server development",
+   "Tool calling and schemas",
+   "Agent loop design",
+   "Guardrails and safety",
+   "Tracing"
+  ],
+  "resumeBullet": "Built an MCP server with [n] typed tools and an agent that completes [x]% of [n] benchmark tasks, adding guardrails and tracing that cut [failure type] errors by [y]%.",
+  "pitfalls": [
+   "Vague tool descriptions that cause wrong tool choice",
+   "No step limit, so the agent can loop and burn tokens",
+   "Trusting tool output as if it were instructions"
+  ],
+  "required": true
+ },
+ {
+  "id": "p4-finetune",
+  "title": "Fine-Tune a Small Open Model with LoRA and Compare to Prompting",
+  "level": "core",
+  "topics": [
+   "llm",
+   "dl",
+   "transformers",
+   "python"
+  ],
+  "requires": [
+   "llm-hf",
+   "llm-smol",
+   "dl-fastai"
+  ],
+  "hours": 40,
+  "why": "Shows you understand when fine-tuning helps and when prompting is enough. An honest before and after comparison is rare and valued.",
+  "brief": "Choose a narrow task (for example structured extraction or classification into a fixed format) and prepare a dataset. Fine-tune a small open model such as Qwen or Llama 3.2 1B/3B with LoRA or QLoRA using Hugging Face PEFT and TRL, then compare it against a well-prompted base model and a hosted model on a held-out set.",
+  "stack": [
+   "Python",
+   "Hugging Face Transformers, PEFT, TRL",
+   "bitsandbytes",
+   "Google Colab or Kaggle free GPU",
+   "Weights & Biases or TensorBoard"
+  ],
+  "milestones": [
+   {
+    "title": "Define task and metric",
+    "done": "Task, output format, and automatic metric are written down"
+   },
+   {
+    "title": "Prepare data",
+    "done": "Train, validation, and test files exist with no overlap; at least 500 training examples"
+   },
+   {
+    "title": "Prompting baseline",
+    "done": "Few-shot prompt score on the test set is recorded"
+   },
+   {
+    "title": "Training run",
+    "done": "LoRA or QLoRA run completes and loss curves are saved"
+   },
+   {
+    "title": "Evaluate",
+    "done": "Fine-tuned, base, and prompted results are in one table with the same test set"
+   },
+   {
+    "title": "Publish",
+    "done": "Adapter and model card are uploaded to Hugging Face Hub"
+   }
+  ],
+  "deliverables": [
+   "Public GitHub repo with training script",
+   "Results table: base vs prompted vs fine-tuned",
+   "Model card on Hugging Face Hub",
+   "Short write-up including cost and time",
+   "Sample outputs showing wins and losses"
+  ],
+  "rubric": [
+   "Test set is never used in training or prompt tuning",
+   "A strong prompting baseline is included",
+   "Hyperparameters and seed are documented",
+   "Failure examples are shown, not only wins",
+   "Cost or training time is reported"
+  ],
+  "stretch": [
+   "Compare LoRA ranks and learning rates",
+   "Serve the adapter with vLLM and measure latency",
+   "Try preference tuning such as DPO"
+  ],
+  "skills": [
+   "LoRA and QLoRA fine-tuning",
+   "Hugging Face PEFT and TRL",
+   "Dataset preparation",
+   "Model evaluation",
+   "GPU cost awareness"
+  ],
+  "resumeBullet": "Fine-tuned [model] with QLoRA on [n] examples for [task], improving [metric] from [prompted baseline] to [fine-tuned] on a held-out set of [n] while training in [hours] hours on [hardware].",
+  "pitfalls": [
+   "Train and test leakage through duplicate examples",
+   "Comparing against a weak, untuned prompt",
+   "Judging quality by loss instead of task metrics"
+  ],
+  "required": false
+ },
+ {
+  "id": "p5-eval-harness",
+  "title": "LLM Evaluation and Observability Harness",
+  "level": "core",
+  "topics": [
+   "llm",
+   "mlops",
+   "python"
+  ],
+  "requires": [
+   "llm-docs",
+   "ops-mwml",
+   "rag-dlai"
+  ],
+  "hours": 30,
+  "why": "Evaluation discipline is the top gap in AI teams. This shows you can catch regressions, validate an LLM judge, and control cost.",
+  "brief": "Build a reusable harness that runs a golden set against an LLM feature (reuse your RAG bot or agent), scores outputs with code checks and an LLM-as-judge, and reports cost and latency. Validate the judge against human labels and run the suite in CI as a regression test.",
+  "stack": [
+   "Python",
+   "pytest",
+   "GitHub Actions",
+   "Claude API or another LLM API",
+   "Langfuse or Phoenix",
+   "SQLite or JSONL"
+  ],
+  "milestones": [
+   {
+    "title": "Golden set",
+    "done": "At least 50 cases with expected behavior, versioned in the repo"
+   },
+   {
+    "title": "Code-based checks",
+    "done": "Format, citation, and keyword checks run without a model"
+   },
+   {
+    "title": "LLM judge",
+    "done": "Judge rubric prompt returns structured scores"
+   },
+   {
+    "title": "Judge validation",
+    "done": "At least 30 cases hand-labeled by you and judge agreement is reported"
+   },
+   {
+    "title": "Cost and latency",
+    "done": "Each run logs tokens, cost, and p50 and p95 latency"
+   },
+   {
+    "title": "CI regression",
+    "done": "GitHub Actions fails a pull request when a score drops below a threshold"
+   }
+  ],
+  "deliverables": [
+   "Public GitHub repo with CI badge",
+   "README explaining the metrics and thresholds",
+   "Judge agreement report with human labels",
+   "Sample run report with cost and latency"
+  ],
+  "rubric": [
+   "Judge agreement with human labels is measured and reported",
+   "Golden set has at least 50 cases including edge cases",
+   "CI blocks a deliberately introduced regression",
+   "Cost and latency are tracked per run",
+   "Results are reproducible with fixed settings"
+  ],
+  "stretch": [
+   "Add pairwise comparison with position swapping",
+   "Add a dashboard for run history",
+   "Sample and score production traces"
+  ],
+  "skills": [
+   "LLM evaluation",
+   "LLM-as-judge calibration",
+   "CI regression testing",
+   "Observability",
+   "Cost and latency tracking"
+  ],
+  "resumeBullet": "Built an LLM evaluation harness with a [n]-case golden set and an LLM judge reaching [x]% agreement with human labels, running in CI and catching [n] regressions while tracking cost of $[y] per run.",
+  "pitfalls": [
+   "Trusting a judge without checking it against human labels",
+   "Golden set too small or too easy to detect change",
+   "Ignoring nondeterminism, so CI is flaky"
+  ],
+  "required": true
+ },
+ {
+  "id": "p6-capstone",
+  "title": "Capstone: Production AI Feature in a MERN App",
+  "level": "capstone",
+  "topics": [
+   "llm",
+   "rag",
+   "agents",
+   "mlops",
+   "python"
+  ],
+  "requires": [
+   "ops-fastapi",
+   "ops-docker",
+   "llm-docs",
+   "rag-dlai"
+  ],
+  "hours": 60,
+  "why": "Combines your full-stack strength with AI engineering. It shows you can ship an AI feature that is safe, affordable, observable, and measured.",
+  "brief": "Add an AI feature (for example a RAG assistant or summarizer) to a MERN app with streaming responses over SSE, user auth, rate limiting, per-user cost caps, response caching, and structured logging. Deploy it and document the architecture and eval results in the README.",
+  "stack": [
+   "React",
+   "Node/Express",
+   "MongoDB Atlas",
+   "Redis or in-memory cache",
+   "JWT auth",
+   "Claude API",
+   "Docker",
+   "Render, Railway, or Fly.io"
+  ],
+  "milestones": [
+   {
+    "title": "Core feature",
+    "done": "Feature works locally end to end with a defined eval set"
+   },
+   {
+    "title": "Streaming and auth",
+    "done": "Tokens stream to the React UI and only logged-in users can call the endpoint"
+   },
+   {
+    "title": "Rate limits and cost caps",
+    "done": "Requests are limited per user and a daily token cap returns a clear error"
+   },
+   {
+    "title": "Caching and logging",
+    "done": "Repeat requests hit the cache and each call logs user, tokens, cost, and latency"
+   },
+   {
+    "title": "Deploy",
+    "done": "App is live on a public URL with secrets in environment variables"
+   },
+   {
+    "title": "Eval and README",
+    "done": "Eval results, architecture diagram description, and limits are documented"
+   }
+  ],
+  "deliverables": [
+   "Public GitHub repo",
+   "Live demo link",
+   "README with architecture diagram description and eval results",
+   "Cost and latency numbers",
+   "Short write-up of tradeoffs"
+  ],
+  "rubric": [
+   "Responses stream and handle client disconnects",
+   "Auth, rate limiting, and cost caps are each demonstrated",
+   "API keys never appear in client code or the repo",
+   "README has an architecture description and eval results",
+   "Logs allow per-user cost to be computed"
+  ],
+  "stretch": [
+   "Add semantic caching",
+   "Add fallback to a second model on failure",
+   "Add an admin cost dashboard"
+  ],
+  "skills": [
+   "Streaming LLM responses",
+   "AI feature architecture",
+   "Rate limiting and cost control",
+   "Full-stack deployment",
+   "LLM observability"
+  ],
+  "resumeBullet": "Shipped a [feature] in a MERN app with streaming responses, auth, and per-user cost caps, serving [n] requests with p95 latency of [x] s, [y]% cache hit rate, and average cost of $[z] per request.",
+  "pitfalls": [
+   "Calling the LLM API directly from the browser with an exposed key",
+   "No cost cap, so one user can exhaust the budget",
+   "Shipping without an eval, so quality claims are unsupported"
+  ],
+  "required": true
+ }
+]

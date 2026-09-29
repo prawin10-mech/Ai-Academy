@@ -29,7 +29,8 @@
     "k": "task",
     "min": 45
    }
-  ]
+  ],
+  "track": "core"
  },
  {
   "id": "py-cs50",
@@ -55,7 +56,8 @@
     "k": "task",
     "min": 120
    }
-  ]
+  ],
+  "track": "archive"
  },
  {
   "id": "py-kaggle",
@@ -81,7 +83,8 @@
     "k": "task",
     "min": 90
    }
-  ]
+  ],
+  "track": "core"
  },
  {
   "id": "math-la",
@@ -108,7 +111,8 @@
     "k": "task",
     "min": 20
    }
-  ]
+  ],
+  "track": "core"
  },
  {
   "id": "math-calc",
@@ -135,7 +139,8 @@
     "k": "task",
     "min": 15
    }
-  ]
+  ],
+  "track": "archive"
  },
  {
   "id": "ml-mlcc",
@@ -167,7 +172,8 @@
     "k": "task",
     "min": 15
    }
-  ]
+  ],
+  "track": "core"
  },
  {
   "id": "ml-kaggle",
@@ -193,7 +199,8 @@
     "k": "task",
     "min": 120
    }
-  ]
+  ],
+  "track": "core"
  },
  {
   "id": "ml-cs229",
@@ -219,7 +226,8 @@
     "k": "task",
     "min": 60
    }
-  ]
+  ],
+  "track": "archive"
  },
  {
   "id": "ml-ng",
@@ -239,7 +247,8 @@
     "url": "https://www.coursera.org/specializations/machine-learning-introduction",
     "min": 5
    }
-  ]
+  ],
+  "track": "archive"
  },
  {
   "id": "dl-3b1b",
@@ -260,7 +269,8 @@
     "url": "https://www.3blue1brown.com/topics/neural-networks",
     "min": 120
    }
-  ]
+  ],
+  "track": "core"
  },
  {
   "id": "dl-zth",
@@ -329,7 +339,8 @@
     "yt": "zduSFxRajkE",
     "min": 133
    }
-  ]
+  ],
+  "track": "core"
  },
  {
   "id": "tr-karp",
@@ -363,7 +374,8 @@
     "yt": "l8pRSuU81PU",
     "min": 240
    }
-  ]
+  ],
+  "track": "core"
  },
  {
   "id": "tr-illus",
@@ -389,7 +401,8 @@
     "k": "task",
     "min": 30
    }
-  ]
+  ],
+  "track": "core"
  },
  {
   "id": "dl-fastai",
@@ -415,7 +428,8 @@
     "k": "task",
     "min": 90
    }
-  ]
+  ],
+  "track": "archive"
  },
  {
   "id": "dl-d2l",
@@ -441,7 +455,8 @@
     "k": "task",
     "min": 60
    }
-  ]
+  ],
+  "track": "archive"
  },
  {
   "id": "tr-cs224n",
@@ -467,7 +482,8 @@
     "k": "task",
     "min": 60
    }
-  ]
+  ],
+  "track": "archive"
  },
  {
   "id": "llm-dlai-prompt",
@@ -493,7 +509,8 @@
     "k": "task",
     "min": 60
    }
-  ]
+  ],
+  "track": "core"
  },
  {
   "id": "llm-hf",
@@ -525,7 +542,8 @@
     "k": "task",
     "min": 120
    }
-  ]
+  ],
+  "track": "core"
  },
  {
   "id": "llm-smol",
@@ -545,7 +563,8 @@
     "url": "https://huggingface.co/learn/smol-course",
     "min": 5
    }
-  ]
+  ],
+  "track": "archive"
  },
  {
   "id": "llm-dlai-genai",
@@ -565,7 +584,8 @@
     "url": "https://learn.deeplearning.ai/courses/generative-ai-with-llms",
     "min": 5
    }
-  ]
+  ],
+  "track": "archive"
  },
  {
   "id": "llm-dlai-post",
@@ -585,7 +605,8 @@
     "url": "https://learn.deeplearning.ai/courses/post-training-of-llms",
     "min": 5
    }
-  ]
+  ],
+  "track": "core"
  },
  {
   "id": "rag-dlai",
@@ -617,7 +638,8 @@
     "k": "task",
     "min": 60
    }
-  ]
+  ],
+  "track": "core"
  },
  {
   "id": "agents-dlai",
@@ -643,7 +665,8 @@
     "k": "task",
     "min": 120
    }
-  ]
+  ],
+  "track": "core"
  },
  {
   "id": "agents-mcp",
@@ -669,7 +692,8 @@
     "k": "task",
     "min": 90
    }
-  ]
+  ],
+  "track": "core"
  },
  {
   "id": "agents-hf",
@@ -689,7 +713,8 @@
     "url": "https://huggingface.co/learn/agents-course",
     "min": 5
    }
-  ]
+  ],
+  "track": "archive"
  },
  {
   "id": "llm-docs",
@@ -715,7 +740,8 @@
     "k": "task",
     "min": 60
    }
-  ]
+  ],
+  "track": "core"
  },
  {
   "id": "ops-fastapi",
@@ -741,7 +767,8 @@
     "k": "task",
     "min": 60
    }
-  ]
+  ],
+  "track": "core"
  },
  {
   "id": "ops-mwml",
@@ -761,7 +788,8 @@
     "url": "https://madewithml.com/",
     "min": 5
    }
-  ]
+  ],
+  "track": "archive"
  },
  {
   "id": "ops-fsdl",
@@ -781,7 +809,8 @@
     "url": "https://fullstackdeeplearning.com/",
     "min": 5
    }
-  ]
+  ],
+  "track": "archive"
  },
  {
   "id": "ops-mlz",
@@ -801,7 +830,8 @@
     "url": "https://github.com/DataTalksClub/mlops-zoomcamp",
     "min": 5
    }
-  ]
+  ],
+  "track": "archive"
  },
  {
   "id": "ops-vllm",
@@ -821,7 +851,8 @@
     "url": "https://learn.deeplearning.ai/courses/fast-and-efficient-llm-inference-with-vllm",
     "min": 5
    }
-  ]
+  ],
+  "track": "core"
  },
  {
   "id": "ops-docker",
@@ -847,6 +878,728 @@
     "k": "task",
     "min": 60
    }
-  ]
+  ],
+  "track": "core"
+ },
+ {
+  "id": "agents-effective",
+  "phase": 4,
+  "topic": "agents",
+  "title": "Building effective agents",
+  "by": "Anthropic",
+  "url": "https://www.anthropic.com/engineering/building-effective-agents",
+  "cost": "Check page for terms",
+  "hrs": 1.5,
+  "about": "Teaches the five workflow patterns (prompt chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer) and when to use a real agent instead.",
+  "job": "Employers want engineers who choose the simplest design that works, not a heavy framework for every problem.",
+  "lessons": [
+   {
+    "id": "agents-effective-1",
+    "t": "Read: what agents are, when to use them, and when to use frameworks",
+    "k": "read",
+    "url": "https://www.anthropic.com/engineering/building-effective-agents",
+    "min": 20
+   },
+   {
+    "id": "agents-effective-2",
+    "t": "Read: the augmented LLM and the workflows (chaining, routing, parallelization)",
+    "k": "read",
+    "url": "https://www.anthropic.com/engineering/building-effective-agents",
+    "min": 25
+   },
+   {
+    "id": "agents-effective-3",
+    "t": "Read: orchestrator-workers, evaluator-optimizer and agents; then Appendix 1 and 2",
+    "k": "read",
+    "url": "https://www.anthropic.com/engineering/building-effective-agents",
+    "min": 25
+   },
+   {
+    "id": "agents-effective-4",
+    "t": "Task: build a prompt-chain with a gate, then an evaluator-optimizer loop for one job (for example write and critique a product description). Check: log each step and show the loop stops after at most 3 rounds",
+    "k": "task",
+    "min": 120
+   }
+  ],
+  "track": "core"
+ },
+ {
+  "id": "agents-langgraph-academy",
+  "phase": 4,
+  "topic": "agents",
+  "title": "Foundation: Introduction to LangGraph (Python)",
+  "by": "LangChain Academy",
+  "url": "https://academy.langchain.com/courses/intro-to-langgraph",
+  "cost": "Free",
+  "hrs": 6,
+  "about": "Builds stateful agents as graphs with state, memory, human-in-the-loop, sub-graphs and deployment.",
+  "job": "LangGraph is a common way companies build controllable agents, and graph thinking shows you can handle state and failure.",
+  "lessons": [
+   {
+    "id": "agents-langgraph-academy-1",
+    "t": "Modules: Introduction (graph basics through deployment)",
+    "k": "video",
+    "url": "https://academy.langchain.com/courses/intro-to-langgraph",
+    "min": 90
+   },
+   {
+    "id": "agents-langgraph-academy-2",
+    "t": "Modules: State and Memory (schemas, reducers, chatbot with memory)",
+    "k": "video",
+    "url": "https://academy.langchain.com/courses/intro-to-langgraph",
+    "min": 80
+   },
+   {
+    "id": "agents-langgraph-academy-3",
+    "t": "Modules: UX and Human-in-the-Loop (streaming, breakpoints)",
+    "k": "video",
+    "url": "https://academy.langchain.com/courses/intro-to-langgraph",
+    "min": 60
+   },
+   {
+    "id": "agents-langgraph-academy-4",
+    "t": "Modules: Building Your Assistant, Long-Term Memory, Deployment",
+    "k": "video",
+    "url": "https://academy.langchain.com/courses/intro-to-langgraph",
+    "min": 120
+   },
+   {
+    "id": "agents-langgraph-academy-5",
+    "t": "Task: build a graph with a tool node and a human approval breakpoint before any write action. Check: run it, reject one action, and confirm nothing was written",
+    "k": "task",
+    "min": 120
+   }
+  ],
+  "track": "core"
+ },
+ {
+  "id": "agents-langgraph-dlai",
+  "phase": 4,
+  "topic": "agents",
+  "title": "AI Agents in LangGraph",
+  "by": "DeepLearning.AI",
+  "url": "https://learn.deeplearning.ai/courses/ai-agents-in-langgraph",
+  "cost": "Check page for terms",
+  "hrs": 1.6,
+  "about": "Builds an agent from scratch, then rebuilds it in LangGraph with search tools, persistence, streaming and human approval.",
+  "job": "Knowing what a framework does under the hood makes you faster at debugging agents in production.",
+  "lessons": [
+   {
+    "id": "agents-langgraph-dlai-1",
+    "t": "Build an Agent from Scratch",
+    "k": "video",
+    "url": "https://learn.deeplearning.ai/courses/ai-agents-in-langgraph",
+    "min": 12
+   },
+   {
+    "id": "agents-langgraph-dlai-2",
+    "t": "LangGraph Components and Agentic Search Tools",
+    "k": "video",
+    "url": "https://learn.deeplearning.ai/courses/ai-agents-in-langgraph",
+    "min": 24
+   },
+   {
+    "id": "agents-langgraph-dlai-3",
+    "t": "Persistence and Streaming, Human in the Loop",
+    "k": "video",
+    "url": "https://learn.deeplearning.ai/courses/ai-agents-in-langgraph",
+    "min": 23
+   },
+   {
+    "id": "agents-langgraph-dlai-4",
+    "t": "Essay Writer (a multi-step agent project)",
+    "k": "video",
+    "url": "https://learn.deeplearning.ai/courses/ai-agents-in-langgraph",
+    "min": 18
+   },
+   {
+    "id": "agents-langgraph-dlai-5",
+    "t": "Task: port the from-scratch agent loop to a LangGraph graph with a checkpointer. Check: kill the process mid-run and resume from the saved thread",
+    "k": "task",
+    "min": 90
+   }
+  ],
+  "track": "core"
+ },
+ {
+  "id": "agents-crewai-dlai",
+  "phase": 4,
+  "topic": "agents",
+  "title": "Multi AI Agent Systems with crewAI",
+  "by": "DeepLearning.AI",
+  "url": "https://learn.deeplearning.ai/courses/multi-ai-agent-systems-with-crewai",
+  "cost": "Check page for terms",
+  "hrs": 3,
+  "about": "Builds teams of role-based agents with tools, tasks and collaboration for real business jobs.",
+  "job": "Many teams prototype multi-agent workflows with role-based crews, so you need to know where they help and where they add cost.",
+  "lessons": [
+   {
+    "id": "agents-crewai-dlai-1",
+    "t": "Agents: research-and-write crew and key elements of agents",
+    "k": "video",
+    "url": "https://learn.deeplearning.ai/courses/multi-ai-agent-systems-with-crewai",
+    "min": 45
+   },
+   {
+    "id": "agents-crewai-dlai-2",
+    "t": "Tools: customer support and outreach campaign crews",
+    "k": "video",
+    "url": "https://learn.deeplearning.ai/courses/multi-ai-agent-systems-with-crewai",
+    "min": 45
+   },
+   {
+    "id": "agents-crewai-dlai-3",
+    "t": "Tasks and collaboration: event planning and financial analysis",
+    "k": "video",
+    "url": "https://learn.deeplearning.ai/courses/multi-ai-agent-systems-with-crewai",
+    "min": 45
+   },
+   {
+    "id": "agents-crewai-dlai-4",
+    "t": "Project: crew that tailors job applications",
+    "k": "video",
+    "url": "https://learn.deeplearning.ai/courses/multi-ai-agent-systems-with-crewai",
+    "min": 20
+   },
+   {
+    "id": "agents-crewai-dlai-5",
+    "t": "Task: build a 2-agent crew (researcher and writer) for a topic you choose. Check: compare its output and token cost against one single-prompt call and write 3 lines on which won",
+    "k": "task",
+    "min": 90
+   }
+  ],
+  "track": "core"
+ },
+ {
+  "id": "agents-autogen-dlai",
+  "phase": 4,
+  "topic": "agents",
+  "title": "AI Agentic Design Patterns with AutoGen",
+  "by": "DeepLearning.AI (with Microsoft)",
+  "url": "https://learn.deeplearning.ai/courses/ai-agentic-design-patterns-with-autogen",
+  "cost": "Check page for terms",
+  "hrs": 1.5,
+  "about": "Covers the design patterns of multi-agent chat, reflection, tool use, coding agents and planning using AutoGen.",
+  "job": "Reflection, tool use and planning are the standard vocabulary of agent interviews and design reviews.",
+  "lessons": [
+   {
+    "id": "agents-autogen-dlai-1",
+    "t": "Multi-agent conversation and sequential chats",
+    "k": "video",
+    "url": "https://learn.deeplearning.ai/courses/ai-agentic-design-patterns-with-autogen",
+    "min": 20
+   },
+   {
+    "id": "agents-autogen-dlai-2",
+    "t": "Reflection and blogpost writing",
+    "k": "video",
+    "url": "https://learn.deeplearning.ai/courses/ai-agentic-design-patterns-with-autogen",
+    "min": 10
+   },
+   {
+    "id": "agents-autogen-dlai-3",
+    "t": "Tool use, coding and financial analysis",
+    "k": "video",
+    "url": "https://learn.deeplearning.ai/courses/ai-agentic-design-patterns-with-autogen",
+    "min": 32
+   },
+   {
+    "id": "agents-autogen-dlai-4",
+    "t": "Planning and stock report generation",
+    "k": "video",
+    "url": "https://learn.deeplearning.ai/courses/ai-agentic-design-patterns-with-autogen",
+    "min": 15
+   },
+   {
+    "id": "agents-autogen-dlai-5",
+    "t": "Task: add a reflection step (writer plus critic) to any generator you already built. Check: score 10 outputs before and after with a simple rubric and record the change",
+    "k": "task",
+    "min": 75
+   }
+  ],
+  "track": "core"
+ },
+ {
+  "id": "agents-tools-writing",
+  "phase": 4,
+  "topic": "agents",
+  "title": "Writing effective tools for AI agents",
+  "by": "Anthropic",
+  "url": "https://www.anthropic.com/engineering/writing-tools-for-agents",
+  "cost": "Check page for terms",
+  "hrs": 1,
+  "about": "Teaches how to design, describe and evaluate the tools an agent calls, including naming, response size and error messages.",
+  "job": "Most agent failures come from bad tool design, and engineers who can fix that are rare.",
+  "lessons": [
+   {
+    "id": "agents-tools-writing-1",
+    "t": "Read: what is a tool and how to build a prototype",
+    "k": "read",
+    "url": "https://www.anthropic.com/engineering/writing-tools-for-agents",
+    "min": 15
+   },
+   {
+    "id": "agents-tools-writing-2",
+    "t": "Read: running and analyzing an evaluation of your tools",
+    "k": "read",
+    "url": "https://www.anthropic.com/engineering/writing-tools-for-agents",
+    "min": 20
+   },
+   {
+    "id": "agents-tools-writing-3",
+    "t": "Read: principles (choose tools, namespacing, meaningful context, token efficiency, descriptions)",
+    "k": "read",
+    "url": "https://www.anthropic.com/engineering/writing-tools-for-agents",
+    "min": 20
+   },
+   {
+    "id": "agents-tools-writing-4",
+    "t": "Task: write 3 tools for a small Node or Python API, then write 10 test questions. Check: run an agent on them, count wrong tool calls, then rewrite the descriptions and rerun to see the count drop",
+    "k": "task",
+    "min": 120
+   }
+  ],
+  "track": "core"
+ },
+ {
+  "id": "agents-mcp-server",
+  "phase": 4,
+  "topic": "agents",
+  "title": "Model Context Protocol: build a server",
+  "by": "Model Context Protocol (official docs)",
+  "url": "https://modelcontextprotocol.io/docs/develop/build-server",
+  "cost": "Check page for terms",
+  "hrs": 2,
+  "about": "Builds an MCP server that exposes tools and connects it to a host, and explains the protocol architecture.",
+  "job": "MCP is becoming the shared way to plug company data and APIs into AI apps, and a Node developer can ship servers quickly.",
+  "lessons": [
+   {
+    "id": "agents-mcp-server-1",
+    "t": "Read: What is MCP and why it matters",
+    "k": "read",
+    "url": "https://modelcontextprotocol.io/docs/getting-started/intro",
+    "min": 10
+   },
+   {
+    "id": "agents-mcp-server-2",
+    "t": "Read: core concepts and architecture",
+    "k": "read",
+    "url": "https://modelcontextprotocol.io/docs/learn/architecture",
+    "min": 20
+   },
+   {
+    "id": "agents-mcp-server-3",
+    "t": "Follow: build the weather server tutorial (tools get_alerts and get_forecast)",
+    "k": "read",
+    "url": "https://modelcontextprotocol.io/docs/develop/build-server",
+    "min": 45
+   },
+   {
+    "id": "agents-mcp-server-4",
+    "t": "Task: build an MCP server over one of your own MongoDB collections with 2 read-only tools. Check: connect it to a client and answer 3 questions using only those tools",
+    "k": "task",
+    "min": 120
+   }
+  ],
+  "track": "core"
+ },
+ {
+  "id": "agents-anthropic-courses",
+  "phase": 4,
+  "topic": "agents",
+  "title": "Anthropic courses: tool use and prompt evaluations",
+  "by": "Anthropic (GitHub)",
+  "url": "https://github.com/anthropics/courses",
+  "cost": "Check page for terms",
+  "hrs": 8,
+  "about": "Free notebooks on the Claude API, tool use, and writing production prompt evaluations.",
+  "job": "Employers check that you can call an LLM API with tools and measure quality, not just chat with one.",
+  "lessons": [
+   {
+    "id": "agents-anthropic-courses-1",
+    "t": "Notebooks: anthropic_api_fundamentals",
+    "k": "read",
+    "url": "https://github.com/anthropics/courses",
+    "min": 60
+   },
+   {
+    "id": "agents-anthropic-courses-2",
+    "t": "Notebooks: tool_use (complete guide to tool use in workflows)",
+    "k": "read",
+    "url": "https://github.com/anthropics/courses",
+    "min": 120
+   },
+   {
+    "id": "agents-anthropic-courses-3",
+    "t": "Notebooks: prompt_evaluations (write production prompt evals)",
+    "k": "read",
+    "url": "https://github.com/anthropics/courses",
+    "min": 120
+   },
+   {
+    "id": "agents-anthropic-courses-4",
+    "t": "Task: finish the tool_use notebooks, then port one example to Node. Check: the tool loop handles an unknown tool name and a tool error without crashing",
+    "k": "task",
+    "min": 120
+   }
+  ],
+  "track": "core"
+ },
+ {
+  "id": "rag-agentic-llamaindex",
+  "phase": 4,
+  "topic": "rag",
+  "title": "Building Agentic RAG with LlamaIndex",
+  "by": "DeepLearning.AI (Jerry Liu, LlamaIndex)",
+  "url": "https://learn.deeplearning.ai/courses/building-agentic-rag-with-llamaindex",
+  "cost": "Check page for terms",
+  "hrs": 1.1,
+  "about": "Builds routers, tool calling, an agent reasoning loop and a multi-document agent over your documents.",
+  "job": "Real company questions span many documents, so agentic RAG with routing is the step after basic RAG.",
+  "lessons": [
+   {
+    "id": "rag-agentic-llamaindex-1",
+    "t": "Router Query Engine",
+    "k": "video",
+    "url": "https://learn.deeplearning.ai/courses/building-agentic-rag-with-llamaindex",
+    "min": 9
+   },
+   {
+    "id": "rag-agentic-llamaindex-2",
+    "t": "Tool Calling",
+    "k": "video",
+    "url": "https://learn.deeplearning.ai/courses/building-agentic-rag-with-llamaindex",
+    "min": 10
+   },
+   {
+    "id": "rag-agentic-llamaindex-3",
+    "t": "Building an Agent Reasoning Loop",
+    "k": "video",
+    "url": "https://learn.deeplearning.ai/courses/building-agentic-rag-with-llamaindex",
+    "min": 11
+   },
+   {
+    "id": "rag-agentic-llamaindex-4",
+    "t": "Building a Multi-Document Agent",
+    "k": "video",
+    "url": "https://learn.deeplearning.ai/courses/building-agentic-rag-with-llamaindex",
+    "min": 10
+   },
+   {
+    "id": "rag-agentic-llamaindex-5",
+    "t": "Task: build a router over 3 documents (one summary index, one vector index per doc). Check: 10 questions, and for each one record if it picked the right index",
+    "k": "task",
+    "min": 90
+   }
+  ],
+  "track": "core"
+ },
+ {
+  "id": "rag-advanced-eval",
+  "phase": 4,
+  "topic": "rag",
+  "title": "Building and Evaluating Advanced RAG",
+  "by": "DeepLearning.AI",
+  "url": "https://learn.deeplearning.ai/courses/building-evaluating-advanced-rag",
+  "cost": "Check page for terms",
+  "hrs": 2,
+  "about": "Teaches sentence-window and auto-merging retrieval and how to score a RAG app with the RAG triad of metrics.",
+  "job": "Teams ask how you know your RAG app is good, and the RAG triad gives you a measurable answer.",
+  "lessons": [
+   {
+    "id": "rag-advanced-eval-1",
+    "t": "Advanced RAG pipeline",
+    "k": "video",
+    "url": "https://learn.deeplearning.ai/courses/building-evaluating-advanced-rag",
+    "min": 15
+   },
+   {
+    "id": "rag-advanced-eval-2",
+    "t": "RAG triad of metrics",
+    "k": "video",
+    "url": "https://learn.deeplearning.ai/courses/building-evaluating-advanced-rag",
+    "min": 42
+   },
+   {
+    "id": "rag-advanced-eval-3",
+    "t": "Sentence-window retrieval",
+    "k": "video",
+    "url": "https://learn.deeplearning.ai/courses/building-evaluating-advanced-rag",
+    "min": 29
+   },
+   {
+    "id": "rag-advanced-eval-4",
+    "t": "Auto-merging retrieval",
+    "k": "video",
+    "url": "https://learn.deeplearning.ai/courses/building-evaluating-advanced-rag",
+    "min": 21
+   },
+   {
+    "id": "rag-advanced-eval-5",
+    "t": "Task: make 20 question and answer pairs for your own docs. Check: score basic retrieval against sentence-window on context relevance and groundedness and keep a table",
+    "k": "task",
+    "min": 120
+   }
+  ],
+  "track": "core"
+ },
+ {
+  "id": "rag-mongodb-atlas",
+  "phase": 4,
+  "topic": "rag",
+  "title": "RAG with MongoDB Vector Search",
+  "by": "MongoDB (official docs)",
+  "url": "https://www.mongodb.com/docs/atlas/atlas-vector-search/rag/",
+  "cost": "Check page for terms",
+  "hrs": 3,
+  "about": "Explains RAG ingestion, retrieval and generation on MongoDB Vector Search, with chunking strategies and a step-by-step tutorial in Node.js.",
+  "job": "A MERN developer can add RAG to an existing MongoDB app without a new database, which is a fast path to a working feature.",
+  "lessons": [
+   {
+    "id": "rag-mongodb-atlas-1",
+    "t": "Read: why RAG and how it works with MongoDB Vector Search",
+    "k": "read",
+    "url": "https://www.mongodb.com/docs/atlas/atlas-vector-search/rag/",
+    "min": 20
+   },
+   {
+    "id": "rag-mongodb-atlas-2",
+    "t": "Read: ingestion, retrieval and generation, and the chunking strategies table",
+    "k": "read",
+    "url": "https://www.mongodb.com/docs/atlas/atlas-vector-search/rag/",
+    "min": 25
+   },
+   {
+    "id": "rag-mongodb-atlas-3",
+    "t": "Follow: the RAG tutorial (choose the Node.js tab)",
+    "k": "read",
+    "url": "https://www.mongodb.com/docs/atlas/atlas-vector-search/rag/",
+    "min": 90
+   },
+   {
+    "id": "rag-mongodb-atlas-4",
+    "t": "Task: add a /ask route to an Express app that embeds a question, runs vector search on Atlas, and answers with sources. Check: it says it does not know when the question is off topic",
+    "k": "task",
+    "min": 150
+   }
+  ],
+  "track": "core"
+ },
+ {
+  "id": "llm-tools-openai",
+  "phase": 4,
+  "topic": "llm",
+  "title": "Function calling and structured outputs (OpenAI API)",
+  "by": "OpenAI (official docs)",
+  "url": "https://developers.openai.com/api/docs/guides/function-calling",
+  "cost": "Check page for terms",
+  "hrs": 2,
+  "about": "Shows how to define functions, handle model tool calls, and force output to match a JSON Schema.",
+  "job": "Almost every LLM feature in a web app needs reliable JSON and tool calls, so this is daily work in the job.",
+  "lessons": [
+   {
+    "id": "llm-tools-openai-1",
+    "t": "Read: how function calling works, defining functions, best practices",
+    "k": "read",
+    "url": "https://developers.openai.com/api/docs/guides/function-calling",
+    "min": 30
+   },
+   {
+    "id": "llm-tools-openai-2",
+    "t": "Read: handling function calls and token usage",
+    "k": "read",
+    "url": "https://developers.openai.com/api/docs/guides/function-calling",
+    "min": 20
+   },
+   {
+    "id": "llm-tools-openai-3",
+    "t": "Read: Structured outputs, response_format versus function calling, versus JSON mode",
+    "k": "read",
+    "url": "https://developers.openai.com/api/docs/guides/structured-outputs",
+    "min": 30
+   },
+   {
+    "id": "llm-tools-openai-4",
+    "t": "Task: build an Express endpoint that extracts fields from messy text into a Zod or JSON Schema. Check: run 20 samples and count schema failures and refusals",
+    "k": "task",
+    "min": 90
+   }
+  ],
+  "track": "core"
+ },
+ {
+  "id": "llm-owasp-top10",
+  "phase": 4,
+  "topic": "llm",
+  "title": "OWASP Top 10 for LLM applications and prompt injection defenses",
+  "by": "OWASP GenAI Security Project and Anthropic docs",
+  "url": "https://genai.owasp.org/llm-top-10/",
+  "cost": "Check page for terms",
+  "hrs": 2,
+  "about": "Lists the ten main risks (prompt injection, excessive agency, improper output handling and more) and practical defenses.",
+  "job": "Security review is a gate for shipping LLM features, and knowing this list helps you pass it.",
+  "lessons": [
+   {
+    "id": "llm-owasp-top10-1",
+    "t": "Read: the OWASP LLM Top 10 (2025) list, LLM01 to LLM10",
+    "k": "read",
+    "url": "https://genai.owasp.org/llm-top-10/",
+    "min": 40
+   },
+   {
+    "id": "llm-owasp-top10-2",
+    "t": "Read: Mitigate jailbreaks and prompt injections (input validation, untrusted content in tool results)",
+    "k": "read",
+    "url": "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks",
+    "min": 30
+   },
+   {
+    "id": "llm-owasp-top10-3",
+    "t": "Read: Limit access to sensitive data and actions; screen tool outputs; red-team your agent",
+    "k": "read",
+    "url": "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks",
+    "min": 20
+   },
+   {
+    "id": "llm-owasp-top10-4",
+    "t": "Task: plant a hidden instruction in a web page your RAG or agent reads. Check: reproduce the attack, add two defenses (untrusted content wrapping and least-privilege tools), and show the attack now fails",
+    "k": "task",
+    "min": 90
+   }
+  ],
+  "track": "core"
+ },
+ {
+  "id": "ops-langsmith-eval",
+  "phase": 5,
+  "topic": "mlops",
+  "title": "Foundation: Introduction to Agent Observability and Evaluations",
+  "by": "LangChain Academy",
+  "url": "https://academy.langchain.com/courses/intro-to-langsmith",
+  "cost": "Free",
+  "hrs": 7.5,
+  "about": "Teaches tracing, datasets, evaluators, experiments, prompt versioning, human feedback and production monitoring for LLM apps.",
+  "job": "Teams that ship agents need traces and regression tests, and few engineers can set them up.",
+  "lessons": [
+   {
+    "id": "ops-langsmith-eval-1",
+    "t": "Module 1: Visibility while building with tracing",
+    "k": "video",
+    "url": "https://academy.langchain.com/courses/intro-to-langsmith",
+    "min": 80
+   },
+   {
+    "id": "ops-langsmith-eval-2",
+    "t": "Module 2: Testing and evaluation (datasets, evaluators, experiments)",
+    "k": "video",
+    "url": "https://academy.langchain.com/courses/intro-to-langsmith",
+    "min": 120
+   },
+   {
+    "id": "ops-langsmith-eval-3",
+    "t": "Module 3 and 4: Prompt engineering and collecting human feedback",
+    "k": "video",
+    "url": "https://academy.langchain.com/courses/intro-to-langsmith",
+    "min": 100
+   },
+   {
+    "id": "ops-langsmith-eval-4",
+    "t": "Module 5: Production observability (online evaluation, monitoring, dashboards)",
+    "k": "video",
+    "url": "https://academy.langchain.com/courses/intro-to-langsmith",
+    "min": 100
+   },
+   {
+    "id": "ops-langsmith-eval-5",
+    "t": "Task: trace one of your own LLM routes and build a 15-example dataset. Check: change the prompt, rerun the experiment, and show which examples got better or worse",
+    "k": "task",
+    "min": 120
+   }
+  ],
+  "track": "core"
+ },
+ {
+  "id": "ops-evals-claude",
+  "phase": 5,
+  "topic": "mlops",
+  "title": "Define success criteria and build evaluations",
+  "by": "Anthropic (Claude docs)",
+  "url": "https://platform.claude.com/docs/en/test-and-evaluate/develop-tests",
+  "cost": "Check page for terms",
+  "hrs": 1.5,
+  "about": "Shows how to write measurable success criteria and grade outputs with code, human or LLM graders.",
+  "job": "Evals are how teams decide to change a prompt or model without breaking things.",
+  "lessons": [
+   {
+    "id": "ops-evals-claude-1",
+    "t": "Read: define your success criteria (task fidelity, consistency, latency, price)",
+    "k": "read",
+    "url": "https://platform.claude.com/docs/en/test-and-evaluate/develop-tests",
+    "min": 20
+   },
+   {
+    "id": "ops-evals-claude-2",
+    "t": "Read: build evaluations and the example evals",
+    "k": "read",
+    "url": "https://platform.claude.com/docs/en/test-and-evaluate/develop-tests",
+    "min": 30
+   },
+   {
+    "id": "ops-evals-claude-3",
+    "t": "Read: grade your evaluations (code-based, human, LLM-based)",
+    "k": "read",
+    "url": "https://platform.claude.com/docs/en/test-and-evaluate/develop-tests",
+    "min": 20
+   },
+   {
+    "id": "ops-evals-claude-4",
+    "t": "Task: write 25 test cases for one LLM feature and one code grader plus one LLM grader. Check: run on two models and report accuracy, cost and latency in a table",
+    "k": "task",
+    "min": 120
+   }
+  ],
+  "track": "core"
+ },
+ {
+  "id": "ops-cost-caching",
+  "phase": 5,
+  "topic": "mlops",
+  "title": "Cut LLM cost and latency: prompt caching and batching",
+  "by": "Anthropic (Claude docs)",
+  "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
+  "cost": "Check page for terms",
+  "hrs": 1.5,
+  "about": "Explains prompt caching (breakpoints, TTL, what invalidates cache) and the Message Batches API for 50 percent lower cost on non-urgent work.",
+  "job": "LLM bills grow fast, and engineers who can cut cost and latency are valued.",
+  "lessons": [
+   {
+    "id": "ops-cost-caching-1",
+    "t": "Read: how prompt caching works, pricing, and explicit cache breakpoints",
+    "k": "read",
+    "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
+    "min": 30
+   },
+   {
+    "id": "ops-cost-caching-2",
+    "t": "Read: caching strategies, best practices and troubleshooting",
+    "k": "read",
+    "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
+    "min": 25
+   },
+   {
+    "id": "ops-cost-caching-3",
+    "t": "Read: Message Batches API (limits, pricing, using caching with batches)",
+    "k": "read",
+    "url": "https://platform.claude.com/docs/en/build-with-claude/batch-processing",
+    "min": 25
+   },
+   {
+    "id": "ops-cost-caching-4",
+    "t": "Task: add caching to a long system prompt or tool list in one of your apps. Check: read the usage fields, show cache read tokens on the second call, and compute the cost saved over 100 calls",
+    "k": "task",
+    "min": 75
+   }
+  ],
+  "track": "core"
  }
 ]

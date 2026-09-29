@@ -1,0 +1,44 @@
+{
+  "title": "Job-ready in 6 months",
+  "hoursPerWeek": 10,
+  "months": [
+    { "m": 1, "title": "Foundations", "goal": "Python for data, the math you need, and classic machine learning with honest evaluation." },
+    { "m": 2, "title": "How LLMs work and how to prompt them", "goal": "Understand transformers well enough to reason about cost, context and failure. Use LLM APIs with tools and structured output." },
+    { "m": 3, "title": "RAG", "goal": "Retrieval over your own data with MongoDB, measured with an eval set. First portfolio project." },
+    { "m": 4, "title": "Agentic AI", "goal": "Tool use, MCP, graph-based agents, multi-agent patterns and agentic RAG. Second portfolio project." },
+    { "m": 5, "title": "Production", "goal": "Evals, observability, security, cost control, deployment and serving." },
+    { "m": 6, "title": "Capstone and job search", "goal": "Ship a production AI feature in a MERN app, polish the portfolio, practise interviews, apply." }
+  ],
+  "weeks": [
+    { "w": 1, "m": 1, "title": "Python for AI work", "outcome": "Write and debug small Python scripts with an AI assistant.", "courses": [{ "id": "py-dlai" }], "exercises": ["ex-recent", "ex-tokenize"], "quiz": ["python"] },
+    { "w": 2, "m": 1, "title": "Data with Pandas", "outcome": "Clean and summarise a real dataset.", "courses": [{ "id": "py-kaggle", "note": "Do Python, Pandas and Data Visualization. Skip the rest." }], "exercises": ["ex-dot", "ex-matmul"], "quiz": ["python", "math"] },
+    { "w": 3, "m": 1, "title": "Math you actually use, first ML models", "outcome": "Read vectors and matrices comfortably. Train and read a first model.", "courses": [{ "id": "math-la" }, { "id": "ml-mlcc", "note": "First half." }], "exercises": ["ex-mse", "ex-gradstep"], "quiz": ["math", "ml"] },
+    { "w": 4, "m": 1, "title": "Machine learning with honest evaluation", "outcome": "Split data properly, pick metrics, explain overfitting.", "courses": [{ "id": "ml-mlcc", "note": "Second half." }, { "id": "ml-kaggle" }], "exercises": ["ex-split", "ex-prf"], "project": { "id": "p1-tabular", "note": "Start it. Finish next week." }, "quiz": ["ml"] },
+    { "w": 5, "m": 2, "title": "Neural networks from the inside", "outcome": "Explain backpropagation and train a tiny network.", "courses": [{ "id": "dl-3b1b" }, { "id": "dl-zth", "note": "First half: micrograd and makemore." }], "exercises": ["ex-softmax"], "project": { "id": "p1-tabular", "note": "Finish and publish it." }, "quiz": ["dl"] },
+    { "w": 6, "m": 2, "title": "Transformers and GPT", "outcome": "Explain attention, tokens and context windows in an interview.", "courses": [{ "id": "tr-illus" }, { "id": "dl-zth", "note": "Second half: tokenizer and GPT." }, { "id": "tr-karp", "note": "Intro to LLMs talk first." }], "quiz": ["transformers"] },
+    { "w": 7, "m": 2, "title": "Prompting and the LLM API", "outcome": "Call an LLM API, control output, and handle errors.", "courses": [{ "id": "llm-dlai-prompt" }, { "id": "llm-docs" }, { "id": "llm-tools-openai" }], "exercises": ["ex-cost", "ex-trim", "ex-schema"], "quiz": ["llm"] },
+    { "w": 8, "m": 2, "title": "The Hugging Face ecosystem", "outcome": "Use open models, tokenizers and pipelines. Know what post-training is.", "courses": [{ "id": "llm-hf", "note": "Chapters 1 to 4 only." }, { "id": "llm-dlai-post" }], "exercises": ["ex-backoff"], "quiz": ["llm", "transformers"], "checkpoint": "Month 2 check: take a Daily 5 every day this week." },
+    { "w": 9, "m": 3, "title": "Embeddings and search", "outcome": "Turn text into vectors and find the closest matches.", "courses": [{ "id": "rag-dlai", "note": "First half." }], "exercises": ["ex-cosine", "ex-bow", "ex-chunk"], "quiz": ["rag"] },
+    { "w": 10, "m": 3, "title": "Vector search on MongoDB", "outcome": "Store embeddings in Atlas and query them from Node.", "courses": [{ "id": "rag-dlai", "note": "Second half." }, { "id": "rag-mongodb-atlas" }], "exercises": ["ex-topk", "ex-buildprompt"], "quiz": ["rag"] },
+    { "w": 11, "m": 3, "title": "Measuring RAG", "outcome": "Build an eval set and show retrieval and answer quality numbers.", "courses": [{ "id": "rag-advanced-eval" }, { "id": "ops-evals-claude" }], "exercises": ["ex-evalexact"], "project": { "id": "p2-rag", "note": "Start it." }, "quiz": ["rag", "mlops"] },
+    { "w": 12, "m": 3, "title": "Build project 2: RAG chatbot", "outcome": "A deployed RAG app with citations and an eval report.", "courses": [], "project": { "id": "p2-rag", "note": "Milestones 1 to 4." }, "quiz": ["rag"] },
+    { "w": 13, "m": 3, "title": "Finish and publish the RAG project", "outcome": "Public repo, README with results, short demo.", "courses": [], "project": { "id": "p2-rag", "note": "Finish, write it up, publish." }, "interview": { "topics": ["rag", "llm"] } },
+    { "w": 14, "m": 4, "title": "Agent patterns", "outcome": "Explain when to use a workflow and when to use an agent.", "courses": [{ "id": "agents-effective" }, { "id": "agents-dlai" }], "exercises": ["ex-toolcall"], "quiz": ["agents"] },
+    { "w": 15, "m": 4, "title": "Tools and MCP", "outcome": "Write good tool definitions and your own MCP server.", "courses": [{ "id": "agents-tools-writing" }, { "id": "agents-mcp" }, { "id": "agents-mcp-server" }], "exercises": ["ex-react"], "quiz": ["agents"] },
+    { "w": 16, "m": 4, "title": "Graph-based agents", "outcome": "Build a stateful agent with branches and checkpoints.", "courses": [{ "id": "agents-langgraph-academy" }, { "id": "agents-langgraph-dlai" }], "quiz": ["agents"] },
+    { "w": 17, "m": 4, "title": "Agentic RAG and multi-agent", "outcome": "Let an agent decide when and what to retrieve. Compare multi-agent frameworks.", "courses": [{ "id": "rag-agentic-llamaindex" }, { "id": "agents-crewai-dlai", "note": "Pick crewAI or AutoGen for depth, skim the other." }, { "id": "agents-autogen-dlai" }], "quiz": ["agents", "rag"] },
+    { "w": 18, "m": 4, "title": "Build project 3: tool-using agent with MCP", "outcome": "An agent with your own tools, guardrails and traces.", "courses": [{ "id": "agents-anthropic-courses", "note": "Tool use notebook only." }], "project": { "id": "p3-agent-mcp", "note": "Build and publish." }, "interview": { "topics": ["agents"] } },
+    { "w": 19, "m": 5, "title": "Security, cost and latency", "outcome": "Defend against prompt injection. Cut cost with caching and batching.", "courses": [{ "id": "llm-owasp-top10" }, { "id": "ops-cost-caching" }], "exercises": ["ex-ratelimit"], "quiz": ["mlops", "llm"] },
+    { "w": 20, "m": 5, "title": "Evals and observability", "outcome": "Trace runs, score outputs and catch regressions.", "courses": [{ "id": "ops-langsmith-eval" }], "project": { "id": "p5-eval-harness", "note": "Start it." }, "quiz": ["mlops"] },
+    { "w": 21, "m": 5, "title": "Build project 5: eval harness", "outcome": "A golden set, a judge you checked against human labels, and a CI regression test.", "courses": [], "project": { "id": "p5-eval-harness", "note": "Finish and publish." }, "interview": { "topics": ["mlops"] } },
+    { "w": 22, "m": 5, "title": "Serve and ship", "outcome": "Wrap a model or agent in an API and run it in Docker.", "courses": [{ "id": "ops-fastapi" }, { "id": "ops-docker" }, { "id": "ops-vllm" }], "quiz": ["mlops"] },
+    { "w": 23, "m": 6, "title": "Capstone, part 1", "outcome": "Design the AI feature in your MERN app. Auth, streaming and storage working.", "courses": [], "project": { "id": "p6-capstone", "note": "Milestones 1 to 3." }, "interview": { "design": true } },
+    { "w": 24, "m": 6, "title": "Capstone, part 2", "outcome": "Rate limits, cost caps, logging, deployment and evals in place.", "courses": [], "project": { "id": "p6-capstone", "note": "Milestones 4 to end. Deploy." } },
+    { "w": 25, "m": 6, "title": "Portfolio, resume and profile", "outcome": "Three strong repos with READMEs, a resume with measurable bullets, a clean LinkedIn.", "courses": [], "career": "portfolio", "interview": { "topics": ["python", "ml", "dl", "transformers"] } },
+    { "w": 26, "m": 6, "title": "Interview sprint and applications", "outcome": "Mock technical rounds, one system design a day, applications going out.", "courses": [], "career": "apply", "interview": { "design": true, "behavioral": true } }
+  ],
+  "optional": {
+    "projects": ["p4-finetune"],
+    "note": "Fine-tuning is a useful stretch project but rarely required for application roles. Do it after week 13 if you have time."
+  }
+}

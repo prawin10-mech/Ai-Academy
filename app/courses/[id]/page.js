@@ -80,6 +80,7 @@ export default function CoursePage({ params }) {
             ))}
           </div>
           <div className="panel stack">
+            {guide.job && <p><strong>In the job:</strong> {guide.job}</p>}
             <p><strong>For a MERN developer:</strong> {guide.mern}</p>
             <p><strong>Common mistake:</strong> {guide.pitfall}</p>
           </div>

@@ -8,15 +8,22 @@ import seed from '../data/daily-seed.json';
 import courseGuides from '../data/course-guides.json';
 import paperGuides from '../data/paper-guides.json';
 import glossary from '../data/glossary.json';
+import exercises from '../data/exercises.json';
+import projects from '../data/projects.json';
+import interview from '../data/interview.json';
+import roadmap from '../data/roadmap.json';
 import { buildQuiz, courseProgress, freshState, normalizeState, streak as calcStreak } from '../lib/scoring.js';
 import { mergeState } from '../lib/state.js';
 import { dateInZone } from '../lib/dates.js';
+import { usePathname } from 'next/navigation';
+import AuthScreen from './AuthScreen.js';
+import Shell from './Shell.js';
 
 const Ctx = createContext(null);
 export const useAcademy = () => useContext(Ctx);
 
-const LS_STATE = 'ai-academy-state-v2';
-const LS_KEY = 'ai-academy-key';
+const LS_GUEST = 'ai-academy-state-v2';
+const lsUser = (id) => `ai-academy-state-u-${id}`;
 
 export const TOPICS = topicsData.topics;
 export const PHASES = topicsData.phases;
@@ -26,55 +33,68 @@ export const QUIZ = quizzes;
 export const GUIDES = courseGuides;
 export const PAPER_GUIDES = paperGuides;
 export const GLOSSARY = glossary;
+export const EXERCISES = exercises;
+export const PROJECTS = projects;
+export const INTERVIEW = interview;
+export const ROADMAP = roadmap;
 
 const LESSONS = {};
 courses.forEach((c) => c.lessons.forEach((l, idx) => { LESSONS[l.id] = { course: c, lesson: l, idx }; }));
 export { LESSONS };
 export const courseById = (id) => courses.find((c) => c.id === id) || null;
 
-const localTz = () => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Dubai'; } catch { return 'Asia/Dubai'; } };
+const localTz = () => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'; } catch { return 'UTC'; } };
 export const todayLocal = () => dateInZone(new Date(), localTz());
+export { localTz };
 
 function readLS(k) { try { return localStorage.getItem(k); } catch { return null; } }
 function writeLS(k, v) { try { localStorage.setItem(k, v); return true; } catch { return false; } }
 
 export default function Providers({ children }) {
+  const pathname = usePathname() || '/';
+  const [mode, setMode] = useState('loading'); // loading | anon | guest | user
+  const [user, setUser] = useState(null);
+  const [botUsername, setBotUsername] = useState(null);
   const [state, setState] = useState(freshState());
   const [ready, setReady] = useState(false);
   const [sync, setSync] = useState('Loading');
-  const [needKey, setNeedKey] = useState(false);
   const [plans, setPlans] = useState(seed);
   const [feed, setFeed] = useState([]);
+  const [radar, setRadar] = useState([]);
   const [quiz, setQuiz] = useState(null);
   const stateRef = useRef(state);
-  const keyRef = useRef('');
+  const modeRef = useRef('loading');
+  const userRef = useRef(null);
   const saveTimer = useRef(null);
   const saving = useRef(false);
   const again = useRef(false);
   const errCount = useRef(0);
 
+  const setModeBoth = (m) => { modeRef.current = m; setMode(m); };
+
   const api = useCallback(async (path, opts = {}) => {
-    const headers = { 'content-type': 'application/json', ...(opts.headers || {}) };
-    if (keyRef.current) headers['x-access-key'] = keyRef.current;
-    const res = await fetch(path, { ...opts, headers });
-    if (res.status === 401) { setNeedKey(true); throw new Error('unauthorized'); }
+    const headers = { ...(opts.body ? { 'content-type': 'application/json' } : {}), ...(opts.headers || {}) };
+    const res = await fetch(path, { ...opts, headers, credentials: 'same-origin' });
+    if (res.status === 401 && !path.startsWith('/api/auth/')) {
+      userRef.current = null; setUser(null); setModeBoth('anon');
+      throw new Error('unauthorized');
+    }
     return res;
   }, []);
 
-  const report = useCallback((type, message) => {
-    if (!keyRef.current && needKey) return;
-    api('/api/log', { method: 'POST', body: JSON.stringify({ type, message }) }).catch(() => {});
-  }, [api, needKey]);
+  const storageKey = () => (modeRef.current === 'user' && userRef.current ? lsUser(userRef.current.id) : LS_GUEST);
 
   const flush = useCallback(async () => {
     if (saving.current) { again.current = true; return; }
     saving.current = true;
     const snap = stateRef.current;
-    const wrote = writeLS(LS_STATE, JSON.stringify(snap));
-    try {
-      await api('/api/state', { method: 'PUT', body: JSON.stringify({ state: snap }) });
-      setSync('Synced');
-    } catch (e) {
+    const wrote = writeLS(storageKey(), JSON.stringify(snap));
+    if (modeRef.current === 'user') {
+      try {
+        await api('/api/state', { method: 'PUT', body: JSON.stringify({ state: snap }) });
+        setSync('Synced');
+      } catch { setSync(wrote ? 'Saved on this device' : 'Not saved'); }
+    } else {
       setSync(wrote ? 'Saved on this device' : 'Not saved');
     }
     saving.current = false;
@@ -91,81 +111,113 @@ export default function Providers({ children }) {
     saveTimer.current = setTimeout(flush, 800);
   }, [flush]);
 
-  const load = useCallback(async () => {
+  const loadUserData = useCallback(async () => {
     let local = null;
-    try { local = JSON.parse(readLS(LS_STATE) || 'null'); } catch { local = null; }
-    let s = normalizeState(local);
+    try { local = JSON.parse(readLS(lsUser(userRef.current.id)) || 'null'); } catch { local = null; }
+    // a guest who signs up keeps what they did as a guest
+    let guest = null;
+    try { guest = JSON.parse(readLS(LS_GUEST) || 'null'); } catch { guest = null; }
+    let s = mergeState(mergeState(freshState(), guest), local);
     try {
       const res = await api('/api/state');
-      if (res.ok) {
-        const data = await res.json();
-        s = mergeState(data.state, s);
-        setSync(data.store === 'file' ? 'Synced (dev file store)' : 'Synced');
-      } else {
-        setSync('Saved on this device');
-      }
-    } catch (e) {
-      if (String(e.message) !== 'unauthorized') setSync('Offline: saved on this device');
-    }
+      if (res.ok) { const d = await res.json(); s = mergeState(d.state, s); setSync('Synced'); }
+    } catch { setSync('Saved on this device'); }
+    if (!s.startedAt) s.startedAt = todayLocal();
     stateRef.current = s;
     setState(s);
     setReady(true);
-    api('/api/daily').then((r) => r.json()).then((d) => {
-      if (d.plans && d.plans.length) setPlans(d.plans);
-      if (d.feed) setFeed(d.feed);
-    }).catch(() => {});
-  }, [api]);
+    flush();
+    api('/api/daily').then((r) => r.json()).then((d) => { if (d.plans && d.plans.length) setPlans(d.plans); if (d.feed) setFeed(d.feed); }).catch(() => {});
+    api('/api/radar').then((r) => r.json()).then((d) => setRadar(d.items || [])).catch(() => {});
+  }, [api, flush]);
+
+  const loadGuest = useCallback(() => {
+    let s = freshState();
+    try { s = normalizeState(JSON.parse(readLS(LS_GUEST) || 'null')); } catch { /* fresh */ }
+    if (!s.startedAt) s.startedAt = todayLocal();
+    stateRef.current = s;
+    setState(s);
+    setReady(true);
+    setSync('Saved on this device');
+  }, []);
 
   useEffect(() => {
-    keyRef.current = readLS(LS_KEY) || '';
-    load();
+    (async () => {
+      let me = null;
+      try { const r = await fetch('/api/auth/me', { credentials: 'same-origin' }); const d = await r.json(); me = d.user; setBotUsername(d.botUsername || null); } catch { /* offline */ }
+      if (me) { userRef.current = me; setUser(me); setModeBoth('user'); await loadUserData(); }
+      else if (readLS('ai-academy-guest') === '1') { setModeBoth('guest'); loadGuest(); }
+      else setModeBoth('anon');
+    })();
     const onErr = (e) => {
-      if (errCount.current++ >= 3) return;
-      report('client_error', String((e && (e.message || (e.reason && e.reason.message))) || 'unknown error').slice(0, 300));
+      if (errCount.current++ >= 3 || modeRef.current !== 'user') return;
+      api('/api/log', { method: 'POST', body: JSON.stringify({ type: 'client_error', message: String((e && (e.message || (e.reason && e.reason.message))) || 'unknown error').slice(0, 300) }) }).catch(() => {});
     };
     window.addEventListener('error', onErr);
     window.addEventListener('unhandledrejection', onErr);
     const onHide = () => { if (document.visibilityState === 'hidden' && saveTimer.current) { clearTimeout(saveTimer.current); flush(); } };
     document.addEventListener('visibilitychange', onHide);
-    return () => {
-      window.removeEventListener('error', onErr);
-      window.removeEventListener('unhandledrejection', onErr);
-      document.removeEventListener('visibilitychange', onHide);
-    };
+    return () => { window.removeEventListener('error', onErr); window.removeEventListener('unhandledrejection', onErr); document.removeEventListener('visibilitychange', onHide); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const submitKey = useCallback((k) => {
-    keyRef.current = k.trim();
-    writeLS(LS_KEY, keyRef.current);
-    setNeedKey(false);
-    load();
-  }, [load]);
+  /* ---------- account actions ---------- */
+  const authCall = useCallback(async (path, body) => {
+    const res = await fetch(path, { method: 'POST', headers: { 'content-type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify(body) });
+    const d = await res.json().catch(() => ({}));
+    if (!res.ok) return { error: d.error || 'Something went wrong. Try again.' };
+    userRef.current = d.user; setUser(d.user); setModeBoth('user');
+    await loadUserData();
+    return { ok: true };
+  }, [loadUserData]);
 
-  /* ---------- actions ---------- */
+  const login = useCallback((email, password) => authCall('/api/auth/login', { email, password }), [authCall]);
+  const register = useCallback((email, password, name, website) => authCall('/api/auth/register', { email, password, name, tz: localTz(), website }), [authCall]);
+
+  const continueGuest = useCallback(() => {
+    writeLS('ai-academy-guest', '1');
+    setModeBoth('guest');
+    loadGuest();
+  }, [loadGuest]);
+
+  const logout = useCallback(async () => {
+    clearTimeout(saveTimer.current);
+    if (modeRef.current === 'user') { await flush(); try { await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' }); } catch { /* ignore */ } }
+    try { localStorage.removeItem('ai-academy-guest'); } catch { /* ignore */ }
+    userRef.current = null; setUser(null);
+    stateRef.current = freshState(); setState(stateRef.current);
+    setReady(false); setQuiz(null); setPlans(seed); setFeed([]); setRadar([]);
+    setModeBoth('anon');
+  }, [flush]);
+
+  const refreshUser = useCallback((u) => { userRef.current = u; setUser(u); }, []);
+  const reportEvent = useCallback((type, message) => {
+    if (modeRef.current !== 'user') return;
+    api('/api/log', { method: 'POST', body: JSON.stringify({ type, message }) }).catch(() => {});
+  }, [api]);
+
+  /* ---------- learning actions ---------- */
   const markDay = (s) => { s.days = { ...s.days, [todayLocal()]: 1 }; };
 
   const toggleDone = useCallback((id) => {
-    let completedCourse = null;
+    let completed = null;
     update((s) => {
       const n = { ...s, done: { ...s.done } };
       if (n.done[id]) delete n.done[id];
       else {
-        n.done[id] = 1;
-        markDay(n);
+        n.done[id] = 1; markDay(n);
         const c = LESSONS[id] && LESSONS[id].course;
-        if (c && courseProgress(n, c).pct === 100) completedCourse = c;
+        if (c && courseProgress(n, c).pct === 100) completed = c;
       }
       return n;
     });
-    if (completedCourse) report('course_complete', `Finished "${completedCourse.title}".`);
-  }, [update, report]);
-
-  const tick = useCallback((key) => toggleDone(key), [toggleDone]);
+    if (completed) reportEvent('course_complete', `Finished "${completed.title}".`);
+  }, [update, reportEvent]);
 
   const setNote = useCallback((id, text) => update((s) => { const n = { ...s, notes: { ...s.notes, [id]: text } }; markDay(n); return n; }), [update]);
   const setLast = useCallback((id) => update((s) => ({ ...s, last: id })), [update]);
   const setEmbed = useCallback((v) => update((s) => ({ ...s, embed: v })), [update]);
+  const setProfile = useCallback((profile) => update((s) => ({ ...s, profile: { ...profile, at: Date.now() } })), [update]);
 
   const setPaper = useCallback((id, patch) => {
     let finished = false;
@@ -177,15 +229,28 @@ export default function Providers({ children }) {
       if (patch.status || patch.pass) markDay(n);
       return n;
     });
-    if (finished) {
-      const p = papers.find((x) => x.id === id);
-      report('paper_done', `Finished reading "${p ? p.title : id}".`);
-    }
-  }, [update, report]);
+    if (finished) { const p = papers.find((x) => x.id === id); reportEvent('paper_done', `Finished reading "${p ? p.title : id}".`); }
+  }, [update, reportEvent]);
 
-  const startQuiz = useCallback((topics, mode) => {
-    setQuiz(buildQuiz(stateRef.current, quizzes, topics, 5, mode));
-  }, []);
+  const savePractice = useCallback((id, patch) => update((s) => {
+    const prev = s.practice[id] || { attempts: 0, passed: false, peeked: false, code: '' };
+    const cur = { ...prev, ...patch };
+    if (cur.code && cur.code.length > 8000) cur.code = cur.code.slice(0, 8000);
+    const n = { ...s, practice: { ...s.practice, [id]: cur } };
+    if (patch.attempts != null || patch.passed) markDay(n);
+    return n;
+  }), [update]);
+
+  const setProject = useCallback((id, patch) => update((s) => {
+    const prev = s.projects[id] || { milestones: {}, repo: '', demo: '' };
+    const n = { ...s, projects: { ...s.projects, [id]: { ...prev, ...patch } } };
+    if (patch.milestones) markDay(n);
+    return n;
+  }), [update]);
+
+  const rateInterview = useCallback((id, v) => update((s) => ({ ...s, interview: { ...s.interview, [id]: v } })), [update]);
+
+  const startQuiz = useCallback((topics, qmode, n = 5) => { setQuiz(buildQuiz(stateRef.current, quizzes, topics, n, qmode)); }, []);
 
   const answer = useCallback((i) => {
     setQuiz((q) => {
@@ -203,39 +268,23 @@ export default function Providers({ children }) {
       const score = q.results.filter((r) => r.ok).length;
       const attempt = { ts: Date.now(), day: todayLocal(), mode: q.mode, topics: q.topics, score, total: q.results.length, qs: q.results };
       update((s) => { const n = { ...s, attempts: [...s.attempts, attempt].slice(-300) }; markDay(n); return n; });
-      api('/api/attempts', { method: 'POST', body: JSON.stringify({ attempt }) }).catch(() => {});
+      if (modeRef.current === 'user') api('/api/attempts', { method: 'POST', body: JSON.stringify({ attempt }) }).catch(() => {});
       setQuiz({ ...q, picked: null, i, done: true });
-    } else {
-      setQuiz({ ...q, picked: null, i });
-    }
+    } else setQuiz({ ...q, picked: null, i });
   }, [quiz, update, api]);
 
   const exitQuiz = useCallback(() => setQuiz(null), []);
 
   const value = useMemo(() => ({
-    state, ready, sync, plans, feed, quiz,
+    mode, user, botUsername, state, ready, sync, plans, feed, radar, quiz,
     streak: calcStreak(state, todayLocal()),
-    toggleDone, tick, setNote, setLast, setEmbed, setPaper, startQuiz, answer, nextQuestion, exitQuiz, api,
-  }), [state, ready, sync, plans, feed, quiz, toggleDone, tick, setNote, setLast, setEmbed, setPaper, startQuiz, answer, nextQuestion, exitQuiz, api]);
+    login, register, continueGuest, logout, refreshUser, reportEvent,
+    toggleDone, tick: toggleDone, setNote, setLast, setEmbed, setProfile, setPaper, savePractice, setProject, rateInterview,
+    startQuiz, answer, nextQuestion, exitQuiz, api,
+  }), [mode, user, botUsername, state, ready, sync, plans, feed, radar, quiz, login, register, continueGuest, logout, refreshUser, reportEvent, toggleDone, setNote, setLast, setEmbed, setProfile, setPaper, savePractice, setProject, rateInterview, startQuiz, answer, nextQuestion, exitQuiz, api]);
 
-  if (needKey) return <KeyGate onSubmit={submitKey} />;
-  return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
-}
-
-function KeyGate({ onSubmit }) {
-  const [v, setV] = useState('');
-  return (
-    <div className="shell">
-      <main style={{ paddingBlock: 48 }}>
-        <div className="panel stack" style={{ maxWidth: 420 }}>
-          <h1>AI Engineer Academy</h1>
-          <p className="lead">This site is private. Enter your access key.</p>
-          <form className="stack" onSubmit={(e) => { e.preventDefault(); if (v.trim()) onSubmit(v); }}>
-            <input type="password" value={v} onChange={(e) => setV(e.target.value)} aria-label="Access key" autoComplete="current-password" className="field" />
-            <button className="btn primary" type="submit">Continue</button>
-          </form>
-        </div>
-      </main>
-    </div>
-  );
+  if (mode === 'loading') return <div className="shell"><main><p className="lead" style={{ paddingBlock: 48 }}>Loading</p></main></div>;
+  if (mode === 'anon' && pathname === '/privacy') return <div className="shell"><main style={{ paddingBlock: 32 }}>{children}</main></div>;
+  if (mode === 'anon') return <AuthScreen onLogin={login} onRegister={register} onGuest={continueGuest} />;
+  return <Ctx.Provider value={value}><Shell>{children}</Shell></Ctx.Provider>;
 }

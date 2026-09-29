@@ -1,33 +1,17 @@
-import { getStore } from '../../../lib/db.js';
-import { checkAccess, json } from '../../../lib/auth.js';
+import { json, readJson, withUser } from '../../../lib/http.js';
 import { mergeState } from '../../../lib/state.js';
 import { normalizeState } from '../../../lib/scoring.js';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
-export async function GET(request) {
-  if (!checkAccess(request)) return json({ error: 'unauthorized' }, 401);
-  try {
-    const store = await getStore();
-    return json({ state: normalizeState(await store.getState()), store: store.kind });
-  } catch (e) {
-    return json({ error: 'storage unavailable', detail: String(e.message || e) }, 503);
-  }
-}
+export const GET = withUser(async ({ store, user }) => json({ state: normalizeState(await store.getState(user.id)) }));
 
-export async function PUT(request) {
-  if (!checkAccess(request)) return json({ error: 'unauthorized' }, 401);
-  let body;
-  try { body = await request.json(); } catch { return json({ error: 'invalid json' }, 400); }
-  if (!body || typeof body.state !== 'object') return json({ error: 'state required' }, 400);
-  if (JSON.stringify(body.state).length > 900000) return json({ error: 'state too large' }, 413);
-  try {
-    const store = await getStore();
-    const merged = mergeState(await store.getState(), body.state);
-    await store.putState(merged);
-    return json({ state: merged, store: store.kind });
-  } catch (e) {
-    return json({ error: 'storage unavailable', detail: String(e.message || e) }, 503);
-  }
-}
+export const PUT = withUser(async ({ request, store, user }) => {
+  const { body, tooBig } = await readJson(request, 900000);
+  if (tooBig) return json({ error: 'state too large' }, 413);
+  if (!body || typeof body.state !== 'object' || body.state === null) return json({ error: 'state required' }, 400);
+  const merged = mergeState(await store.getState(user.id), body.state);
+  await store.putState(user.id, merged);
+  return json({ state: merged });
+}, { rate: { name: 'state', max: 120, windowSec: 600 } });

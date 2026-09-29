@@ -1,0 +1,16 @@
+# Calls the daily job every hour so each learner gets their digest in their own morning.
+# Add repository secrets: APP_URL (for example https://your-app.vercel.app) and CRON_SECRET (same value as in Vercel).
+name: Hourly digest
+on:
+  schedule:
+    - cron: '7 * * * *'
+  workflow_dispatch:
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call the daily job
+        run: |
+          curl --fail --silent --show-error --max-time 60 \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            "${{ secrets.APP_URL }}/api/cron/daily"
