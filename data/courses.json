@@ -1,0 +1,852 @@
+[
+ {
+  "id": "py-dlai",
+  "phase": 1,
+  "topic": "python",
+  "title": "AI Python for Beginners",
+  "by": "DeepLearning.AI",
+  "url": "https://learn.deeplearning.ai/courses/ai-python-for-beginners",
+  "cost": "Check page for terms",
+  "hrs": 11.5,
+  "about": "Python with AI assistance: writing, testing and debugging code, ending in small AI apps.",
+  "lessons": [
+   {
+    "id": "py-dlai-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://learn.deeplearning.ai/courses/ai-python-for-beginners",
+    "min": 5
+   },
+   {
+    "id": "py-dlai-2",
+    "t": "Checkpoint: write a script that reads a CSV, cleans it and prints three summary numbers",
+    "k": "task",
+    "min": 45
+   },
+   {
+    "id": "py-dlai-3",
+    "t": "Checkpoint: call a function you wrote from a second file and add one test",
+    "k": "task",
+    "min": 45
+   }
+  ]
+ },
+ {
+  "id": "py-cs50",
+  "phase": 1,
+  "topic": "python",
+  "title": "CS50P: Introduction to Programming with Python",
+  "by": "Harvard",
+  "url": "https://cs50.harvard.edu/python/",
+  "cost": "Free",
+  "hrs": 20,
+  "about": "A rigorous, free Python course with problem sets. Use it if you want stronger fundamentals than a quick tour.",
+  "lessons": [
+   {
+    "id": "py-cs50-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://cs50.harvard.edu/python/",
+    "min": 5
+   },
+   {
+    "id": "py-cs50-2",
+    "t": "Checkpoint: finish the problem sets on functions, loops and file I/O",
+    "k": "task",
+    "min": 120
+   }
+  ]
+ },
+ {
+  "id": "py-kaggle",
+  "phase": 1,
+  "topic": "python",
+  "title": "Kaggle Learn: Python, Pandas, Data Visualization",
+  "by": "Kaggle",
+  "url": "https://www.kaggle.com/learn",
+  "cost": "Free",
+  "hrs": 12,
+  "about": "Short interactive lessons with a notebook in the browser. This is the fastest route to NumPy and Pandas habits.",
+  "lessons": [
+   {
+    "id": "py-kaggle-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://www.kaggle.com/learn",
+    "min": 5
+   },
+   {
+    "id": "py-kaggle-2",
+    "t": "Checkpoint: load a public dataset, clean it, and plot three insights in a notebook",
+    "k": "task",
+    "min": 90
+   }
+  ]
+ },
+ {
+  "id": "math-la",
+  "phase": 1,
+  "topic": "math",
+  "title": "Essence of Linear Algebra",
+  "by": "3Blue1Brown",
+  "url": "https://www.3blue1brown.com/topics/linear-algebra",
+  "cost": "Free",
+  "hrs": 3,
+  "about": "Visual intuition for vectors, matrices, and transformations. Watch it before any ML course.",
+  "lessons": [
+   {
+    "id": "math-la-1",
+    "t": "Full playlist",
+    "k": "video",
+    "list": "PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab",
+    "url": "https://www.3blue1brown.com/topics/linear-algebra",
+    "min": 180
+   },
+   {
+    "id": "math-la-2",
+    "t": "Checkpoint: explain matrix multiplication as a change of basis in your own words",
+    "k": "task",
+    "min": 20
+   }
+  ]
+ },
+ {
+  "id": "math-calc",
+  "phase": 1,
+  "topic": "math",
+  "title": "Essence of Calculus",
+  "by": "3Blue1Brown",
+  "url": "https://www.3blue1brown.com/topics/calculus",
+  "cost": "Free",
+  "hrs": 3.5,
+  "about": "Derivatives, the chain rule and integrals as pictures. The chain rule is the heart of backpropagation.",
+  "lessons": [
+   {
+    "id": "math-calc-1",
+    "t": "Full playlist",
+    "k": "video",
+    "list": "PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr",
+    "url": "https://www.3blue1brown.com/topics/calculus",
+    "min": 200
+   },
+   {
+    "id": "math-calc-2",
+    "t": "Checkpoint: compute the gradient of f(x, y) = x^2 + 3xy by hand",
+    "k": "task",
+    "min": 15
+   }
+  ]
+ },
+ {
+  "id": "ml-mlcc",
+  "phase": 2,
+  "topic": "ml",
+  "title": "Machine Learning Crash Course",
+  "by": "Google",
+  "url": "https://developers.google.com/machine-learning/crash-course",
+  "cost": "Free",
+  "hrs": 15,
+  "about": "Concise lessons with exercises on regression, classification, data, and evaluation.",
+  "lessons": [
+   {
+    "id": "ml-mlcc-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://developers.google.com/machine-learning/crash-course",
+    "min": 5
+   },
+   {
+    "id": "ml-mlcc-2",
+    "t": "Checkpoint: explain overfitting, regularization and the train/validation/test split to a friend",
+    "k": "task",
+    "min": 20
+   },
+   {
+    "id": "ml-mlcc-3",
+    "t": "Checkpoint: pick precision or recall for a spam filter and defend the choice",
+    "k": "task",
+    "min": 15
+   }
+  ]
+ },
+ {
+  "id": "ml-kaggle",
+  "phase": 2,
+  "topic": "ml",
+  "title": "Kaggle Learn: Intro and Intermediate Machine Learning",
+  "by": "Kaggle",
+  "url": "https://www.kaggle.com/learn/intro-to-machine-learning",
+  "cost": "Free",
+  "hrs": 8,
+  "about": "Hands-on scikit-learn: decision trees, random forests, validation, and handling missing data.",
+  "lessons": [
+   {
+    "id": "ml-kaggle-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://www.kaggle.com/learn/intro-to-machine-learning",
+    "min": 5
+   },
+   {
+    "id": "ml-kaggle-2",
+    "t": "Checkpoint: enter a Kaggle tabular competition and submit one baseline model",
+    "k": "task",
+    "min": 120
+   }
+  ]
+ },
+ {
+  "id": "ml-cs229",
+  "phase": 2,
+  "topic": "ml",
+  "title": "Stanford CS229: Machine Learning",
+  "by": "Stanford",
+  "url": "https://cs229.stanford.edu/",
+  "cost": "Free lectures",
+  "hrs": 40,
+  "about": "The math-heavy version. Take it if you are aiming at ML engineer roles rather than application work.",
+  "lessons": [
+   {
+    "id": "ml-cs229-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://cs229.stanford.edu/",
+    "min": 5
+   },
+   {
+    "id": "ml-cs229-2",
+    "t": "Checkpoint: derive the gradient of the logistic regression loss",
+    "k": "task",
+    "min": 60
+   }
+  ]
+ },
+ {
+  "id": "ml-ng",
+  "phase": 2,
+  "topic": "ml",
+  "title": "Machine Learning Specialization",
+  "by": "Andrew Ng, Stanford Online and DeepLearning.AI",
+  "url": "https://www.coursera.org/specializations/machine-learning-introduction",
+  "cost": "Paid, financial aid available",
+  "hrs": 95,
+  "about": "Three courses on supervised learning, neural networks and trees, then unsupervised learning and recommenders. The Coursera page says it is not free.",
+  "lessons": [
+   {
+    "id": "ml-ng-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://www.coursera.org/specializations/machine-learning-introduction",
+    "min": 5
+   }
+  ]
+ },
+ {
+  "id": "dl-3b1b",
+  "phase": 2,
+  "topic": "dl",
+  "title": "Neural Networks",
+  "by": "3Blue1Brown",
+  "url": "https://www.3blue1brown.com/topics/neural-networks",
+  "cost": "Free",
+  "hrs": 2,
+  "about": "A visual bridge into deep learning: what a neural network is, how it learns, and what backpropagation computes.",
+  "lessons": [
+   {
+    "id": "dl-3b1b-1",
+    "t": "Full playlist",
+    "k": "video",
+    "list": "PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi",
+    "url": "https://www.3blue1brown.com/topics/neural-networks",
+    "min": 120
+   }
+  ]
+ },
+ {
+  "id": "dl-zth",
+  "phase": 3,
+  "topic": "dl",
+  "title": "Neural Networks: Zero to Hero",
+  "by": "Andrej Karpathy",
+  "url": "https://karpathy.ai/zero-to-hero.html",
+  "cost": "Free",
+  "hrs": 15,
+  "about": "Build backpropagation, a bigram model, an MLP, a WaveNet-style model, and GPT from scratch in code.",
+  "lessons": [
+   {
+    "id": "zth-1",
+    "t": "The spelled-out intro to neural networks and backpropagation: micrograd",
+    "k": "video",
+    "yt": "VMj-3S1tku0",
+    "min": 145
+   },
+   {
+    "id": "zth-2",
+    "t": "The spelled-out intro to language modeling: makemore",
+    "k": "video",
+    "yt": "PaCmpygFfXo",
+    "min": 117
+   },
+   {
+    "id": "zth-3",
+    "t": "Building makemore Part 2: MLP",
+    "k": "video",
+    "yt": "TCH_1BHY58I",
+    "min": 75
+   },
+   {
+    "id": "zth-4",
+    "t": "Building makemore Part 3: Activations, gradients, BatchNorm",
+    "k": "video",
+    "yt": "P6sfmUTpUmc",
+    "min": 115
+   },
+   {
+    "id": "zth-5",
+    "t": "Building makemore Part 4: Becoming a backprop ninja",
+    "k": "video",
+    "yt": "q8SA3rM6ckI",
+    "min": 115
+   },
+   {
+    "id": "zth-6",
+    "t": "Building makemore Part 5: Building a WaveNet",
+    "k": "video",
+    "yt": "t3YJ5hKiMQ0",
+    "min": 56
+   },
+   {
+    "id": "zth-7",
+    "t": "Let's build GPT: from scratch, in code, spelled out",
+    "k": "video",
+    "yt": "kCc8FmEb1nY",
+    "min": 116
+   },
+   {
+    "id": "zth-8",
+    "t": "Let's build the GPT Tokenizer",
+    "k": "video",
+    "yt": "zduSFxRajkE",
+    "min": 133
+   }
+  ]
+ },
+ {
+  "id": "tr-karp",
+  "phase": 3,
+  "topic": "transformers",
+  "title": "Karpathy: LLM talks and GPT-2 reproduction",
+  "by": "Andrej Karpathy",
+  "url": "https://www.youtube.com/@AndrejKarpathy",
+  "cost": "Free",
+  "hrs": 8,
+  "about": "A one-hour overview of LLMs, a long deep dive into how ChatGPT-style models are trained, and a full GPT-2 reproduction.",
+  "lessons": [
+   {
+    "id": "tr-karp-1",
+    "t": "Intro to Large Language Models",
+    "k": "video",
+    "yt": "zjkBMFhNj_g",
+    "min": 60
+   },
+   {
+    "id": "tr-karp-2",
+    "t": "Deep Dive into LLMs like ChatGPT",
+    "k": "video",
+    "yt": "7xTGNNLPyMI",
+    "min": 210
+   },
+   {
+    "id": "tr-karp-3",
+    "t": "Let's reproduce GPT-2 (124M)",
+    "k": "video",
+    "yt": "l8pRSuU81PU",
+    "min": 240
+   }
+  ]
+ },
+ {
+  "id": "tr-illus",
+  "phase": 3,
+  "topic": "transformers",
+  "title": "The Illustrated Transformer",
+  "by": "Jay Alammar",
+  "url": "https://jalammar.github.io/illustrated-transformer/",
+  "cost": "Free",
+  "hrs": 1,
+  "about": "The clearest picture-first explanation of self-attention and the transformer block.",
+  "lessons": [
+   {
+    "id": "illus-1",
+    "t": "Read the article",
+    "k": "read",
+    "url": "https://jalammar.github.io/illustrated-transformer/",
+    "min": 5
+   },
+   {
+    "id": "illus-2",
+    "t": "Checkpoint: draw queries, keys and values for a three-word sentence and compute the attention weights",
+    "k": "task",
+    "min": 30
+   }
+  ]
+ },
+ {
+  "id": "dl-fastai",
+  "phase": 3,
+  "topic": "dl",
+  "title": "Practical Deep Learning for Coders",
+  "by": "fast.ai",
+  "url": "https://course.fast.ai/",
+  "cost": "Free (link not opened while building)",
+  "hrs": 30,
+  "about": "A top-down, code-first course. Good if you learn best by training real models first and reading theory later.",
+  "lessons": [
+   {
+    "id": "fastai-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://course.fast.ai/",
+    "min": 5
+   },
+   {
+    "id": "fastai-2",
+    "t": "Checkpoint: train an image classifier on your own images and share the notebook",
+    "k": "task",
+    "min": 90
+   }
+  ]
+ },
+ {
+  "id": "dl-d2l",
+  "phase": 3,
+  "topic": "dl",
+  "title": "Dive into Deep Learning",
+  "by": "d2l.ai",
+  "url": "https://d2l.ai/",
+  "cost": "Free",
+  "hrs": 40,
+  "about": "An interactive textbook with runnable PyTorch code. Use it as the reference while doing other courses.",
+  "lessons": [
+   {
+    "id": "d2l-1",
+    "t": "Open the book",
+    "k": "read",
+    "url": "https://d2l.ai/",
+    "min": 5
+   },
+   {
+    "id": "d2l-2",
+    "t": "Checkpoint: implement softmax regression from scratch and compare with the library version",
+    "k": "task",
+    "min": 60
+   }
+  ]
+ },
+ {
+  "id": "tr-cs224n",
+  "phase": 3,
+  "topic": "transformers",
+  "title": "Stanford CS224n: NLP with Deep Learning",
+  "by": "Stanford",
+  "url": "https://web.stanford.edu/class/cs224n/",
+  "cost": "Free lectures",
+  "hrs": 40,
+  "about": "Word vectors through transformers and pretraining. Best for the ML engineer path.",
+  "lessons": [
+   {
+    "id": "cs224n-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://web.stanford.edu/class/cs224n/",
+    "min": 5
+   },
+   {
+    "id": "cs224n-2",
+    "t": "Checkpoint: implement scaled dot-product attention with masking in NumPy",
+    "k": "task",
+    "min": 60
+   }
+  ]
+ },
+ {
+  "id": "llm-dlai-prompt",
+  "phase": 4,
+  "topic": "llm",
+  "title": "ChatGPT Prompt Engineering for Developers",
+  "by": "DeepLearning.AI and OpenAI",
+  "url": "https://learn.deeplearning.ai/courses/chatgpt-prompt-eng",
+  "cost": "Check page for terms",
+  "hrs": 1.7,
+  "about": "Short course on writing reliable prompts and calling an LLM from code for summarizing, inferring, transforming, and expanding.",
+  "lessons": [
+   {
+    "id": "prompt-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://learn.deeplearning.ai/courses/chatgpt-prompt-eng",
+    "min": 5
+   },
+   {
+    "id": "prompt-2",
+    "t": "Checkpoint: build a Node endpoint that returns validated JSON from an LLM call",
+    "k": "task",
+    "min": 60
+   }
+  ]
+ },
+ {
+  "id": "llm-hf",
+  "phase": 4,
+  "topic": "llm",
+  "title": "Hugging Face LLM Course",
+  "by": "Hugging Face",
+  "url": "https://huggingface.co/learn/llm-course",
+  "cost": "Free",
+  "hrs": 30,
+  "about": "Transformers, tokenizers, datasets, fine-tuning, and reasoning models using the Hugging Face libraries.",
+  "lessons": [
+   {
+    "id": "hf-llm-1",
+    "t": "Open the course home",
+    "k": "read",
+    "url": "https://huggingface.co/learn/llm-course",
+    "min": 5
+   },
+   {
+    "id": "hf-llm-2",
+    "t": "Checkpoint: run a pretrained model locally and inspect its tokenization",
+    "k": "task",
+    "min": 45
+   },
+   {
+    "id": "hf-llm-3",
+    "t": "Checkpoint: fine-tune a small model on a narrow dataset with LoRA",
+    "k": "task",
+    "min": 120
+   }
+  ]
+ },
+ {
+  "id": "llm-smol",
+  "phase": 4,
+  "topic": "llm",
+  "title": "a smol course: post-training",
+  "by": "Hugging Face",
+  "url": "https://huggingface.co/learn/smol-course",
+  "cost": "Free",
+  "hrs": 15,
+  "about": "Instruction tuning and preference alignment on small models.",
+  "lessons": [
+   {
+    "id": "smol-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://huggingface.co/learn/smol-course",
+    "min": 5
+   }
+  ]
+ },
+ {
+  "id": "llm-dlai-genai",
+  "phase": 4,
+  "topic": "llm",
+  "title": "Generative AI with Large Language Models",
+  "by": "DeepLearning.AI and AWS",
+  "url": "https://learn.deeplearning.ai/courses/generative-ai-with-llms",
+  "cost": "Check page for terms",
+  "hrs": 13.3,
+  "about": "The generative AI lifecycle: transformer architecture, training and tuning methods, and inference.",
+  "lessons": [
+   {
+    "id": "genai-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://learn.deeplearning.ai/courses/generative-ai-with-llms",
+    "min": 5
+   }
+  ]
+ },
+ {
+  "id": "llm-dlai-post",
+  "phase": 4,
+  "topic": "llm",
+  "title": "Post-training of LLMs",
+  "by": "DeepLearning.AI",
+  "url": "https://learn.deeplearning.ai/courses/post-training-of-llms",
+  "cost": "Check page for terms",
+  "hrs": 1.5,
+  "about": "SFT, DPO and online reinforcement learning in a short hands-on course.",
+  "lessons": [
+   {
+    "id": "post-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://learn.deeplearning.ai/courses/post-training-of-llms",
+    "min": 5
+   }
+  ]
+ },
+ {
+  "id": "rag-dlai",
+  "phase": 4,
+  "topic": "rag",
+  "title": "Retrieval Augmented Generation (RAG)",
+  "by": "DeepLearning.AI",
+  "url": "https://learn.deeplearning.ai/courses/retrieval-augmented-generation",
+  "cost": "Check page for terms",
+  "hrs": 26,
+  "about": "Architecture, retrieval, evaluation, and deployment of production-ready RAG applications.",
+  "lessons": [
+   {
+    "id": "rag-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://learn.deeplearning.ai/courses/retrieval-augmented-generation",
+    "min": 5
+   },
+   {
+    "id": "rag-2",
+    "t": "Checkpoint: index five PDFs into a vector store and answer questions with source citations",
+    "k": "task",
+    "min": 120
+   },
+   {
+    "id": "rag-3",
+    "t": "Checkpoint: write 20 test questions and measure retrieval hit rate at k=4",
+    "k": "task",
+    "min": 60
+   }
+  ]
+ },
+ {
+  "id": "agents-dlai",
+  "phase": 4,
+  "topic": "agents",
+  "title": "Agentic AI",
+  "by": "Andrew Ng, DeepLearning.AI",
+  "url": "https://learn.deeplearning.ai/courses/agentic-ai",
+  "cost": "Check page for terms",
+  "hrs": 9.9,
+  "about": "Iterative, multi-step workflows where an LLM plans, acts with tools, reflects, and improves its own output.",
+  "lessons": [
+   {
+    "id": "agentic-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://learn.deeplearning.ai/courses/agentic-ai",
+    "min": 5
+   },
+   {
+    "id": "agentic-2",
+    "t": "Checkpoint: build an agent with two tools, a step limit, and error handling",
+    "k": "task",
+    "min": 120
+   }
+  ]
+ },
+ {
+  "id": "agents-mcp",
+  "phase": 4,
+  "topic": "agents",
+  "title": "MCP: Build Rich-Context AI Apps with Anthropic",
+  "by": "DeepLearning.AI and Anthropic",
+  "url": "https://learn.deeplearning.ai/courses/mcp-build-rich-context-ai-apps-with-anthropic",
+  "cost": "Check page for terms",
+  "hrs": 2,
+  "about": "The Model Context Protocol: expose tools, data and prompts to AI apps through one standard interface.",
+  "lessons": [
+   {
+    "id": "mcp-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://learn.deeplearning.ai/courses/mcp-build-rich-context-ai-apps-with-anthropic",
+    "min": 5
+   },
+   {
+    "id": "mcp-2",
+    "t": "Checkpoint: write a small MCP server in Node or Python that exposes one tool",
+    "k": "task",
+    "min": 90
+   }
+  ]
+ },
+ {
+  "id": "agents-hf",
+  "phase": 4,
+  "topic": "agents",
+  "title": "Hugging Face Agents Course",
+  "by": "Hugging Face",
+  "url": "https://huggingface.co/learn/agents-course",
+  "cost": "Free",
+  "hrs": 25,
+  "about": "Build and deploy your own AI agents, from fundamentals through frameworks.",
+  "lessons": [
+   {
+    "id": "hf-agents-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://huggingface.co/learn/agents-course",
+    "min": 5
+   }
+  ]
+ },
+ {
+  "id": "llm-docs",
+  "phase": 4,
+  "topic": "llm",
+  "title": "Claude API documentation",
+  "by": "Anthropic",
+  "url": "https://docs.claude.com",
+  "cost": "Free to read",
+  "hrs": 4,
+  "about": "Reference for tool use, streaming, structured outputs, prompt caching and evaluation with the Claude API.",
+  "lessons": [
+   {
+    "id": "docs-1",
+    "t": "Open the docs",
+    "k": "read",
+    "url": "https://docs.claude.com",
+    "min": 5
+   },
+   {
+    "id": "docs-2",
+    "t": "Checkpoint: stream a response to a React page through a Node route",
+    "k": "task",
+    "min": 60
+   }
+  ]
+ },
+ {
+  "id": "ops-fastapi",
+  "phase": 5,
+  "topic": "mlops",
+  "title": "FastAPI Tutorial",
+  "by": "FastAPI",
+  "url": "https://fastapi.tiangolo.com/tutorial/",
+  "cost": "Free",
+  "hrs": 5,
+  "about": "Serve models and LLM pipelines as validated HTTP APIs in Python.",
+  "lessons": [
+   {
+    "id": "fastapi-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://fastapi.tiangolo.com/tutorial/",
+    "min": 5
+   },
+   {
+    "id": "fastapi-2",
+    "t": "Checkpoint: wrap a scikit-learn model in a /predict endpoint with request validation",
+    "k": "task",
+    "min": 60
+   }
+  ]
+ },
+ {
+  "id": "ops-mwml",
+  "phase": 5,
+  "topic": "mlops",
+  "title": "Made With ML",
+  "by": "Goku Mohandas",
+  "url": "https://madewithml.com/",
+  "cost": "Free",
+  "hrs": 20,
+  "about": "How to design, develop, deploy and iterate on production ML systems.",
+  "lessons": [
+   {
+    "id": "mwml-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://madewithml.com/",
+    "min": 5
+   }
+  ]
+ },
+ {
+  "id": "ops-fsdl",
+  "phase": 5,
+  "topic": "mlops",
+  "title": "Full Stack Deep Learning",
+  "by": "FSDL",
+  "url": "https://fullstackdeeplearning.com/",
+  "cost": "Free",
+  "hrs": 15,
+  "about": "The end-to-end view of shipping ML products: data, training, deployment, monitoring, and teams.",
+  "lessons": [
+   {
+    "id": "fsdl-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://fullstackdeeplearning.com/",
+    "min": 5
+   }
+  ]
+ },
+ {
+  "id": "ops-mlz",
+  "phase": 5,
+  "topic": "mlops",
+  "title": "MLOps Zoomcamp",
+  "by": "DataTalksClub",
+  "url": "https://github.com/DataTalksClub/mlops-zoomcamp",
+  "cost": "Free",
+  "hrs": 40,
+  "about": "Experiment tracking, pipelines, deployment, and monitoring with hands-on modules.",
+  "lessons": [
+   {
+    "id": "mlz-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://github.com/DataTalksClub/mlops-zoomcamp",
+    "min": 5
+   }
+  ]
+ },
+ {
+  "id": "ops-vllm",
+  "phase": 5,
+  "topic": "mlops",
+  "title": "Fast and Efficient LLM Inference with vLLM",
+  "by": "DeepLearning.AI and Red Hat",
+  "url": "https://learn.deeplearning.ai/courses/fast-and-efficient-llm-inference-with-vllm",
+  "cost": "Check page for terms",
+  "hrs": 1.6,
+  "about": "Optimize, deploy and benchmark an open-source LLM with vLLM.",
+  "lessons": [
+   {
+    "id": "vllm-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://learn.deeplearning.ai/courses/fast-and-efficient-llm-inference-with-vllm",
+    "min": 5
+   }
+  ]
+ },
+ {
+  "id": "ops-docker",
+  "phase": 5,
+  "topic": "mlops",
+  "title": "Docker: Get Started",
+  "by": "Docker",
+  "url": "https://docs.docker.com/get-started/",
+  "cost": "Free",
+  "hrs": 3,
+  "about": "Containerize your service so it runs the same on your laptop and in the cloud.",
+  "lessons": [
+   {
+    "id": "docker-1",
+    "t": "Open the course",
+    "k": "read",
+    "url": "https://docs.docker.com/get-started/",
+    "min": 5
+   },
+   {
+    "id": "docker-2",
+    "t": "Checkpoint: containerize your RAG backend and run it with docker compose",
+    "k": "task",
+    "min": 60
+   }
+  ]
+ }
+]

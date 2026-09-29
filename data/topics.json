@@ -1,0 +1,20 @@
+{
+ "topics": {
+  "python": "Python and data",
+  "math": "Math for ML",
+  "ml": "Machine learning",
+  "dl": "Deep learning",
+  "transformers": "Transformers",
+  "llm": "LLM apps and fine-tuning",
+  "rag": "RAG and retrieval",
+  "agents": "Agents and tools",
+  "mlops": "Deployment and MLOps"
+ },
+ "phases": {
+  "1": "Python and math",
+  "2": "Machine learning",
+  "3": "Deep learning and transformers",
+  "4": "LLM engineering",
+  "5": "Deployment and MLOps"
+ }
+}

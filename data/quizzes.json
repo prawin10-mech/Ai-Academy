@@ -1,0 +1,515 @@
+{
+ "python": [
+  {
+   "q": "In NumPy, what does broadcasting let you do?",
+   "o": [
+    "Run code on several CPU cores",
+    "Combine arrays of different shapes by stretching size-1 dimensions",
+    "Send an array over the network",
+    "Convert lists to arrays automatically"
+   ],
+   "a": 1,
+   "why": "Broadcasting applies an operation across arrays of compatible shapes without copying data, for example adding a row vector to every row of a matrix."
+  },
+  {
+   "q": "Which Pandas expression returns only the rows where the column age is greater than 30?",
+   "o": [
+    "df[df['age'] > 30]",
+    "df.age > 30",
+    "df.filter('age', 30)",
+    "df.where(30)"
+   ],
+   "a": 0,
+   "why": "df['age'] > 30 builds a boolean mask, and indexing the DataFrame with that mask keeps the matching rows."
+  },
+  {
+   "q": "What does [x * x for x in range(4)] evaluate to?",
+   "o": [
+    "[0, 1, 4, 9]",
+    "[1, 4, 9, 16]",
+    "[0, 2, 4, 6]",
+    "[0, 1, 2, 3]"
+   ],
+   "a": 0,
+   "why": "range(4) yields 0, 1, 2, 3, and each value is squared."
+  },
+  {
+   "q": "Why use a virtual environment for a Python project?",
+   "o": [
+    "It makes code run faster",
+    "It isolates the project's dependencies from other projects",
+    "It encrypts your source code",
+    "It is required to import NumPy"
+   ],
+   "a": 1,
+   "why": "Each project gets its own package versions, which avoids conflicts and makes setups reproducible."
+  },
+  {
+   "q": "What does df.groupby('team')['score'].mean() return?",
+   "o": [
+    "The overall mean score",
+    "The mean score for each team",
+    "The team with the highest score",
+    "A copy of the DataFrame sorted by team"
+   ],
+   "a": 1,
+   "why": "groupby splits the rows by team, then mean is computed on the score column within each group."
+  }
+ ],
+ "math": [
+  {
+   "q": "What does the gradient of a function point toward?",
+   "o": [
+    "The direction of steepest increase",
+    "The minimum of the function",
+    "The direction of steepest decrease",
+    "The average value"
+   ],
+   "a": 0,
+   "why": "The gradient points uphill. Gradient descent steps in the opposite direction to reduce the loss."
+  },
+  {
+   "q": "You multiply a 2x3 matrix by a 3x4 matrix. What is the shape of the result?",
+   "o": [
+    "3x3",
+    "2x4",
+    "4x2",
+    "2x3"
+   ],
+   "a": 1,
+   "why": "The inner dimensions (3 and 3) must match and disappear, leaving the outer dimensions 2x4."
+  },
+  {
+   "q": "Which rule of calculus makes backpropagation possible?",
+   "o": [
+    "The product rule",
+    "L'Hopital's rule",
+    "The chain rule",
+    "The fundamental theorem"
+   ],
+   "a": 2,
+   "why": "A network is a composition of functions, and the chain rule multiplies local derivatives layer by layer."
+  },
+  {
+   "q": "What does variance measure?",
+   "o": [
+    "The most common value",
+    "How far values spread around their mean",
+    "The middle value",
+    "The sum of all values"
+   ],
+   "a": 1,
+   "why": "Variance is the average squared distance from the mean."
+  },
+  {
+   "q": "Which formula is Bayes' rule?",
+   "o": [
+    "P(A|B) = P(B|A) P(A) / P(B)",
+    "P(A|B) = P(A) + P(B)",
+    "P(A|B) = P(A) P(B)",
+    "P(A|B) = P(B) / P(A)"
+   ],
+   "a": 0,
+   "why": "Bayes' rule updates a prior P(A) with the likelihood P(B|A) after seeing evidence B."
+  }
+ ],
+ "ml": [
+  {
+   "q": "What does overfitting mean?",
+   "o": [
+    "The model is too simple to learn the pattern",
+    "The model does well on training data but poorly on new data",
+    "The model trains too slowly",
+    "The dataset is too large"
+   ],
+   "a": 1,
+   "why": "An overfit model memorizes noise in the training set instead of learning patterns that generalize."
+  },
+  {
+   "q": "What is the validation set for?",
+   "o": [
+    "Final reporting of accuracy",
+    "Choosing hyperparameters and models without touching the test set",
+    "Training the final weights",
+    "Storing backups of the data"
+   ],
+   "a": 1,
+   "why": "The test set stays untouched until the end so it gives an honest estimate; tuning happens on validation data."
+  },
+  {
+   "q": "For a fraud dataset where 1% of transactions are fraud, which metric is more informative than accuracy?",
+   "o": [
+    "Precision and recall",
+    "Mean squared error",
+    "Learning rate",
+    "Epoch count"
+   ],
+   "a": 0,
+   "why": "A model that always predicts \"not fraud\" gets 99% accuracy. Precision and recall show how well the rare class is handled."
+  },
+  {
+   "q": "What does L2 regularization do?",
+   "o": [
+    "Removes features at random",
+    "Penalizes large weights to reduce overfitting",
+    "Doubles the learning rate",
+    "Adds more training data"
+   ],
+   "a": 1,
+   "why": "L2 adds the sum of squared weights to the loss, which favors smaller weights and smoother models."
+  },
+  {
+   "q": "Why does a random forest usually beat a single deep decision tree?",
+   "o": [
+    "It averages many decorrelated trees, which reduces variance",
+    "It uses a neural network internally",
+    "It never overfits",
+    "It needs no data cleaning"
+   ],
+   "a": 0,
+   "why": "Averaging trees trained on different samples and feature subsets smooths out individual trees' errors."
+  }
+ ],
+ "dl": [
+  {
+   "q": "What does backpropagation compute?",
+   "o": [
+    "The gradient of the loss with respect to each parameter",
+    "The best learning rate",
+    "The number of layers needed",
+    "The training data labels"
+   ],
+   "a": 0,
+   "why": "It applies the chain rule backward through the network to get every parameter's gradient efficiently."
+  },
+  {
+   "q": "What usually happens if the learning rate is far too high?",
+   "o": [
+    "Training becomes slower but stable",
+    "The loss oscillates or diverges",
+    "The model memorizes the data",
+    "Gradients become exactly zero"
+   ],
+   "a": 1,
+   "why": "Large steps overshoot the minimum, so the loss bounces around or blows up."
+  },
+  {
+   "q": "What is the ReLU activation function?",
+   "o": [
+    "max(0, x)",
+    "1 / (1 + e^-x)",
+    "tanh(x)",
+    "x squared"
+   ],
+   "a": 0,
+   "why": "ReLU outputs 0 for negative inputs and x for positive inputs. It is cheap and helps avoid vanishing gradients."
+  },
+  {
+   "q": "What does batch normalization do?",
+   "o": [
+    "Shuffles the batches",
+    "Normalizes layer activations, which stabilizes and speeds up training",
+    "Reduces the batch size",
+    "Adds noise to labels"
+   ],
+   "a": 1,
+   "why": "Keeping activations well scaled makes deep networks easier to optimize."
+  },
+  {
+   "q": "What does softmax output?",
+   "o": [
+    "A single class label",
+    "Probabilities that sum to 1",
+    "The loss value",
+    "Raw unnormalized scores"
+   ],
+   "a": 1,
+   "why": "Softmax exponentiates the logits and divides by their sum, turning scores into a probability distribution."
+  }
+ ],
+ "transformers": [
+  {
+   "q": "In self-attention, how is a token's output computed?",
+   "o": [
+    "By averaging all tokens equally",
+    "As a weighted sum of value vectors, with weights from query-key similarity",
+    "By picking the closest token",
+    "By running a convolution over neighbors"
+   ],
+   "a": 1,
+   "why": "Each token's query is compared with every key; softmax turns the scores into weights applied to the values."
+  },
+  {
+   "q": "Why is the dot product divided by the square root of the key dimension in scaled dot-product attention?",
+   "o": [
+    "To make the model smaller",
+    "To keep scores from growing large and saturating the softmax",
+    "To normalize the vocabulary",
+    "To speed up tokenization"
+   ],
+   "a": 1,
+   "why": "Without scaling, large dot products push softmax into regions with tiny gradients."
+  },
+  {
+   "q": "What does the causal mask in a GPT-style model do?",
+   "o": [
+    "Hides padding tokens only",
+    "Stops a token from attending to future tokens",
+    "Randomly drops attention heads",
+    "Masks the most frequent words"
+   ],
+   "a": 1,
+   "why": "Next-token prediction must not peek at the answer, so each position can only see earlier positions."
+  },
+  {
+   "q": "What does byte-pair encoding (BPE) do?",
+   "o": [
+    "Compresses model weights",
+    "Repeatedly merges frequent symbol pairs to build a subword vocabulary",
+    "Encrypts the text",
+    "Translates text into another language"
+   ],
+   "a": 1,
+   "why": "BPE starts from bytes or characters and merges the most frequent pairs, so common words become single tokens and rare words split into pieces."
+  },
+  {
+   "q": "Why do transformers need positional information?",
+   "o": [
+    "Attention itself does not know token order",
+    "To reduce the parameter count",
+    "Because embeddings are random",
+    "To support multiple languages"
+   ],
+   "a": 0,
+   "why": "Self-attention treats the input as a set, so positions are added through positional encodings or rotary embeddings."
+  }
+ ],
+ "llm": [
+  {
+   "q": "What does setting temperature to 0 usually do?",
+   "o": [
+    "Makes outputs nearly deterministic by favoring the most likely token",
+    "Disables the model",
+    "Makes outputs more creative",
+    "Reduces token cost"
+   ],
+   "a": 0,
+   "why": "Low temperature sharpens the token distribution, so the top choice is picked almost every time."
+  },
+  {
+   "q": "What is the most reliable way to get machine-readable output from an LLM in an app?",
+   "o": [
+    "Ask politely for JSON and parse the text",
+    "Request a structured output or schema and validate the result in code",
+    "Increase the temperature",
+    "Use a longer prompt"
+   ],
+   "a": 1,
+   "why": "Schemas plus validation catch malformed output; retries or repair handle the rest."
+  },
+  {
+   "q": "What is few-shot prompting?",
+   "o": [
+    "Fine-tuning on a few GPUs",
+    "Including a few worked examples in the prompt",
+    "Sampling a few times and averaging",
+    "Using a small model"
+   ],
+   "a": 1,
+   "why": "Examples in the prompt show the format and behavior you want without changing model weights."
+  },
+  {
+   "q": "What is a model's context window?",
+   "o": [
+    "The number of users it can serve",
+    "The maximum number of tokens it can consider in one request",
+    "The time a request may take",
+    "The size of its training set"
+   ],
+   "a": 1,
+   "why": "Input plus output tokens must fit in the context window."
+  },
+  {
+   "q": "What does LoRA train?",
+   "o": [
+    "All model weights",
+    "Small low-rank adapter matrices while the base weights stay frozen",
+    "Only the tokenizer",
+    "The embedding table only"
+   ],
+   "a": 1,
+   "why": "LoRA adds small trainable matrices to selected layers, which cuts memory and cost dramatically."
+  }
+ ],
+ "rag": [
+  {
+   "q": "What does retrieval-augmented generation do?",
+   "o": [
+    "Retrains the model on your documents",
+    "Retrieves relevant passages and adds them to the prompt before generating",
+    "Caches previous answers",
+    "Translates queries"
+   ],
+   "a": 1,
+   "why": "The model answers using retrieved context, which keeps knowledge current without retraining."
+  },
+  {
+   "q": "What property do good text embeddings have?",
+   "o": [
+    "Semantically similar text maps to nearby vectors",
+    "Every word has the same vector",
+    "Vectors are always one-dimensional",
+    "They are human readable"
+   ],
+   "a": 0,
+   "why": "Similarity search over vectors finds passages that mean the same thing even without shared keywords."
+  },
+  {
+   "q": "What tends to go wrong when chunks are too small?",
+   "o": [
+    "Embedding fails to run",
+    "Chunks lose surrounding context and become ambiguous",
+    "The vector store crashes",
+    "Retrieval becomes slower than generation"
+   ],
+   "a": 1,
+   "why": "A sentence pulled out of context may not answer the question. Overlap or parent-document retrieval helps."
+  },
+  {
+   "q": "Which practice most directly reduces hallucination in a RAG app?",
+   "o": [
+    "Higher temperature",
+    "Instructing the model to answer only from the retrieved context and to cite sources",
+    "Shorter prompts",
+    "Removing the retriever"
+   ],
+   "a": 1,
+   "why": "Grounding instructions plus citations make unsupported claims visible and less likely."
+  },
+  {
+   "q": "How should you evaluate the retrieval step separately from generation?",
+   "o": [
+    "Read a few answers by eye",
+    "Measure hit rate or recall at k against questions with known source passages",
+    "Count tokens",
+    "Check response latency"
+   ],
+   "a": 1,
+   "why": "If the right passage is not retrieved, generation cannot succeed, so test retrieval on its own."
+  }
+ ],
+ "agents": [
+  {
+   "q": "What is the basic loop of an LLM agent?",
+   "o": [
+    "Train, test, deploy",
+    "The model chooses an action, a tool runs it, the result is fed back, repeat until done",
+    "Retrieve, embed, rank",
+    "Prompt, sample, discard"
+   ],
+   "a": 1,
+   "why": "Agents alternate between model decisions and tool observations until the task is complete or a limit is hit."
+  },
+  {
+   "q": "What happens in tool (function) calling?",
+   "o": [
+    "The model runs code on its own server",
+    "The model returns a structured call with arguments and your code executes it",
+    "The model downloads a plugin",
+    "The model edits its own prompt"
+   ],
+   "a": 1,
+   "why": "The model only proposes the call. Your application executes it and returns the result."
+  },
+  {
+   "q": "Which is the best safety practice for agents that can take actions?",
+   "o": [
+    "Give them broad permissions to avoid failures",
+    "Use least privilege and require human approval for destructive actions",
+    "Disable logging",
+    "Let them retry forever"
+   ],
+   "a": 1,
+   "why": "Narrow permissions and confirmation steps limit the damage from a wrong or manipulated action."
+  },
+  {
+   "q": "Why set a maximum number of steps on an agent loop?",
+   "o": [
+    "To reduce model size",
+    "To prevent infinite loops and runaway cost",
+    "To improve embeddings",
+    "To speed up tokenization"
+   ],
+   "a": 1,
+   "why": "Agents can get stuck retrying. A step budget bounds time, spend, and side effects."
+  },
+  {
+   "q": "What is the Model Context Protocol (MCP)?",
+   "o": [
+    "A file format for model weights",
+    "An open protocol for connecting AI apps to tools and data sources",
+    "A GPU driver",
+    "A prompt template language"
+   ],
+   "a": 1,
+   "why": "MCP standardizes how servers expose tools, resources and prompts so any compatible client can use them."
+  }
+ ],
+ "mlops": [
+  {
+   "q": "Why package a model service in a Docker container?",
+   "o": [
+    "It makes the model more accurate",
+    "It gives a reproducible runtime that behaves the same in every environment",
+    "It compresses weights",
+    "It replaces version control"
+   ],
+   "a": 1,
+   "why": "The container carries the code, dependencies, and configuration, which removes \"works on my machine\" problems."
+  },
+  {
+   "q": "What is data drift?",
+   "o": [
+    "Training data being deleted",
+    "Production inputs changing so they differ from the training data",
+    "A slow database",
+    "Model weights shifting during inference"
+   ],
+   "a": 1,
+   "why": "When live data no longer resembles the training data, accuracy can silently fall, so monitor input distributions."
+  },
+  {
+   "q": "Which of these should an LLM app log?",
+   "o": [
+    "Nothing, to save cost",
+    "Prompts, responses, latency, token usage, and errors",
+    "Only the final user rating",
+    "Only server CPU"
+   ],
+   "a": 1,
+   "why": "These are the data you need to debug quality, control cost, and spot regressions. Redact sensitive data first."
+  },
+  {
+   "q": "Why version prompts and models?",
+   "o": [
+    "So you can reproduce and roll back behavior",
+    "To hide them from teammates",
+    "To shorten prompts",
+    "Because APIs require it"
+   ],
+   "a": 0,
+   "why": "A prompt change can alter outputs as much as a code change, so track and test it the same way."
+  },
+  {
+   "q": "What is an evaluation set in CI for?",
+   "o": [
+    "Training the model",
+    "Catching quality regressions before a change ships",
+    "Measuring page speed",
+    "Generating documentation"
+   ],
+   "a": 1,
+   "why": "Running fixed test cases on every change shows whether answers got better or worse."
+  }
+ ]
+}

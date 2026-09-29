@@ -1,0 +1,25 @@
+[
+ {
+  "date": "2026-09-29",
+  "focus": "How a GPT-style model works",
+  "why": "Everything in LLM engineering builds on this. Start with the picture, then watch the code.",
+  "tasks": [
+   {
+    "t": "Read The Illustrated Transformer",
+    "ref": "illus-1"
+   },
+   {
+    "t": "Watch micrograd: backpropagation from scratch",
+    "ref": "zth-1"
+   },
+   {
+    "t": "Take the Daily 5 quiz",
+    "quiz": true
+   },
+   {
+    "t": "Skim today's AI news in your Daily AI Updates doc",
+    "url": "https://claude.ai/code/artifact/511df208-f1f5-4644-baa9-f82b25a5929b"
+   }
+  ]
+ }
+]
