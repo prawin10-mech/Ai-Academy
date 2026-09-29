@@ -22,6 +22,6 @@ export async function GET(request) {
       out.cronSecretSet = !!process.env.CRON_SECRET;
       out.sessionSecretSet = !!process.env.SESSION_SECRET;
     }
-  } catch { out.ok = false; }
+  } catch { out.ok = false; out.storage = globalThis.__academyStoreError || 'unavailable'; }
   return json(out, out.ok ? 200 : 503);
 }
