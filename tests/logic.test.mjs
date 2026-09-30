@@ -494,6 +494,7 @@ test('themes: seasonal, daily rotation, fixed choice', () => {
   assert.equal(resolveSkin('neon', oct20), 'neon');
   assert.equal(resolveSkin('nonsense', mar3), 'classic');
   assert.ok(SKIN_IDS.includes('hero'));
+  for (const id of ['genz', 'genalpha', 'web']) { assert.ok(SKIN_IDS.includes(id)); assert.equal(resolveSkin(id, mar3), id); }
 });
 
 import { petMood } from '../lib/pet.js';

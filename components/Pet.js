@@ -95,6 +95,9 @@ export default function Pet() {
             <g className="acc acc-hero"><path d="M26 52 Q60 40 94 52 L94 62 Q60 54 26 62 Z" className="acc-mask" /></g>
             <g className="acc acc-neon"><rect x="30" y="47" width="26" height="18" rx="7" className="acc-glass" /><rect x="64" y="47" width="26" height="18" rx="7" className="acc-glass" /><path d="M56 55 H64" className="acc-glass-line" /></g>
             <g className="acc acc-sunrise"><circle cx="60" cy="14" r="9" className="acc-sun" /></g>
+            <g className="acc acc-genz"><path d="M84 18 l4 8 9 1 -7 6 2 9 -8 -5 -8 5 2 -9 -7 -6 9 -1z" className="acc-genz-p" /></g>
+            <g className="acc acc-alpha"><path d="M24 58 Q24 22 60 22 Q96 22 96 58" className="acc-head" /><rect x="16" y="50" width="12" height="22" rx="6" className="acc-cup" /><rect x="92" y="50" width="12" height="22" rx="6" className="acc-cup" /></g>
+            <g className="acc acc-webg"><path d="M60 24 L60 100 M20 62 L100 62 M30 32 L90 92 M90 32 L30 92" className="acc-web" /><circle cx="60" cy="62" r="18" className="acc-web" /><circle cx="60" cy="62" r="34" className="acc-web" /></g>
             <g className="acc acc-crown"><path d="M42 26 L46 12 L54 22 L60 8 L66 22 L74 12 L78 26 Z" className="acc-crown-p" /></g>
           </g>
           <g className="pet-z"><text x="86" y="30">z</text><text x="96" y="18" className="z2">z</text></g>
