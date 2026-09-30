@@ -11,7 +11,7 @@ import { mergeState } from '../lib/state.js';
 import { createFileStore } from '../lib/db.js';
 import { runDaily, buildDigest, digestDue, localHour } from '../lib/daily.js';
 import { checkCron } from '../lib/cron-auth.js';
-import { hashPassword, verifyPassword, signSession, verifySession, sessionCookie, parseCookies, sameOrigin } from '../lib/security.js';
+import { hashPassword, verifyPassword, signSession, verifySession, sessionCookie, parseCookies, sameOrigin, getSessionUser } from '../lib/security.js';
 import { registerUser, loginUser, validateSignup, changePassword } from '../lib/users.js';
 import { handleUpdate, webhookAuthorized } from '../lib/bot.js';
 import { logEvent } from '../lib/log.js';
@@ -523,4 +523,16 @@ test('telegram diagnostics explain common setup mistakes', async () => {
   r = await telegramDiagnostics({ env: base, fetchFn: fake({ ok: true, result: { username: 'mybot' } }, { ok: true, result: { url: 'https://a.app/api/telegram/webhook', pending_update_count: 0 } }), appUrl: 'https://a.app' });
   assert.deepEqual(r.problems, []);
   assert.ok(!JSON.stringify(r).includes('tok"'));
+});
+
+test('ADMIN_EMAIL makes an existing account the owner without re-registering', async () => {
+  const store = mkStore();
+  const env = { SESSION_SECRET: 'x'.repeat(40) };
+  const u = (await registerUser(store, { email: 'owner@x.co', password: 'longenough1' }, env)).user;
+  assert.equal(!!u.admin, false);
+  const cookie = sessionCookie(u, env).split(';')[0];
+  const req = { headers: { get: (h) => (h.toLowerCase() === 'cookie' ? cookie : null) } };
+  assert.equal(!!(await getSessionUser(req, store, env)).admin, false);
+  assert.equal((await getSessionUser(req, store, { ...env, ADMIN_EMAIL: 'Owner@x.co' })).admin, true);
+  assert.equal(!!(await getSessionUser(req, store, { ...env, ADMIN_EMAIL: 'other@x.co' })).admin, false);
 });
