@@ -1,6 +1,7 @@
 'use client';
 import { SKINS, resolveSkin } from '../lib/skins.js';
 import { useAcademy } from './Providers.js';
+import { PetToggle } from './Pet.js';
 
 export default function ThemePicker() {
   const { skinPref, setSkin } = useAcademy();
@@ -18,6 +19,7 @@ export default function ThemePicker() {
           </button>
         ))}
       </div>
+      <PetToggle />
     </div>
   );
 }

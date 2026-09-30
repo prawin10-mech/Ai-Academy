@@ -1,5 +1,5 @@
 'use client';
-import { resolveSkin, SKIN_IDS } from '../lib/skins.js';
+import { resolveSkin, SKIN_IDS, FONTS } from '../lib/skins.js';
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import courses from '../data/courses.json';
 import quizzes from '../data/quizzes.json';
@@ -197,7 +197,16 @@ export default function Providers({ children }) {
   // Themes: the choice lives on the account when signed in, and in this browser otherwise.
   useEffect(() => { const v = readLS('ai-academy-skin'); if (v && SKIN_IDS.includes(v)) setSkinPref(v); }, []);
   useEffect(() => { if (user && user.skin && SKIN_IDS.includes(user.skin)) { setSkinPref(user.skin); writeLS('ai-academy-skin', user.skin); } }, [user && user.skin]);
-  useEffect(() => { document.documentElement.setAttribute('data-skin', resolveSkin(skinPref)); }, [skinPref]);
+  useEffect(() => {
+    const look = resolveSkin(skinPref);
+    document.documentElement.setAttribute('data-skin', look);
+    const f = FONTS[look];
+    if (f && !document.getElementById(`font-${look}`)) {
+      const l = document.createElement('link');
+      l.id = `font-${look}`; l.rel = 'stylesheet'; l.href = `https://fonts.googleapis.com/css2?${f}&display=swap`;
+      document.head.appendChild(l);
+    }
+  }, [skinPref]);
   const setSkin = useCallback((id) => {
     if (!SKIN_IDS.includes(id)) return;
     setSkinPref(id); writeLS('ai-academy-skin', id);

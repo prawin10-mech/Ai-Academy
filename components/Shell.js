@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAcademy } from './Providers.js';
 import { SKINS } from '../lib/skins.js';
+import Pet from './Pet.js';
 
 const MAIN = [
   ['/', 'Today'],
@@ -42,6 +43,7 @@ export default function Shell({ children }) {
         </nav>
       </header>
       <main>{children}</main>
+      <Pet />
       <footer className="foot">
         <label>Theme <select value={skinPref} onChange={(e) => setSkin(e.target.value)} aria-label="Theme">{SKINS.map((s) => <option key={s.id} value={s.id}>{s.label}</option>)}</select></label>
         <span>Learning resources link to their original providers. <Link href="/privacy">Privacy and terms</Link></span>

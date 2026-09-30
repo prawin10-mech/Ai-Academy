@@ -495,3 +495,13 @@ test('themes: seasonal, daily rotation, fixed choice', () => {
   assert.equal(resolveSkin('nonsense', mar3), 'classic');
   assert.ok(SKIN_IDS.includes('hero'));
 });
+
+import { petMood } from '../lib/pet.js';
+test('study buddy mood', () => {
+  assert.equal(petMood({ streak: 3, activeToday: true, hour: 14 }), 'happy');
+  assert.equal(petMood({ streak: 3, activeToday: false, hour: 20 }), 'worried');
+  assert.equal(petMood({ streak: 3, activeToday: false, hour: 10 }), 'happy');
+  assert.equal(petMood({ streak: 9, activeToday: true, hour: 14 }), 'proud');
+  assert.equal(petMood({ streak: 9, activeToday: true, hour: 23 }), 'sleepy');
+  assert.equal(petMood({ streak: 0, activeToday: false, hour: 3 }), 'sleepy');
+});

@@ -59,7 +59,7 @@ export default function Exercise({ params }) {
         {course && <p className="lead">Learn it first in <Link href={`/courses/${course.id}`}>{course.title}</Link>.</p>}
       </div>
 
-      <div className="split" style={{ gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)' }}>
+      <div className="split even">
         <div className="panel stack"><h3>Task</h3><p style={{ whiteSpace: 'pre-wrap' }}>{ex.task}</p></div>
         <div className="stack">
           <h3>Your code</h3>
