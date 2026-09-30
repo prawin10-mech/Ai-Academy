@@ -1,6 +1,6 @@
 import { getStore, json } from '../../../lib/http.js';
 import { getSessionUser } from '../../../lib/security.js';
-import { botConfigured, telegramConfigured } from '../../../lib/telegram.js';
+import { botConfigured, telegramConfigured, telegramDiagnostics } from '../../../lib/telegram.js';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
@@ -21,6 +21,7 @@ export async function GET(request) {
       out.webhookSecretSet = !!process.env.TELEGRAM_WEBHOOK_SECRET;
       out.cronSecretSet = !!process.env.CRON_SECRET;
       out.sessionSecretSet = !!process.env.SESSION_SECRET;
+      if (botConfigured()) out.telegram = await telegramDiagnostics({ appUrl: process.env.APP_URL || '' });
     }
   } catch { out.ok = false; out.storage = globalThis.__academyStoreError || 'unavailable'; }
   return json(out, out.ok ? 200 : 503);

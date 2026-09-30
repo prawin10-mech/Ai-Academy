@@ -40,6 +40,8 @@ Secrets live only in Vercel. Never commit them.
 2. Register the webhook once: `node --env-file=.env.local scripts/set-webhook.mjs https://your-app.vercel.app`
 3. Learners open Settings, tap Link Telegram, and press Start in the bot. `/stop` unlinks.
 
+**If Telegram is not working:** sign in with your `ADMIN_EMAIL` account and open `/api/health`. The `telegram.problems` list says what is wrong in plain words (bad token, wrong bot username, webhook not registered, secret mismatch). You can also run `node --env-file=.env.local scripts/telegram-check.mjs https://your-app.vercel.app`. The webhook secret may only contain letters, numbers, `_` and `-`.
+
 Learners get: their morning digest, Daily 5 results, streak milestones and course completions. You get: the job summary, errors, feedback and new signups.
 
 ## Daily job

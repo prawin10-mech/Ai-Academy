@@ -39,7 +39,7 @@ export default function Courses() {
   const [view, setView] = useState(state.profile ? 'path' : 'all');
   const [q, setQ] = useState('');
   const query = q.trim().toLowerCase();
-  const found = query ? COURSES.filter((c) => `${c.title} ${c.provider || ''} ${c.topic || ''} ${(GUIDES[c.id] && GUIDES[c.id].plain) || ''}`.toLowerCase().includes(query)) : [];
+  const found = query ? COURSES.filter((c) => `${c.title} ${c.by || ''} ${c.topic || ''} ${(GUIDES[c.id] && GUIDES[c.id].plain) || ''}`.toLowerCase().includes(query)) : [];
   const path = buildPath(state, COURSES, TOPICS);
   const core = COURSES.filter((c) => c.track !== 'archive');
   const archive = COURSES.filter((c) => c.track === 'archive');

@@ -506,3 +506,21 @@ test('study buddy mood', () => {
   assert.equal(petMood({ streak: 9, activeToday: true, hour: 23 }), 'sleepy');
   assert.equal(petMood({ streak: 0, activeToday: false, hour: 3 }), 'sleepy');
 });
+
+import { telegramDiagnostics } from '../lib/telegram.js';
+test('telegram diagnostics explain common setup mistakes', async () => {
+  const fake = (me, wh) => async (url) => ({ json: async () => (String(url).includes('getMe') ? me : wh) });
+  const base = { TELEGRAM_BOT_TOKEN: 'tok', TELEGRAM_BOT_USERNAME: 'MyBot', TELEGRAM_WEBHOOK_SECRET: 'good_secret-1' };
+  let r = await telegramDiagnostics({ env: {}, fetchFn: fake() });
+  assert.match(r.problems[0], /TELEGRAM_BOT_TOKEN/);
+  r = await telegramDiagnostics({ env: base, fetchFn: fake({ ok: true, result: { username: 'OtherBot' } }, { ok: true, result: { url: '' } }), appUrl: 'https://a.app' });
+  assert.ok(r.problems.some((p) => /wrong bot/.test(p)));
+  assert.ok(r.problems.some((p) => /No webhook/.test(p)));
+  r = await telegramDiagnostics({ env: { ...base, TELEGRAM_WEBHOOK_SECRET: 'bad secret!' }, fetchFn: fake({ ok: false, description: 'Unauthorized' }, { ok: true, result: { url: 'https://other.app/api/telegram/webhook', last_error_message: '401 Unauthorized' } }), appUrl: 'https://a.app' });
+  assert.ok(r.problems.some((p) => /not allow/.test(p)));
+  assert.ok(r.problems.some((p) => /rejected the bot token/.test(p)));
+  assert.ok(r.problems.some((p) => /points to/.test(p)));
+  r = await telegramDiagnostics({ env: base, fetchFn: fake({ ok: true, result: { username: 'mybot' } }, { ok: true, result: { url: 'https://a.app/api/telegram/webhook', pending_update_count: 0 } }), appUrl: 'https://a.app' });
+  assert.deepEqual(r.problems, []);
+  assert.ok(!JSON.stringify(r).includes('tok"'));
+});
