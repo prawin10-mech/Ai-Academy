@@ -1,1 +1,55 @@
-{"updated":null,"items":[]}
+{
+ "updated": "2026-09-30",
+ "items": [
+  {
+   "date": "2026-09-29",
+   "title": "GPT-6.1 Sol",
+   "vendor": "OpenAI",
+   "summary": "OpenAI released GPT-6.1 Sol (API name gpt-6.1-sol) at $2 per million input tokens, $0.10 cached input and $10 output. OpenAI says it matches GPT-6 Astra on a coding benchmark at one fifth of the price.",
+   "why": "Rerun your own evals on it and compare cost per task, because price per task now decides which model you ship.",
+   "url": "https://openai.com/index/introducing-gpt-6-1-sol/",
+   "name": "GPT-6.1 Sol",
+   "what": "OpenAI released GPT-6.1 Sol (API name gpt-6.1-sol) at $2 per million input tokens, $0.10 cached input and $10 output. OpenAI says it matches GPT-6 Astra on a coding benchmark at one fifth of the price."
+  },
+  {
+   "date": "2026-09-28",
+   "title": "Claude Sonnet 5.5",
+   "vendor": "Anthropic",
+   "summary": "Anthropic released Claude Sonnet 5.5 (API name claude-sonnet-5-5) at $2 input and $10 output per million tokens, with cache reads at $0.20. Anthropic says it is over 30% faster than Sonnet 5 and can cost up to 30% less per task.",
+   "why": "Practice measuring cost per finished task, not only price per token, and use prompt caching to cut your bill.",
+   "url": "https://www.anthropic.com/claude-sonnet-5-5",
+   "name": "Claude Sonnet 5.5",
+   "what": "Anthropic released Claude Sonnet 5.5 (API name claude-sonnet-5-5) at $2 input and $10 output per million tokens, with cache reads at $0.20. Anthropic says it is over 30% faster than Sonnet 5 and can cost up to 30% less per task."
+  },
+  {
+   "date": "2026-09-29",
+   "title": "OpenAI Agents API with computer use",
+   "vendor": "OpenAI",
+   "summary": "At DevDay OpenAI announced an Agents API with computer use, multi-agent support, tool search and calling, and context compaction on OpenAI-managed infrastructure.",
+   "why": "Build a small agent that uses tools and hands work to a second agent, and know how to test each step.",
+   "url": "https://openai.com/index/devday-2026-recap/",
+   "name": "OpenAI Agents API with computer use",
+   "what": "At DevDay OpenAI announced an Agents API with computer use, multi-agent support, tool search and calling, and context compaction on OpenAI-managed infrastructure."
+  },
+  {
+   "date": "2026-09-29",
+   "title": "MCP Events for plugin automations",
+   "vendor": "OpenAI",
+   "summary": "OpenAI said its plugins now support the MCP Events specification, so a plugin can start an automation when something happens in a connected app. The spec is a community MCP working group draft.",
+   "why": "Learn MCP servers, then read the Events spec so your tools can trigger agents, not only answer them.",
+   "url": "https://openai.com/index/devday-2026-recap/",
+   "name": "MCP Events for plugin automations",
+   "what": "OpenAI said its plugins now support the MCP Events specification, so a plugin can start an automation when something happens in a connected app. The spec is a community MCP working group draft."
+  },
+  {
+   "date": "2026-09-29",
+   "title": "Decisions API (limited preview)",
+   "vendor": "OpenAI",
+   "summary": "OpenAI announced a Decisions API that takes text or images and returns one answer from a fixed list, aimed at classification, routing and agent direction. It is in limited preview, with broad release planned within days.",
+   "why": "Practice using small fixed-answer routing steps inside agents, and compare them with a normal model call in your evals.",
+   "url": "https://openai.com/index/devday-2026-recap/",
+   "name": "Decisions API (limited preview)",
+   "what": "OpenAI announced a Decisions API that takes text or images and returns one answer from a fixed list, aimed at classification, routing and agent direction. It is in limited preview, with broad release planned within days."
+  }
+ ]
+}

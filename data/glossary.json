@@ -767,5 +767,16 @@
    "evals",
    "inference"
   ]
+ },
+ {
+  "term": "prompt caching",
+  "topic": "llm",
+  "plain": "A feature where the API stores a repeated start of your prompt, so later requests that reuse it are billed at a lower cached input price.",
+  "analogy": "Like keeping a long file open in your editor instead of reloading it for every edit.",
+  "example": "On Claude Sonnet 5.5, cache reads cost $0.20 per million tokens against $2 for normal input, so a long system prompt reused many times gets much cheaper.",
+  "related": [
+   "context window",
+   "inference"
+  ]
  }
 ]
