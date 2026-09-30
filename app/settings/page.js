@@ -1,7 +1,8 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAcademy } from '../../components/Providers.js';
+import ThemePicker from '../../components/ThemePicker.js';
 
 export default function Settings() {
   const router = useRouter();
@@ -16,6 +17,22 @@ export default function Settings() {
   const [del, setDel] = useState('');
   const [fb, setFb] = useState('');
 
+  // While a link is pending, check every 3 seconds so the page updates the moment you press Start in Telegram.
+  const pending = !!link && !(user && user.telegramLinked);
+  useEffect(() => {
+    if (!pending) return undefined;
+    let stop = false;
+    const started = Date.now();
+    const tick = async () => {
+      if (stop || Date.now() - started > 15 * 60 * 1000) return;
+      try { const r = await api('/api/auth/me'); const d = await r.json(); if (d.user && d.user.telegramLinked) { refreshUser(d.user); setLink(null); setMsg('Telegram is linked. You should have a welcome message in the chat.'); return; } } catch { /* try again */ }
+      setTimeout(tick, 3000);
+    };
+    const t = setTimeout(tick, 3000);
+    return () => { stop = true; clearTimeout(t); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pending]);
+
   if (mode === 'guest') {
     return (
       <div className="stack">
@@ -24,6 +41,7 @@ export default function Settings() {
           <p>You are using a guest session. Your progress is saved in this browser only, and Telegram digests, syncing and job-readiness history need an account.</p>
           <div className="row"><button className="btn primary" onClick={logout}>Create an account</button></div>
         </div>
+        <ThemePicker />
       </div>
     );
   }
@@ -42,6 +60,7 @@ export default function Settings() {
   });
   const unlink = () => call(async () => { const r = await api('/api/telegram/unlink', { method: 'POST' }); const d = await r.json(); if (r.ok) { refreshUser(d.user); setLink(null); setMsg('Telegram unlinked.'); } });
   const refresh = () => call(async () => { const r = await api('/api/auth/me'); const d = await r.json(); if (d.user) refreshUser(d.user); setMsg(d.user && d.user.telegramLinked ? 'Telegram is linked.' : 'Not linked yet. Open the link in Telegram and press Start.'); });
+  const sendTest = () => call(async () => { const r = await api('/api/telegram/test', { method: 'POST' }); const d = await r.json().catch(() => ({})); setMsg(r.ok ? 'Test message sent. Check Telegram.' : d.error || 'Could not send the test message.'); });
   const changePw = () => call(async () => { const r = await api('/api/auth/password', { method: 'POST', body: JSON.stringify(pw) }); const d = await r.json(); setMsg(r.ok ? 'Password changed. Other devices were signed out.' : d.error); if (r.ok) setPw({ current: '', next: '' }); });
   const sendFb = () => call(async () => { const r = await api('/api/feedback', { method: 'POST', body: JSON.stringify({ message: fb, page: 'settings' }) }); const d = await r.json(); setMsg(r.ok ? 'Thank you. Your report was sent.' : d.error); if (r.ok) setFb(''); });
   const remove = () => call(async () => {
@@ -66,26 +85,29 @@ export default function Settings() {
         <div className="row"><button className="btn primary" onClick={save}>Save</button></div>
       </div>
 
+      <ThemePicker />
+
       <div className="panel stack">
         <h2>Daily digest on Telegram</h2>
         <p className="lead">Get your evaluation, today&apos;s plan, new models and papers on your phone each morning, plus a note when you finish a Daily 5 or hit a streak.</p>
         {user && user.telegramLinked ? (
           <>
-            <p><span className="pill ok">Linked</span></p>
+            <p><span className="pill ok">Linked ✓</span> <span className="meta">Your messages arrive in Telegram.</span></p>
             <label className="row"><input type="checkbox" checked={digest} onChange={(e) => setDigest(e.target.checked)} /> Send me messages</label>
             <label className="stack" style={{ gap: 4 }}>Send my digest at
               <select className="field" value={hour} onChange={(e) => setHour(e.target.value)}>{Array.from({ length: 24 }, (_, h) => <option key={h} value={h}>{String(h).padStart(2, '0')}:00 (your time zone)</option>)}</select>
             </label>
-            <div className="row"><button className="btn primary" onClick={save}>Save schedule</button><button className="btn" onClick={unlink}>Unlink Telegram</button></div>
+            <div className="row"><button className="btn primary" onClick={save}>Save schedule</button><button className="btn" onClick={sendTest}>Send a test message</button><button className="btn" onClick={unlink}>Unlink Telegram</button></div>
           </>
         ) : !botUsername ? (
           <p className="lead">Telegram is not set up on this site yet.</p>
         ) : (
           <>
+            <p><span className="pill warn">Not linked</span> {pending && <span className="meta"><span className="spinner" aria-hidden="true" />Waiting for you to press Start in Telegram</span>}</p>
             <ol className="stack" style={{ margin: 0, paddingLeft: 20 }}>
               <li>Press &quot;Link Telegram&quot; to get a one-time link (valid 15 minutes).</li>
               <li>Open it in Telegram and press Start.</li>
-              <li>Come back and press &quot;Check link&quot;.</li>
+              <li>This page notices the link on its own and shows a green Linked mark.</li>
             </ol>
             <div className="row">
               <button className="btn primary" onClick={makeLink}>Link Telegram</button>

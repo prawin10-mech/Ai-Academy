@@ -7,7 +7,7 @@ import { prettyDate } from '../lib/dates.js';
 
 export default function Today() {
   const router = useRouter();
-  const { state, streak, plans, feed, radar, tick, startQuiz, ready, mode } = useAcademy();
+  const { state, streak, plans, feed, radar, tick, startQuiz, ready, mode, user, botUsername } = useAcademy();
   const today = todayLocal();
   const ev = evaluate(state, TOPICS);
   const t = totals(state, COURSES);
@@ -28,6 +28,7 @@ export default function Today() {
     <>
       <div className="stack">
         <div className="eyebrow">{prettyDate(today)}</div>
+        {mode === 'user' && botUsername && user && !user.telegramLinked && <div className="panel row between"><span>📲 Get your daily plan on Telegram. It takes 10 seconds.</span><Link className="btn small" href="/settings">Link Telegram</Link></div>}
         <h1>Today</h1>
       </div>
 

@@ -1,4 +1,5 @@
 'use client';
+import { resolveSkin, SKIN_IDS } from '../lib/skins.js';
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import courses from '../data/courses.json';
 import quizzes from '../data/quizzes.json';
@@ -62,6 +63,7 @@ export default function Providers({ children }) {
   const [feed, setFeed] = useState([]);
   const [radar, setRadar] = useState([]);
   const [quiz, setQuiz] = useState(null);
+  const [skinPref, setSkinPref] = useState('auto');
   const stateRef = useRef(state);
   const modeRef = useRef('loading');
   const userRef = useRef(null);
@@ -191,6 +193,16 @@ export default function Providers({ children }) {
   }, [flush]);
 
   const refreshUser = useCallback((u) => { userRef.current = u; setUser(u); }, []);
+
+  // Themes: the choice lives on the account when signed in, and in this browser otherwise.
+  useEffect(() => { const v = readLS('ai-academy-skin'); if (v && SKIN_IDS.includes(v)) setSkinPref(v); }, []);
+  useEffect(() => { if (user && user.skin && SKIN_IDS.includes(user.skin)) { setSkinPref(user.skin); writeLS('ai-academy-skin', user.skin); } }, [user && user.skin]);
+  useEffect(() => { document.documentElement.setAttribute('data-skin', resolveSkin(skinPref)); }, [skinPref]);
+  const setSkin = useCallback((id) => {
+    if (!SKIN_IDS.includes(id)) return;
+    setSkinPref(id); writeLS('ai-academy-skin', id);
+    if (modeRef.current === 'user') api('/api/settings', { method: 'PATCH', body: JSON.stringify({ skin: id }) }).then((r) => r.json()).then((d) => { if (d && d.user) refreshUser(d.user); }).catch(() => {});
+  }, [api, refreshUser]);
   const reportEvent = useCallback((type, message) => {
     if (modeRef.current !== 'user') return;
     api('/api/log', { method: 'POST', body: JSON.stringify({ type, message }) }).catch(() => {});
@@ -276,12 +288,12 @@ export default function Providers({ children }) {
   const exitQuiz = useCallback(() => setQuiz(null), []);
 
   const value = useMemo(() => ({
-    mode, user, botUsername, state, ready, sync, plans, feed, radar, quiz,
+    mode, user, botUsername, skinPref, setSkin, state, ready, sync, plans, feed, radar, quiz,
     streak: calcStreak(state, todayLocal()),
     login, register, continueGuest, logout, refreshUser, reportEvent,
     toggleDone, tick: toggleDone, setNote, setLast, setEmbed, setProfile, setPaper, savePractice, setProject, rateInterview,
     startQuiz, answer, nextQuestion, exitQuiz, api,
-  }), [mode, user, botUsername, state, ready, sync, plans, feed, radar, quiz, login, register, continueGuest, logout, refreshUser, reportEvent, toggleDone, setNote, setLast, setEmbed, setProfile, setPaper, savePractice, setProject, rateInterview, startQuiz, answer, nextQuestion, exitQuiz, api]);
+  }), [mode, user, botUsername, skinPref, setSkin, state, ready, sync, plans, feed, radar, quiz, login, register, continueGuest, logout, refreshUser, reportEvent, toggleDone, setNote, setLast, setEmbed, setProfile, setPaper, savePractice, setProject, rateInterview, startQuiz, answer, nextQuestion, exitQuiz, api]);
 
   if (mode === 'loading') return (
     <div className="shell"><main style={{ paddingBlock: 32 }} aria-busy="true" aria-label="Loading">

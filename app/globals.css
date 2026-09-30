@@ -154,7 +154,7 @@ textarea.code { font: 0.9rem/1.5 var(--font-mono); min-height: 260px; white-spac
 .result:first-child { border-top: 0; }
 .result code { font: 0.85rem var(--font-mono); background: var(--surface-2); padding: 1px 6px; border-radius: 4px; word-break: break-all; }
 .dial { font: 700 3rem/1 var(--font-display); font-variant-numeric: tabular-nums; }
-.foot { margin-top: 48px; padding-block: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.85rem; }
+.foot { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; margin-top: 48px; padding-block: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.85rem; }
 
 /* loading states */
 @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
@@ -163,3 +163,54 @@ textarea.code { font: 0.9rem/1.5 var(--font-mono); min-height: 260px; white-spac
 .spinner { display: inline-block; width: 14px; height: 14px; margin-right: 8px; vertical-align: -2px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin .7s linear infinite; }
 .search { width: 100%; max-width: 420px; }
 @media (prefers-reduced-motion: reduce) { .skel, .spinner { animation: none; } }
+
+/* ---------- themes (lib/skins.js). They set every colour token; Classic is the default above. ---------- */
+:root[data-skin="hero"] {
+  --bg: #fff8ec; --surface: #ffffff; --surface-2: #ffe9d2; --ink: #14173a; --muted: #4b4f78; --line: #14173a;
+  --accent: #d62839; --accent-ink: #ffffff; --accent-soft: #ffdfe2;
+  --ok: #17803d; --ok-soft: #d9f3e2; --warn: #a15c00; --warn-soft: #ffeccb; --bad: #b3202f; --bad-soft: #ffdcdf;
+  --font-display: "Familjen Grotesk", "Impact", "Trebuchet MS", sans-serif; color-scheme: light;
+}
+:root[data-skin="hero"] body { background-image: radial-gradient(rgba(31, 63, 174, .13) 1.2px, transparent 1.4px); background-size: 14px 14px; }
+:root[data-skin="hero"] .top { background: #1f3fae; border-bottom: 4px solid #d62839; }
+:root[data-skin="hero"] .top .brand, :root[data-skin="hero"] .top .status { color: #fff; }
+:root[data-skin="hero"] .top .brand span { color: #ffd23f; }
+:root[data-skin="hero"] .top .nav a { color: #dfe6ff; }
+:root[data-skin="hero"] .top .nav a[aria-current="page"] { background: #d62839; color: #fff; }
+:root[data-skin="hero"] .top .linkbtn { color: #ffd23f; }
+:root[data-skin="hero"] .card, :root[data-skin="hero"] .panel { border-width: 2px; box-shadow: 4px 4px 0 var(--line); }
+:root[data-skin="hero"] h1 { text-transform: uppercase; letter-spacing: .02em; }
+
+:root[data-skin="spooky"] {
+  --bg: #150d22; --surface: #21142f; --surface-2: #2c1b3f; --ink: #f6ecff; --muted: #b9a5d1; --line: #3d2857;
+  --accent: #ff8a1f; --accent-ink: #1a0d00; --accent-soft: #3a2410;
+  --ok: #6fe3a0; --ok-soft: #123324; --warn: #ffc857; --warn-soft: #3b2c0d; --bad: #ff7b8a; --bad-soft: #43162a; color-scheme: dark;
+}
+:root[data-skin="spooky"] body { background-image: radial-gradient(circle at 85% -5%, rgba(255, 138, 31, .25), transparent 40%), radial-gradient(circle at 5% 105%, rgba(124, 58, 237, .28), transparent 45%); background-attachment: fixed; }
+:root[data-skin="spooky"] .brand::before { content: "\1F383  "; }
+:root[data-skin="spooky"] .brand span { color: #ff8a1f; }
+:root[data-skin="spooky"] .btn.primary { box-shadow: 0 0 18px rgba(255, 138, 31, .35); }
+
+:root[data-skin="neon"] {
+  --bg: #0b0f1e; --surface: #121834; --surface-2: #1a2246; --ink: #eaf6ff; --muted: #8fa3c7; --line: #26305c;
+  --accent: #22e6d0; --accent-ink: #001a17; --accent-soft: #0e3040;
+  --ok: #52f3a0; --ok-soft: #0d3326; --warn: #ffd166; --warn-soft: #3a300f; --bad: #ff5d8f; --bad-soft: #401428; color-scheme: dark;
+}
+:root[data-skin="neon"] .brand span { color: #ff3fa4; }
+:root[data-skin="neon"] .card, :root[data-skin="neon"] .panel { box-shadow: 0 0 0 1px rgba(34, 230, 208, .12), 0 0 22px rgba(34, 230, 208, .06); }
+:root[data-skin="neon"] .btn.primary { box-shadow: 0 0 16px rgba(34, 230, 208, .4); }
+
+:root[data-skin="sunrise"] {
+  --bg: #fff6e8; --surface: #ffffff; --surface-2: #ffe9cf; --ink: #33231a; --muted: #7a5f4d; --line: #f0d5b5;
+  --accent: #d9481f; --accent-ink: #ffffff; --accent-soft: #ffe0d2;
+  --ok: #2b8a4b; --ok-soft: #dff3e5; --warn: #a15c00; --warn-soft: #ffedc9; --bad: #b3312a; --bad-soft: #fde1de; color-scheme: light;
+}
+:root[data-skin="sunrise"] body { background-image: linear-gradient(180deg, #ffe7c2 0, rgba(255, 246, 232, 0) 320px); background-repeat: no-repeat; }
+:root[data-skin="sunrise"] .brand span { color: #e08a00; }
+
+.swatches { display: inline-flex; gap: 3px; vertical-align: middle; margin-right: 6px; }
+.swatches i { width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--line); display: inline-block; }
+.themepick { display: flex; flex-wrap: wrap; gap: 10px; }
+.themepick button { text-align: left; padding: 10px 12px; border: 2px solid var(--line); border-radius: 12px; background: var(--surface); display: grid; gap: 2px; max-width: 260px; }
+.themepick button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.foot select { font: inherit; }

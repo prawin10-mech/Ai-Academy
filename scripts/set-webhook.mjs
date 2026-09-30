@@ -12,3 +12,12 @@ const res = await fetch(`https://api.telegram.org/bot${token}/setWebhook`, {
 });
 const body = await res.json();
 console.log(body.ok ? 'Webhook set.' : `Failed: ${body.description}`);
+
+// Shows the command menu inside Telegram.
+const { COMMANDS } = await import('../lib/bot.js');
+const cm = await fetch(`https://api.telegram.org/bot${token}/setMyCommands`, {
+  method: 'POST',
+  headers: { 'content-type': 'application/json' },
+  body: JSON.stringify({ commands: COMMANDS.map(([command, description]) => ({ command, description })) }),
+});
+console.log((await cm.json()).ok ? 'Command menu set.' : 'Could not set the command menu.');

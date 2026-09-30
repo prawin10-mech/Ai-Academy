@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAcademy } from './Providers.js';
+import { SKINS } from '../lib/skins.js';
 
 const MAIN = [
   ['/', 'Today'],
@@ -23,7 +24,7 @@ const MORE = [
 export default function Shell({ children }) {
   const pathname = usePathname() || '/';
   const router = useRouter();
-  const { sync, mode, user, logout } = useAcademy();
+  const { sync, mode, user, logout, skinPref, setSkin } = useAcademy();
   const active = (href) => (href === '/' ? pathname === '/' || pathname === '/quiz' || pathname === '/start' : pathname.startsWith(href));
   return (
     <div className="shell">
@@ -42,6 +43,7 @@ export default function Shell({ children }) {
       </header>
       <main>{children}</main>
       <footer className="foot">
+        <label>Theme <select value={skinPref} onChange={(e) => setSkin(e.target.value)} aria-label="Theme">{SKINS.map((s) => <option key={s.id} value={s.id}>{s.label}</option>)}</select></label>
         <span>Learning resources link to their original providers. <Link href="/privacy">Privacy and terms</Link></span>
       </footer>
     </div>

@@ -456,3 +456,42 @@ test('exercise ids are unique and levels are known', () => {
   for (const e of ex) assert.ok(['starter', 'core', 'stretch'].includes(e.level), `${e.id} level ${e.level}`);
   assert.ok(ex.length >= 46);
 });
+
+test('telegram bot commands: welcome, status, today, streak, pause, unlinked chat', async () => {
+  const store = mkStore();
+  const a = (await registerUser(store, { email: 'ada@x.co', password: 'longenough1', name: 'Ada', tz: 'Asia/Dubai' })).user;
+  const sent = [];
+  const env = { TELEGRAM_BOT_TOKEN: 't', TELEGRAM_WEBHOOK_SECRET: 's' };
+  const fetchFn = tgOk(sent);
+  const upd = (text, chat = 333) => ({ message: { text, chat: { id: chat, type: 'private' } } });
+  const say = async (t, chat) => { const before = sent.length; const r = await handleUpdate({ store, update: upd(t, chat), env, fetchFn }); return { r, text: JSON.stringify(sent.slice(before)) }; };
+  // not linked yet
+  let x = await say('/start');
+  assert.equal(x.r.action, 'help'); assert.match(x.text, /not linked/);
+  x = await say('/today'); assert.equal(x.r.action, 'not_linked');
+  // link, welcome lists commands
+  await store.updateUser(a.id, { telegramLinkToken: 'tokentoken12345', telegramLinkExpires: Date.now() + 60000 });
+  x = await say('/start tokentoken12345');
+  assert.equal(x.r.action, 'linked'); assert.match(x.text, /Linked, Ada/); assert.match(x.text, /\/today/);
+  x = await say('/start'); assert.equal(x.r.action, 'welcome_back'); assert.match(x.text, /a\*\*\*@x\.co/);
+  x = await say('/status'); assert.match(x.text, /Digest: on/);
+  x = await say('/streak'); assert.equal(x.r.action, 'streak');
+  x = await say('/today'); assert.equal(x.r.action, 'today');
+  x = await say('/pause'); assert.equal((await store.getUserById(a.id)).digest, false);
+  x = await say('/status'); assert.match(x.text, /paused/);
+  x = await say('/resume'); assert.equal((await store.getUserById(a.id)).digest, true);
+  x = await say('hello there'); assert.equal(x.r.action, 'unknown'); assert.match(x.text, /\/help/);
+});
+
+import { resolveSkin, seasonal, SKIN_IDS } from '../lib/skins.js';
+test('themes: seasonal, daily rotation, fixed choice', () => {
+  const oct20 = new Date(2026, 9, 20); const mar3 = new Date(2026, 2, 3);
+  assert.equal(seasonal(oct20), 'spooky'); assert.equal(seasonal(mar3), null);
+  assert.equal(resolveSkin('auto', oct20), 'spooky'); assert.equal(resolveSkin('auto', mar3), 'classic');
+  assert.equal(resolveSkin('daily', oct20), 'spooky');
+  const seen = new Set(); for (let d = 1; d <= 7; d++) seen.add(resolveSkin('daily', new Date(2026, 2, d)));
+  assert.ok(seen.size >= 3);
+  assert.equal(resolveSkin('neon', oct20), 'neon');
+  assert.equal(resolveSkin('nonsense', mar3), 'classic');
+  assert.ok(SKIN_IDS.includes('hero'));
+});
