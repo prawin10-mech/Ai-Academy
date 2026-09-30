@@ -98,6 +98,8 @@ export default function Pet() {
             <g className="acc acc-genz"><path d="M84 18 l4 8 9 1 -7 6 2 9 -8 -5 -8 5 2 -9 -7 -6 9 -1z" className="acc-genz-p" /></g>
             <g className="acc acc-alpha"><path d="M24 58 Q24 22 60 22 Q96 22 96 58" className="acc-head" /><rect x="16" y="50" width="12" height="22" rx="6" className="acc-cup" /><rect x="92" y="50" width="12" height="22" rx="6" className="acc-cup" /></g>
             <g className="acc acc-webg"><path d="M60 24 L60 100 M20 62 L100 62 M30 32 L90 92 M90 32 L30 92" className="acc-web" /><circle cx="60" cy="62" r="18" className="acc-web" /><circle cx="60" cy="62" r="34" className="acc-web" /></g>
+            <g className="acc acc-cy"><path d="M28 46 H92 V50 H28 Z" className="acc-cyber-band" /><circle cx="74" cy="56" r="11" className="acc-cyber-eye" /><circle cx="74" cy="56" r="3.5" className="pet-glint" /></g>
+            <g className="acc acc-sc"><path d="M30 48 H90 Q90 66 76 66 Q66 66 62 56 H58 Q54 66 44 66 Q30 66 30 48 Z" className="acc-shade" /></g>
             <g className="acc acc-crown"><path d="M42 26 L46 12 L54 22 L60 8 L66 22 L74 12 L78 26 Z" className="acc-crown-p" /></g>
           </g>
           <g className="pet-z"><text x="86" y="30">z</text><text x="96" y="18" className="z2">z</text></g>
