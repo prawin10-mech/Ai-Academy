@@ -536,3 +536,19 @@ test('ADMIN_EMAIL makes an existing account the owner without re-registering', a
   assert.equal((await getSessionUser(req, store, { ...env, ADMIN_EMAIL: 'Owner@x.co' })).admin, true);
   assert.equal(!!(await getSessionUser(req, store, { ...env, ADMIN_EMAIL: 'other@x.co' })).admin, false);
 });
+
+import { tokenize, highlight, checkSyntax, reindent, indentAt } from '../lib/editor.js';
+test('code editor helpers: tokens, syntax problems, re-indent', () => {
+  const h = highlight('const a = "x < y"; // note\nreturn f(1);');
+  assert.match(h, /<span class="tok-kw">const<\/span>/); assert.match(h, /tok-str">&quot;|tok-str">"x &lt; y"/); assert.match(h, /tok-com/); assert.match(h, /tok-num">1/); assert.match(h, /tok-fn">f/);
+  assert.deepEqual(checkSyntax('function f(a) {\n  return [1, 2];\n}\n'), []);
+  assert.deepEqual(checkSyntax('const r = /["(]/; const s = "a)";'), []);
+  assert.equal(checkSyntax('function f() {\n  if (x) {\n}\n')[0].line, 1);
+  assert.match(checkSyntax('let a = (1 + 2;\n')[0].message, /does not match|never closed/);
+  assert.match(checkSyntax('let s = "abc;\nlet t = 1;')[0].message, /not closed/);
+  assert.match(checkSyntax('}\n')[0].message, /Extra closing/);
+  assert.equal(reindent('function f(a){\nif(a){\nreturn 1;\n}\nreturn [\n2,\n3\n];\n}'), 'function f(a){\n  if(a){\n    return 1;\n  }\n  return [\n    2,\n    3\n  ];\n}\n');
+  assert.equal(reindent('const t = `a\n   b`;\nfoo(1);   '), 'const t = `a\n   b`;\nfoo(1);\n');
+  assert.equal(indentAt('  if (x) {\n    foo', 17), '    ');
+  assert.ok(tokenize('a / b / c').every((t) => t.t !== 'str'));
+});

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { COURSES, EXERCISES, TOPICS, useAcademy } from '../../../components/Providers.js';
 import { runInWorker } from '../../../components/runWorker.js';
+import CodeEditor from '../../../components/CodeEditor.js';
 
 export default function Exercise({ params }) {
   const ex = EXERCISES.find((e) => e.id === params.id);
@@ -24,16 +25,6 @@ export default function Exercise({ params }) {
   const idx = EXERCISES.findIndex((e) => e.id === ex.id);
   const nextEx = [...EXERCISES.slice(idx + 1), ...EXERCISES.slice(0, idx)].find((e) => !(state.practice[e.id] && state.practice[e.id].passed));
   const change = (v) => { setCode(v); savePractice(ex.id, { code: v }); };
-
-  const onKey = (e) => {
-    if (e.key === 'Tab') {
-      e.preventDefault();
-      const t = e.target; const s = t.selectionStart; const en = t.selectionEnd;
-      const v = `${code.slice(0, s)}  ${code.slice(en)}`;
-      change(v);
-      requestAnimationFrame(() => { t.selectionStart = t.selectionEnd = s + 2; });
-    }
-  };
 
   const runTests = async () => {
     setBusy(true);
@@ -63,12 +54,12 @@ export default function Exercise({ params }) {
         <div className="panel stack"><h3>Task</h3><p style={{ whiteSpace: 'pre-wrap' }}>{ex.task}</p></div>
         <div className="stack">
           <h3>Your code</h3>
-          <textarea className="code" value={code} disabled={!ready} onChange={(e) => change(e.target.value)} onKeyDown={onKey} spellCheck={false} aria-label="Code editor" />
+          <CodeEditor value={code} onChange={change} onRun={runTests} disabled={!ready} />
           <div className="row">
             <button className="btn primary" onClick={runTests} disabled={busy || !ready}>{busy ? <><span className="spinner" aria-hidden="true" />Running</> : 'Run tests'}</button>
             <button className="btn" onClick={() => { change(ex.starter); setRun(null); }}>Reset</button>
           </div>
-          <span className="lead" style={{ fontSize: '0.85rem' }}>Runs in your browser in a sandbox with no network. Tab inserts two spaces.</span>
+          <span className="lead" style={{ fontSize: '0.85rem' }}>Runs in your browser in a sandbox with no network.</span>
         </div>
       </div>
 
