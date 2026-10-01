@@ -31,7 +31,8 @@ const nextConfig = {
       { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=()' },
       { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains' },
     ];
-    return [{ source: '/:path*', headers: isProd ? [...common, { key: 'Content-Security-Policy', value: csp }] : common }];
+    // The practice runner has its own policy (see app/api/runner/route.js), so it is left out here.
+    return [{ source: '/((?!api/runner).*)', headers: isProd ? [...common, { key: 'Content-Security-Policy', value: csp }] : common }];
   },
 };
 export default nextConfig;
