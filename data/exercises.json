@@ -119,7 +119,18 @@
   ],
   "solution": "function dot(a, b) {\n  let total = 0;\n  for (let i = 0; i < a.length; i++) {\n    total += a[i] * b[i];\n  }\n  return total;\n}\n",
   "explain": "The loop walks along both arrays together and adds up the products of each pair. An empty array never enters the loop, so the answer stays at 0. Taking the dot of a vector with itself gives its squared length, which is how norms are computed. Almost all of deep learning is many dot products done fast.",
-  "connects": "Embedding search, attention scores and every dense layer in a model are built from dot products."
+  "connects": "Embedding search, attention scores and every dense layer in a model are built from dot products.",
+  "python": {
+   "fn": "dot",
+   "task": "Write dot(a, b). a and b are lists of numbers with the same length. Return the sum of a[i] * b[i]. If both lists are empty, return 0. Example: dot([1, 2, 3], [4, 5, 6]) is 1*4 + 2*5 + 3*6 = 32. Bonus idea: dot(v, v) is the squared length of v, so the vector norm is math.sqrt(dot(v, v)). For example dot([3, 4], [3, 4]) is 25, so the norm of [3, 4] is 5.",
+   "hints": [
+    "You need to visit every position i and combine a[i] with b[i].",
+    "Keep a running total that starts at 0. In a loop, add a[i] * b[i] to it.",
+    "total = 0, then for i in range(len(a)): total += a[i] * b[i], then return total. You can also use zip(a, b)."
+   ],
+   "starter": "def dot(a, b):\n    # your code\n    pass\n",
+   "solution": "def dot(a, b):\n    total = 0\n    for x, y in zip(a, b):\n        total += x * y\n    return total\n"
+  }
  },
  {
   "id": "ex-cosine",
@@ -243,7 +254,18 @@
   ],
   "solution": "function cosine(a, b) {\n  let dab = 0;\n  let daa = 0;\n  let dbb = 0;\n  for (let i = 0; i < a.length; i++) {\n    dab += a[i] * b[i];\n    daa += a[i] * a[i];\n    dbb += b[i] * b[i];\n  }\n  const na = Math.sqrt(daa);\n  const nb = Math.sqrt(dbb);\n  if (na === 0 || nb === 0) return 0;\n  return dab / (na * nb);\n}\n",
   "explain": "The function builds the dot product and both squared lengths in one pass. Dividing by the two lengths removes the size of the vectors, so only direction matters. The result is 1 for the same direction, 0 for perpendicular and -1 for opposite. The zero check avoids a divide by zero, which would give NaN and break a ranking.",
-  "connects": "Vector databases rank retrieved chunks by cosine similarity between the query embedding and each stored embedding."
+  "connects": "Vector databases rank retrieved chunks by cosine similarity between the query embedding and each stored embedding.",
+  "python": {
+   "fn": "cosine",
+   "task": "Write cosine(a, b). Both are lists of numbers with the same length. Return dot(a, b) divided by (norm(a) * norm(b)), where norm(v) is the square root of the sum of squares. If either vector has length zero (all zeros or empty), return 0 instead of dividing by zero. Example: cosine([1, 0], [0, 1]) is 0. Example: cosine([3, 4], [4, 3]) is 24 / (5 * 5) = 0.96.",
+   "hints": [
+    "You need three sums: a dot b, a dot a, and b dot b.",
+    "The norm of a vector is the square root of the dot of the vector with itself. Check for a zero norm before dividing.",
+    "Compute dab, na = math.sqrt(daa), nb = math.sqrt(dbb). If na == 0 or nb == 0 return 0, else return dab / (na * nb)."
+   ],
+   "starter": "import math\n\ndef cosine(a, b):\n    # your code\n    pass\n",
+   "solution": "import math\n\ndef cosine(a, b):\n    dab = sum(x * y for x, y in zip(a, b))\n    daa = sum(x * x for x in a)\n    dbb = sum(y * y for y in b)\n    na = math.sqrt(daa)\n    nb = math.sqrt(dbb)\n    if na == 0 or nb == 0:\n        return 0\n    return dab / (na * nb)\n"
+  }
  },
  {
   "id": "ex-softmax",
@@ -358,7 +380,18 @@
   ],
   "solution": "function softmax(xs) {\n  if (xs.length === 0) return [];\n  const m = Math.max(...xs);\n  const e = xs.map((x) => Math.exp(x - m));\n  const sum = e.reduce((s, v) => s + v, 0);\n  return e.map((v) => v / sum);\n}\n",
   "explain": "Subtracting the maximum makes the largest exponent exp(0) = 1, so nothing can overflow, and the sum is at least 1 so we never divide by zero. The shift cancels out in the fraction, so the probabilities are the same as the naive formula. Very small values may underflow to 0, which is fine. Every classifier and language model uses this trick.",
-  "connects": "Next-token sampling and attention weights in transformers both depend on a numerically stable softmax."
+  "connects": "Next-token sampling and attention weights in transformers both depend on a numerically stable softmax.",
+  "python": {
+   "fn": "softmax",
+   "task": "Write softmax(xs). xs is a list of numbers. Return a list of the same length where each value is exp(x) divided by the sum of exp over all values, so the outputs add up to 1. It must not overflow: subtract the largest value from every number before using math.exp. If xs is empty, return []. Example: softmax([0, 0]) is [0.5, 0.5]. Example: softmax([1000, 1000]) is [0.5, 0.5] (a naive version raises an overflow error here).",
+   "hints": [
+    "math.exp(1000) is too big and raises an OverflowError, so you cannot use the raw numbers.",
+    "Adding or subtracting the same number from every input does not change the softmax result. Subtract the maximum.",
+    "m = max(xs); e = [math.exp(x - m) for x in xs]; divide each e by sum(e). Handle the empty list first."
+   ],
+   "starter": "import math\n\ndef softmax(xs):\n    # your code\n    pass\n",
+   "solution": "import math\n\ndef softmax(xs):\n    if not xs:\n        return []\n    m = max(xs)\n    e = [math.exp(x - m) for x in xs]\n    total = sum(e)\n    return [v / total for v in e]\n"
+  }
  },
  {
   "id": "ex-mse",
@@ -482,7 +515,18 @@
   ],
   "solution": "function mse(yTrue, yPred) {\n  if (yTrue.length === 0) return 0;\n  let s = 0;\n  for (let i = 0; i < yTrue.length; i++) {\n    const d = yTrue[i] - yPred[i];\n    s += d * d;\n  }\n  return s / yTrue.length;\n}\n",
   "explain": "Each error is squared, so negative and positive misses both count and big misses count much more. The sum is divided by the number of examples to get an average, so the score does not grow just because the dataset is bigger. The empty check stops a divide by zero. Lower is better, and 0 means a perfect fit.",
-  "connects": "Loss functions like MSE are what gradient descent minimizes when you train or fine-tune a model."
+  "connects": "Loss functions like MSE are what gradient descent minimizes when you train or fine-tune a model.",
+  "python": {
+   "fn": "mse",
+   "task": "Write mse(y_true, y_pred). Both are lists of numbers with the same length. Return the average of (y_true[i] - y_pred[i]) squared. If the lists are empty, return 0. Example: mse([1, 2, 3], [2, 2, 5]) is (1 + 0 + 4) / 3 = 1.6666666666666667. Example: mse([0], [3]) is 9.",
+   "hints": [
+    "First find the error for each pair, then square it.",
+    "Add up all the squared errors and divide by how many there are.",
+    "Guard the empty case. Then: s = 0; for each pair, d = t - p; s += d * d; return s / len(y_true)."
+   ],
+   "starter": "def mse(y_true, y_pred):\n    # your code\n    pass\n",
+   "solution": "def mse(y_true, y_pred):\n    if len(y_true) == 0:\n        return 0\n    total = 0\n    for t, p in zip(y_true, y_pred):\n        d = t - p\n        total += d * d\n    return total / len(y_true)\n"
+  }
  },
  {
   "id": "ex-gradstep",
@@ -650,7 +694,18 @@
   ],
   "solution": "function gradStep(w, b, xs, ys, lr) {\n  const n = xs.length;\n  if (n === 0) return [w, b];\n  let dw = 0;\n  let db = 0;\n  for (let i = 0; i < n; i++) {\n    const err = w * xs[i] + b - ys[i];\n    dw += err * xs[i];\n    db += err;\n  }\n  dw = (2 / n) * dw;\n  db = (2 / n) * db;\n  return [w - lr * dw, b - lr * db];\n}\n",
   "explain": "For each point the code measures how far the line is from the target. The gradient says how the loss changes when w or b change, and it comes from the derivative of the squared error. Moving against the gradient by a small learning rate lowers the loss. Repeating this step many times is gradient descent.",
-  "connects": "Deep learning frameworks do exactly this update for millions of weights, using automatic differentiation to get the gradients."
+  "connects": "Deep learning frameworks do exactly this update for millions of weights, using automatic differentiation to get the gradients.",
+  "python": {
+   "fn": "grad_step",
+   "task": "Write grad_step(w, b, xs, ys, lr). The model is pred = w * x + b. The loss is MSE = mean of (pred - y) squared. The gradients are dw = (2 / n) * sum((pred - y) * x) and db = (2 / n) * sum(pred - y), where n is the number of points. Return the new parameters as a list [w - lr * dw, b - lr * db]. If xs is empty, return [w, b] unchanged. Example: grad_step(0, 0, [1, 2], [2, 4], 0.1): the errors are -2 and -4, dw = (2/2) * (-2*1 + -4*2) = -10, db = (2/2) * (-6) = -6, so the result is [1, 0.6].",
+   "hints": [
+    "Loop over the points. For each one compute the error: (w * x + b) - y.",
+    "Add error * x into a sum for dw and error into a sum for db. Multiply both sums by 2 / n after the loop.",
+    "Return [w - lr * dw, b - lr * db]. Check n == 0 at the start and return [w, b]."
+   ],
+   "starter": "def grad_step(w, b, xs, ys, lr):\n    # your code\n    pass\n",
+   "solution": "def grad_step(w, b, xs, ys, lr):\n    n = len(xs)\n    if n == 0:\n        return [w, b]\n    dw = 0\n    db = 0\n    for x, y in zip(xs, ys):\n        err = w * x + b - y\n        dw += err * x\n        db += err\n    dw = (2 / n) * dw\n    db = (2 / n) * db\n    return [w - lr * dw, b - lr * db]\n"
+  }
  },
  {
   "id": "ex-split",
@@ -826,7 +881,18 @@
   ],
   "solution": "function splitData(items, testPercent) {\n  const nTest = Math.floor((items.length * testPercent) / 100);\n  const cut = items.length - nTest;\n  return { train: items.slice(0, cut), test: items.slice(cut) };\n}\n",
   "explain": "The code finds how many items belong in the test set, then cuts the array at that point with slice, which returns copies and leaves the input alone. Rounding down keeps the split simple and predictable. In real projects you would shuffle with a fixed seed first so the split is random but repeatable. Keeping test data away from training is what makes the final score honest.",
-  "connects": "Every model evaluation, from a small classifier to an LLM benchmark, relies on held-out data that the model never trained on."
+  "connects": "Every model evaluation, from a small classifier to an LLM benchmark, relies on held-out data that the model never trained on.",
+  "python": {
+   "fn": "split_data",
+   "task": "Write split_data(items, test_percent). test_percent is a whole number from 0 to 100. Let n_test = len(items) * test_percent / 100 rounded down (use len(items) * test_percent // 100). Return a dict {\"train\": ..., \"test\": ...} where test is the LAST n_test items in the original order and train is all the items before them, also in the original order. Do not change the input list. Example: split_data([1,2,3,4,5], 50) gives n_test = 2, so the result is {\"train\": [1,2,3], \"test\": [4,5]}. Empty input gives {\"train\": [], \"test\": []}.",
+   "hints": [
+    "First work out how many items go to the test set.",
+    "Use len(items) * test_percent // 100 for the count. The test items are at the end of the list.",
+    "cut = len(items) - n_test; train = items[:cut]; test = items[cut:]. Watch n_test = 0: items[cut:] with cut = len(items) gives an empty list, which is right."
+   ],
+   "starter": "def split_data(items, test_percent):\n    # your code\n    pass\n",
+   "solution": "def split_data(items, test_percent):\n    n_test = len(items) * test_percent // 100\n    cut = len(items) - n_test\n    return {\"train\": items[:cut], \"test\": items[cut:]}\n"
+  }
  },
  {
   "id": "ex-prf",
@@ -990,7 +1056,18 @@
   ],
   "solution": "function prf(yTrue, yPred) {\n  let tp = 0;\n  let fp = 0;\n  let fn = 0;\n  for (let i = 0; i < yTrue.length; i++) {\n    if (yPred[i] === 1 && yTrue[i] === 1) tp++;\n    else if (yPred[i] === 1 && yTrue[i] === 0) fp++;\n    else if (yPred[i] === 0 && yTrue[i] === 1) fn++;\n  }\n  const safeDiv = (a, b) => (b === 0 ? 0 : a / b);\n  const precision = safeDiv(tp, tp + fp);\n  const recall = safeDiv(tp, tp + fn);\n  const f1 = safeDiv(2 * precision * recall, precision + recall);\n  return { precision, recall, f1 };\n}\n",
   "explain": "Precision asks: of everything I flagged, how much was right. Recall asks: of everything that was real, how much did I find. F1 is a balanced mix that is low if either one is low. The safe division handles cases with no positives, where the math would otherwise give NaN. Reporting all three shows trade-offs that plain accuracy hides.",
-  "connects": "Teams use precision and recall to tune retrievers, moderation filters and LLM judges, where the cost of a miss and a false alarm are different."
+  "connects": "Teams use precision and recall to tune retrievers, moderation filters and LLM judges, where the cost of a miss and a false alarm are different.",
+  "python": {
+   "fn": "prf",
+   "task": "Write prf(y_true, y_pred). Both are lists of 0 and 1 with the same length (1 = positive). Count tp (true 1, predicted 1), fp (true 0, predicted 1) and fn (true 1, predicted 0). precision = tp / (tp + fp), recall = tp / (tp + fn), f1 = 2 * precision * recall / (precision + recall). Whenever a division would have a zero on the bottom, use 0 for that value (this includes f1 when precision + recall is 0). Return a dict {\"precision\": ..., \"recall\": ..., \"f1\": ...}. Example: prf([1,0,1,1], [1,0,0,1]) has tp = 2, fp = 0, fn = 1, so precision 1, recall 0.6666666666666666, f1 0.8.",
+   "hints": [
+    "Loop once and count three things: tp, fp and fn.",
+    "Write a small helper like safe_div(a, b) that returns 0 when b is 0. Use it for all three results.",
+    "precision = safe_div(tp, tp + fp); recall = safe_div(tp, tp + fn); f1 = safe_div(2 * precision * recall, precision + recall)."
+   ],
+   "starter": "def prf(y_true, y_pred):\n    # your code\n    pass\n",
+   "solution": "def prf(y_true, y_pred):\n    tp = 0\n    fp = 0\n    fn = 0\n    for t, p in zip(y_true, y_pred):\n        if p == 1 and t == 1:\n            tp += 1\n        elif p == 1 and t == 0:\n            fp += 1\n        elif p == 0 and t == 1:\n            fn += 1\n\n    def safe_div(a, b):\n        return 0 if b == 0 else a / b\n\n    precision = safe_div(tp, tp + fp)\n    recall = safe_div(tp, tp + fn)\n    f1 = safe_div(2 * precision * recall, precision + recall)\n    return {\"precision\": precision, \"recall\": recall, \"f1\": f1}\n"
+  }
  },
  {
   "id": "ex-recent",
@@ -1106,7 +1183,18 @@
   ],
   "solution": "function recentAccuracy(answers, n) {\n  if (n <= 0 || answers.length === 0) return 0;\n  const w = answers.slice(-n);\n  let correct = 0;\n  for (const a of w) {\n    if (a) correct++;\n  }\n  return Math.round((100 * correct) / w.length);\n}\n",
   "explain": "The window is the last n items, and slice(-n) is a compact way to get it. Slice with a negative start also copes with n being larger than the array, giving the whole array. The guard is needed because slice(-0) would return everything, and an empty window would divide by zero. Rounding gives a clean percent for display.",
-  "connects": "Monitoring a live model or an eval run often uses a moving window so you can spot a drop in quality quickly."
+  "connects": "Monitoring a live model or an eval run often uses a moving window so you can spot a drop in quality quickly.",
+  "python": {
+   "fn": "recent_accuracy",
+   "task": "Write recent_accuracy(answers, n). answers is a list of booleans in time order (True = correct). Look at only the last n answers (or all of them if there are fewer than n). Return the percent correct as a whole number, rounding halves up (so 12.5 becomes 13; note that Python's round() would give 12, so do not use it). If there are no answers to look at, or n is 0 or less, return 0. Example: recent_accuracy([True, False, True, True], 3) looks at [False, True, True], which is 2 of 3, so the result is 67.",
+   "hints": [
+    "Take the last n items of the list. A slice with a negative number does that.",
+    "answers[-n:] works when n is at least 1. Handle n <= 0 and empty lists first, because answers[-0:] returns everything.",
+    "w = answers[-n:]; count the True values; return math.floor(100 * correct / len(w) + 0.5) to round halves up."
+   ],
+   "starter": "import math\n\ndef recent_accuracy(answers, n):\n    # your code\n    pass\n",
+   "solution": "import math\n\ndef recent_accuracy(answers, n):\n    if n <= 0 or len(answers) == 0:\n        return 0\n    window = answers[-n:]\n    correct = sum(1 for a in window if a)\n    return math.floor(100 * correct / len(window) + 0.5)\n"
+  }
  },
  {
   "id": "ex-tokenize",
@@ -1204,7 +1292,18 @@
   ],
   "solution": "function tokenize(text) {\n  return text\n    .toLowerCase()\n    .split(/[^a-z0-9]+/)\n    .filter((t) => t.length > 0);\n}\n",
   "explain": "Lowercasing makes matching case blind. The regular expression splits on any run of characters that are not letters or digits. Splitting can leave empty strings at the start or end, for example when the text begins with punctuation, so the filter removes them. Real LLM tokenizers use subword pieces instead of whole words, but the job is the same: turn text into a list of units.",
-  "connects": "Keyword search, text classifiers and prompt length checks all start by tokenizing text."
+  "connects": "Keyword search, text classifiers and prompt length checks all start by tokenizing text.",
+  "python": {
+   "fn": "tokenize",
+   "task": "Write tokenize(text). Lowercase the text, then split it into tokens on every character that is not a letter a to z or a digit 0 to 9. Drop empty tokens. Return the list of tokens in order. Accented letters count as separators. Example: tokenize(\"Hello, World!\") is [\"hello\", \"world\"]. Example: tokenize(\"It's 2024\") is [\"it\", \"s\", \"2024\"]. An empty string, or a string with no letters or digits, gives [].",
+   "hints": [
+    "Lowercase first so Hello and hello become the same token.",
+    "A regular expression can find the pieces: re.findall(r\"[a-z0-9]+\", ...) returns every run of letters and digits.",
+    "re.findall(r\"[a-z0-9]+\", text.lower()). Or split on r\"[^a-z0-9]+\" and drop the empty strings."
+   ],
+   "starter": "import re\n\ndef tokenize(text):\n    # your code\n    pass\n",
+   "solution": "import re\n\ndef tokenize(text):\n    return re.findall(r\"[a-z0-9]+\", text.lower())\n"
+  }
  },
  {
   "id": "ex-bow",
@@ -1330,7 +1429,18 @@
   ],
   "solution": "function bow(text, vocab) {\n  const tokens = text\n    .toLowerCase()\n    .split(/[^a-z0-9]+/)\n    .filter((t) => t.length > 0);\n  const counts = new Map();\n  for (const t of tokens) {\n    counts.set(t, (counts.get(t) || 0) + 1);\n  }\n  return vocab.map((w) => counts.get(w) || 0);\n}\n",
   "explain": "The text is tokenized, then every token is counted in a Map. The result follows the vocabulary order, so each position always means the same word, which is what makes two vectors comparable. Words outside the vocabulary are skipped, and missing words get 0. Using a Map avoids odd bugs with words like constructor.",
-  "connects": "Bag-of-words and TF-IDF vectors still power fast keyword retrieval, and they are a good baseline to compare against embeddings."
+  "connects": "Bag-of-words and TF-IDF vectors still power fast keyword retrieval, and they are a good baseline to compare against embeddings.",
+  "python": {
+   "fn": "bow",
+   "task": "Write bow(text, vocab). vocab is a list of lowercase words. Tokenize text by lowercasing it and splitting on every character that is not a letter a to z or a digit 0 to 9, ignoring empty pieces. Return a list with the same length as vocab, where position i holds how many times vocab[i] appears in the tokens. Words not in vocab are ignored. Example: bow(\"the cat sat on the mat\", [\"the\", \"cat\", \"dog\"]) is [2, 1, 0]. An empty text gives all zeros, and an empty vocab gives [].",
+   "hints": [
+    "First turn the text into a clean list of lowercase words.",
+    "Count each word with a dict (or collections.Counter), then build the result by looking up each vocab word.",
+    "tokens = re.findall(r\"[a-z0-9]+\", text.lower()); counts = Counter(tokens); return [counts[w] for w in vocab]. A Counter gives 0 for missing words."
+   ],
+   "starter": "import re\nfrom collections import Counter\n\ndef bow(text, vocab):\n    # your code\n    pass\n",
+   "solution": "import re\nfrom collections import Counter\n\ndef bow(text, vocab):\n    tokens = re.findall(r\"[a-z0-9]+\", text.lower())\n    counts = Counter(tokens)\n    return [counts[w] for w in vocab]\n"
+  }
  },
  {
   "id": "ex-matmul",
@@ -1565,7 +1675,18 @@
   ],
   "solution": "function matmul(a, b) {\n  const n = a.length;\n  if (n === 0) return [];\n  const m = b.length;\n  const p = b[0].length;\n  const c = [];\n  for (let i = 0; i < n; i++) {\n    const row = [];\n    for (let j = 0; j < p; j++) {\n      let s = 0;\n      for (let k = 0; k < m; k++) {\n        s += a[i][k] * b[k][j];\n      }\n      row.push(s);\n    }\n    c.push(row);\n  }\n  return c;\n}\n",
   "explain": "Each output cell pairs one row of a with one column of b and sums the products. The three loops build the rows one by one, and the empty check avoids reading b when there is nothing to compute. This plain version takes n * m * p steps. Libraries do the same math but use hardware tricks to run much faster.",
-  "connects": "Every transformer layer, from attention projections to feed-forward blocks, is a large matrix multiply."
+  "connects": "Every transformer layer, from attention projections to feed-forward blocks, is a large matrix multiply.",
+  "python": {
+   "fn": "matmul",
+   "task": "Write matmul(a, b). a is an n by m matrix and b is an m by p matrix, both as lists of rows. Return the n by p matrix c where c[i][j] is the sum over k of a[i][k] * b[k][j]. You can assume the shapes match. If a has no rows, return []. Example: matmul([[1, 2], [3, 4]], [[5, 6], [7, 8]]) is [[19, 22], [43, 50]]. Example: matmul([[1, 2, 3]], [[1], [2], [3]]) is [[14]].",
+   "hints": [
+    "The result has as many rows as a and as many columns as b has in a row.",
+    "Each result cell is a dot product of row i of a with column j of b.",
+    "Three loops: i over rows of a, j over columns of b (len(b[0])), k over len(b). Add a[i][k] * b[k][j] into the cell for c[i][j]."
+   ],
+   "starter": "def matmul(a, b):\n    # your code\n    pass\n",
+   "solution": "def matmul(a, b):\n    n = len(a)\n    if n == 0:\n        return []\n    m = len(b)\n    p = len(b[0])\n    c = []\n    for i in range(n):\n        row = []\n        for j in range(p):\n            total = 0\n            for k in range(m):\n                total += a[i][k] * b[k][j]\n            row.append(total)\n        c.append(row)\n    return c\n"
+  }
  },
  {
   "id": "ex-chunk",
@@ -1679,7 +1800,18 @@
   ],
   "solution": "function chunkText(text, size, overlap) {\n  const words = text.split(/\\s+/).filter(Boolean);\n  const step = size - overlap;\n  const out = [];\n  for (let start = 0; start < words.length; start += step) {\n    out.push(words.slice(start, start + size).join(' '));\n    if (start + size >= words.length) break;\n  }\n  return out;\n}\n",
   "explain": "The function makes a word list, then slides a window of size words forward by size minus overlap each time. The break stops the loop as soon as a window touches the last word, which avoids a useless chunk of repeated words. Overlap means the end of one chunk is repeated at the start of the next. This helps retrieval because a fact split across a boundary still appears whole in one chunk.",
-  "connects": "Chunking choices (size and overlap) directly change retrieval quality in every RAG pipeline you will build."
+  "connects": "Chunking choices (size and overlap) directly change retrieval quality in every RAG pipeline you will build.",
+  "python": {
+   "fn": "chunk_text",
+   "task": "Write chunk_text(text, size, overlap). Split text into words using any run of whitespace as the separator (ignore leading and trailing whitespace). Return a list of chunks, each chunk being up to size words joined by one single space. Each new chunk starts (size - overlap) words after the start of the previous one. Stop right after the chunk that reaches the last word, so the last chunk may be shorter and no chunk is made only of words already used. You can assume 0 <= overlap < size. If the text has no words, return [].\nExample: chunk_text(\"a b c d e f g\", 4, 1) gives [\"a b c d\", \"d e f g\"].\nExample: chunk_text(\"a b c d e\", 2, 0) gives [\"a b\", \"c d\", \"e\"].",
+   "hints": [
+    "First turn the text into a list of words with text.split(). With no argument it splits on any run of whitespace and drops empty strings.",
+    "The start index moves by step = size - overlap each time. Slice with words[start:start + size] and join with a space.",
+    "Stop the loop after a chunk whose end reaches the number of words: if start + size >= len(words), append the chunk and break."
+   ],
+   "starter": "def chunk_text(text, size, overlap):\n    # your code here\n    pass\n",
+   "solution": "def chunk_text(text, size, overlap):\n    words = text.split()\n    step = size - overlap\n    chunks = []\n    for start in range(0, len(words), step):\n        chunks.append(\" \".join(words[start:start + size]))\n        if start + size >= len(words):\n            break\n    return chunks\n"
+  }
  },
  {
   "id": "ex-topk",
@@ -1965,7 +2097,18 @@
   ],
   "solution": "function topK(query, items, k) {\n  const len = (v) => Math.sqrt(v.reduce((s, x) => s + x * x, 0));\n  const cos = (a, b) => {\n    const la = len(a), lb = len(b);\n    if (la === 0 || lb === 0) return 0;\n    let dot = 0;\n    for (let i = 0; i < a.length; i++) dot += a[i] * b[i];\n    return dot / (la * lb);\n  };\n  return items\n    .map((it, index) => ({ id: it.id, index, score: cos(query, it.vec) }))\n    .sort((x, y) => y.score - x.score || x.index - y.index)\n    .slice(0, k)\n    .map((x) => x.id);\n}\n",
   "explain": "Each item gets a cosine score, which measures the angle between vectors and ignores their length. Sorting by score descending gives the best matches first, and the original index makes ties stable and predictable. The zero-vector guard avoids dividing by zero and returning NaN. Slicing to k keeps only the passages you will feed to the model.",
-  "connects": "This is the core of a vector database query, and knowing it helps you debug why a RAG system returns the wrong passages."
+  "connects": "This is the core of a vector database query, and knowing it helps you debug why a RAG system returns the wrong passages.",
+  "python": {
+   "fn": "top_k",
+   "task": "Write top_k(query, items, k). query is a list of numbers. items is a list of dicts like {\"id\": ..., \"vec\": [...]}. Compute the cosine similarity between query and each vec: dot(q, v) / (|q| * |v|). If either vector has length 0 (all zeros), the similarity is 0. Return the list of ids of the k most similar items, most similar first. If two items have the same similarity, the one that comes first in items goes first. If k is larger than the number of items, return all ids. If k is 0 or items is empty, return [].\nExample: query [1, 0], items a=[1, 0], b=[0, 1], c=[1, 1], k=2 gives [\"a\", \"c\"] (similarities 1, 0, 0.707).",
+   "hints": [
+    "Write a small cosine(a, b) helper. Compute the dot product with sum and zip, and the lengths with math.sqrt.",
+    "Guard against zero length: if either length is 0, return 0 instead of dividing.",
+    "Build tuples (score, index, id), sort with key=lambda t: (-t[0], t[1]), then take the first k and keep only the ids."
+   ],
+   "starter": "def top_k(query, items, k):\n    # your code here\n    pass\n",
+   "solution": "import math\n\n\ndef top_k(query, items, k):\n    def length(v):\n        return math.sqrt(sum(x * x for x in v))\n\n    def cosine(a, b):\n        la, lb = length(a), length(b)\n        if la == 0 or lb == 0:\n            return 0\n        dot = sum(x * y for x, y in zip(a, b))\n        return dot / (la * lb)\n\n    scored = [(cosine(query, item[\"vec\"]), index, item[\"id\"])\n              for index, item in enumerate(items)]\n    scored.sort(key=lambda t: (-t[0], t[1]))\n    return [item_id for _, _, item_id in scored[:k]]\n"
+  }
  },
  {
   "id": "ex-buildprompt",
@@ -2044,7 +2187,18 @@
   ],
   "solution": "function buildPrompt(question, passages) {\n  const lines = ['Use only the sources below to answer. Cite them like [1].', 'Sources:'];\n  if (passages.length === 0) lines.push('(no sources)');\n  passages.forEach((p, i) => lines.push('[' + (i + 1) + '] ' + p.trim()));\n  lines.push('');\n  lines.push('Question: ' + question.trim());\n  lines.push('Answer:');\n  return lines.join('\\n');\n}\n",
   "explain": "The function builds the prompt as a list of lines and joins them at the end, which keeps the format easy to control. Numbering from 1 gives the model short labels it can cite. Trimming stops stray spaces from changing the prompt. A fixed format also makes your prompts easy to test and to cache.",
-  "connects": "Grounded prompts with citations are how production RAG apps let users check where an answer came from."
+  "connects": "Grounded prompts with citations are how production RAG apps let users check where an answer came from.",
+  "python": {
+   "fn": "build_prompt",
+   "task": "Write build_prompt(question, passages). passages is a list of strings. Return one string made of these lines joined by \"\\n\" with no trailing newline:\nLine 1: Use only the sources below to answer. Cite them like [1].\nLine 2: Sources:\nThen one line per passage: [N] text, where N starts at 1 and text is the passage with leading and trailing spaces removed. If there are no passages, use the single line (no sources) instead.\nThen an empty line.\nThen: Question: followed by a space and the question with leading and trailing spaces removed.\nLast line: Answer:\nExample: build_prompt(\"What is RAG?\", [\"RAG adds retrieved text to a prompt.\"]) returns\n\"Use only the sources below to answer. Cite them like [1].\\nSources:\\n[1] RAG adds retrieved text to a prompt.\\n\\nQuestion: What is RAG?\\nAnswer:\"",
+   "hints": [
+    "Start with a list of lines: the two header lines first.",
+    "Use enumerate(passages, start=1) and build f\"[{i}] {p.strip()}\". For an empty list add \"(no sources)\".",
+    "Add \"\", then \"Question: \" + question.strip(), then \"Answer:\" and join everything with \"\\n\"."
+   ],
+   "starter": "def build_prompt(question, passages):\n    # your code here\n    pass\n",
+   "solution": "def build_prompt(question, passages):\n    lines = [\"Use only the sources below to answer. Cite them like [1].\", \"Sources:\"]\n    if not passages:\n        lines.append(\"(no sources)\")\n    for i, passage in enumerate(passages, start=1):\n        lines.append(f\"[{i}] {passage.strip()}\")\n    lines.append(\"\")\n    lines.append(\"Question: \" + question.strip())\n    lines.append(\"Answer:\")\n    return \"\\n\".join(lines)\n"
+  }
  },
  {
   "id": "ex-cost",
@@ -2210,7 +2364,18 @@
   ],
   "solution": "function estimateCost(calls, prices) {\n  let total = 0;\n  for (const c of calls) {\n    const p = prices[c.model];\n    if (!p) continue;\n    total += (c.input * p.input) / 1000000 + (c.output * p.output) / 1000000;\n  }\n  return Math.round(total * 1000000) / 1000000;\n}\n",
   "explain": "Each call is priced separately for input and output tokens because output tokens usually cost more. Prices are per million tokens, so we divide by one million. Unknown models are skipped so the function never returns NaN. Rounding once at the end avoids adding many small rounding errors.",
-  "connects": "Cost tracking per request is a basic part of running LLM features in production, and it drives choices like model size and caching."
+  "connects": "Cost tracking per request is a basic part of running LLM features in production, and it drives choices like model size and caching.",
+  "python": {
+   "fn": "estimate_cost",
+   "task": "Write estimate_cost(calls, prices). calls is a list of dicts like {\"model\": ..., \"input\": ..., \"output\": ...} with token counts. prices is a dict like {\"small\": {\"input\": 0.25, \"output\": 1.25}} where the numbers are US dollars per 1,000,000 tokens. The cost of a call is input * prices[model][\"input\"] / 1000000 + output * prices[model][\"output\"] / 1000000. A call whose model is not in prices costs 0. Return the total over all calls, rounded to 6 decimal places (round only the final total). No calls means 0.\nExample: one call {\"model\": \"small\", \"input\": 2000000, \"output\": 1000000} with the price above costs 0.5 + 1.25 = 1.75.",
+   "hints": [
+    "Loop over the calls and look up prices.get(call[\"model\"]). Skip the call if it is missing.",
+    "Add input * price[\"input\"] / 1000000 and output * price[\"output\"] / 1000000 to a running total.",
+    "After the loop, return round(total, 6)."
+   ],
+   "starter": "def estimate_cost(calls, prices):\n    # your code here\n    pass\n",
+   "solution": "def estimate_cost(calls, prices):\n    total = 0\n    for call in calls:\n        price = prices.get(call[\"model\"])\n        if price is None:\n            continue\n        total += call[\"input\"] * price[\"input\"] / 1000000\n        total += call[\"output\"] * price[\"output\"] / 1000000\n    return round(total, 6)\n"
+  }
  },
  {
   "id": "ex-trim",
@@ -2426,7 +2591,18 @@
   ],
   "solution": "function trimHistory(messages, limit) {\n  const kept = [];\n  let total = 0;\n  for (let i = messages.length - 1; i >= 0; i--) {\n    const cost = Math.ceil(messages[i].content.length / 4) + 4;\n    if (total + cost > limit) break;\n    total += cost;\n    kept.unshift(messages[i]);\n  }\n  return kept;\n}\n",
   "explain": "We walk backward from the newest message because recent turns matter most in a conversation. The loop stops at the first message that does not fit, so the kept history is always one unbroken recent block. Using unshift puts the messages back in the right order. Real systems use a proper tokenizer, but this simple rule has the same shape.",
-  "connects": "Context management like this is needed in every chat product so long conversations do not fail with a context length error."
+  "connects": "Context management like this is needed in every chat product so long conversations do not fail with a context length error.",
+  "python": {
+   "fn": "trim_history",
+   "task": "Write trim_history(messages, limit). messages is a list of dicts like {\"role\": ..., \"content\": ...} from oldest to newest. Count tokens with this rule: a message costs ceil(len(content) / 4) + 4 tokens. Go from the newest message to the oldest and keep adding messages while the running total stays <= limit. Stop at the first message that does not fit (do not skip it to look for an older one that fits). Return the kept messages in their original order (oldest first). If nothing fits, return [].\nExample: contents of length 12, 2 and 2 cost 7, 5 and 5. With limit 10 you keep the last two messages, since 5 + 5 = 10 fits but adding 7 would give 17.",
+   "hints": [
+    "Write a cost(message) helper: math.ceil(len(message[\"content\"]) / 4) + 4.",
+    "Loop over reversed(messages), keep a running total, and break as soon as total + cost is larger than limit.",
+    "Collect the kept messages while going backward, then reverse the list (or use kept.reverse()) so the oldest kept message is first."
+   ],
+   "starter": "def trim_history(messages, limit):\n    # your code here\n    pass\n",
+   "solution": "import math\n\n\ndef trim_history(messages, limit):\n    kept = []\n    total = 0\n    for message in reversed(messages):\n        cost = math.ceil(len(message[\"content\"]) / 4) + 4\n        if total + cost > limit:\n            break\n        total += cost\n        kept.append(message)\n    kept.reverse()\n    return kept\n"
+  }
  },
  {
   "id": "ex-toolcall",
@@ -2530,7 +2706,18 @@
   ],
   "solution": "function parseToolCall(text) {\n  let candidate;\n  const fence = text.match(/```(?:json)?\\s*([\\s\\S]*?)```/);\n  if (fence) {\n    candidate = fence[1];\n  } else {\n    const a = text.indexOf('{');\n    const b = text.lastIndexOf('}');\n    if (a === -1 || b === -1 || b < a) return null;\n    candidate = text.slice(a, b + 1);\n  }\n  try {\n    const v = JSON.parse(candidate.trim());\n    if (typeof v === 'object' && v !== null && !Array.isArray(v)) return v;\n    return null;\n  } catch (e) {\n    return null;\n  }\n}\n",
   "explain": "The function first looks for a fenced block because that is the most common way models format JSON. Without a fence it takes everything from the first opening brace to the last closing brace. JSON.parse runs inside try/catch so bad output gives null instead of an exception. The final type check makes sure only a real object is returned, which is what a tool dispatcher expects.",
-  "connects": "Tool calling and agent frameworks all need this kind of defensive parsing, because model output is never guaranteed to be valid."
+  "connects": "Tool calling and agent frameworks all need this kind of defensive parsing, because model output is never guaranteed to be valid.",
+  "python": {
+   "fn": "parse_tool_call",
+   "task": "Write parse_tool_call(text). Step 1: if the text contains a fenced block that starts with three backticks (optionally followed by the word json) and ends with three backticks, the candidate is the content of the FIRST such block. Step 2: otherwise the candidate is the substring from the first { to the last } in the text (if there is no { or no }, return None). Try json.loads on the candidate (trimmed). If it parses to a dict, return that dict. In every other case (a list, None, a number or a string, or invalid JSON) return None. Do not fall back to another method if a fenced block exists but is not valid.\nExample: text 'Sure!\\n```json\\n{\"tool\":\"calc\"}\\n```' returns {\"tool\": \"calc\"}.\nExample: 'Calling {\"tool\":\"a\"} now' returns {\"tool\": \"a\"}. 'no json here' returns None.",
+   "hints": [
+    "Use re.search with a pattern like r\"```(?:json)?\\s*([\\s\\S]*?)```\" to find the first fenced block.",
+    "If there is no fence, use text.find(\"{\") and text.rfind(\"}\") and slice between them.",
+    "Wrap json.loads in try/except ValueError. After parsing, check isinstance(value, dict)."
+   ],
+   "starter": "def parse_tool_call(text):\n    # your code here\n    return \"not implemented\"\n",
+   "solution": "import json\nimport re\n\n\ndef parse_tool_call(text):\n    fence = re.search(r\"```(?:json)?\\s*([\\s\\S]*?)```\", text)\n    if fence:\n        candidate = fence.group(1)\n    else:\n        start = text.find(\"{\")\n        end = text.rfind(\"}\")\n        if start == -1 or end == -1 or end < start:\n            return None\n        candidate = text[start:end + 1]\n    try:\n        value = json.loads(candidate.strip())\n    except ValueError:\n        return None\n    return value if isinstance(value, dict) else None\n"
+  }
  },
  {
   "id": "ex-schema",
@@ -2711,7 +2898,18 @@
   ],
   "solution": "function validateSchema(data, schema) {\n  const has = (o, k) => Object.prototype.hasOwnProperty.call(o, k);\n  const typeOf = (v) => (Array.isArray(v) ? 'array' : v === null ? 'null' : typeof v);\n  const errors = [];\n  for (const key of Object.keys(schema)) {\n    if (!has(data, key)) {\n      errors.push('missing field: ' + key);\n    } else if (typeOf(data[key]) !== schema[key]) {\n      errors.push('wrong type for ' + key + ': expected ' + schema[key] + ', got ' + typeOf(data[key]));\n    }\n  }\n  for (const key of Object.keys(data)) {\n    if (!has(schema, key)) errors.push('unexpected field: ' + key);\n  }\n  return { valid: errors.length === 0, errors };\n}\n",
   "explain": "The helper typeOf fixes two JavaScript quirks: arrays and null both report 'object' with typeof. Checking the schema first finds missing and wrong fields, and checking the data second finds extras. Returning a list of error strings, not just true or false, lets you send the exact problems back to the model in a retry prompt.",
-  "connects": "Schema validation of model output is the same idea as tools like Zod or JSON Schema used in structured output pipelines."
+  "connects": "Schema validation of model output is the same idea as tools like Zod or JSON Schema used in structured output pipelines.",
+  "python": {
+   "fn": "validate_schema",
+   "task": "Write validate_schema(data, schema). data is a dict. schema is a dict mapping field names to one of \"string\", \"number\", \"boolean\", \"array\". Return a dict {\"valid\": ..., \"errors\": [...]}. Build errors in this order. First, go through the schema fields in schema order. If the field is not a key of data, add \"missing field: NAME\". Otherwise, if the type does not match, add \"wrong type for NAME: expected T, got G\" where T is the schema type and G is the real type: \"array\" for lists, \"null\" for None, \"string\" for str, \"boolean\" for bool, \"number\" for int or float, \"object\" for dict. Second, go through the keys of data in data order and for each key not in schema add \"unexpected field: NAME\". valid is True only when errors is empty.\nExample: schema {\"name\": \"string\", \"age\": \"number\"}, data {\"name\": \"Ann\", \"age\": \"30\"} gives {\"valid\": False, \"errors\": [\"wrong type for age: expected number, got string\"]}.",
+   "hints": [
+    "Write a type_of(v) helper that returns \"array\" for lists, \"null\" for None, \"boolean\" for bool, \"number\" for int or float, \"string\" for str and \"object\" for dict. Check bool before int, because True is also an int in Python.",
+    "Loop over schema.items(). Check the key with key in data, then compare type_of(data[key]) with the schema type.",
+    "After the schema loop, loop over data and add \"unexpected field: \" + key when the key is not in schema. Return {\"valid\": len(errors) == 0, \"errors\": errors}."
+   ],
+   "starter": "def validate_schema(data, schema):\n    # your code here\n    pass\n",
+   "solution": "def validate_schema(data, schema):\n    def type_of(value):\n        if isinstance(value, list):\n            return \"array\"\n        if value is None:\n            return \"null\"\n        if isinstance(value, bool):\n            return \"boolean\"\n        if isinstance(value, (int, float)):\n            return \"number\"\n        if isinstance(value, str):\n            return \"string\"\n        return \"object\"\n\n    errors = []\n    for key, expected in schema.items():\n        if key not in data:\n            errors.append(f\"missing field: {key}\")\n        elif type_of(data[key]) != expected:\n            errors.append(f\"wrong type for {key}: expected {expected}, got {type_of(data[key])}\")\n    for key in data:\n        if key not in schema:\n            errors.append(f\"unexpected field: {key}\")\n    return {\"valid\": len(errors) == 0, \"errors\": errors}\n"
+  }
  },
  {
   "id": "ex-backoff",
@@ -2824,7 +3022,18 @@
   ],
   "solution": "function backoffDelays(attempts, baseMs, capMs) {\n  const out = [];\n  for (let i = 0; i < attempts; i++) {\n    out.push(Math.min(capMs, baseMs * 2 ** i));\n  }\n  return out;\n}\n",
   "explain": "Each retry waits twice as long as the one before, which gives a busy server time to recover. The cap stops the wait from growing without limit. Production code usually adds random jitter so many clients do not retry at the same moment, but a fixed version like this is easy to test.",
-  "connects": "Retry with backoff is standard when calling LLM APIs, which often return 429 or 529 errors under load."
+  "connects": "Retry with backoff is standard when calling LLM APIs, which often return 429 or 529 errors under load.",
+  "python": {
+   "fn": "backoff_delays",
+   "task": "Write backoff_delays(attempts, base_ms, cap_ms). Return a list of length attempts. The delay at index i (starting at 0) is min(cap_ms, base_ms * 2^i). There is no random jitter. If attempts is 0, return [].\nExample: backoff_delays(5, 100, 1000) returns [100, 200, 400, 800, 1000].\nExample: backoff_delays(3, 500, 300) returns [300, 300, 300] because the base is already above the cap.",
+   "hints": [
+    "Use a for loop with i in range(attempts).",
+    "The raw delay is base_ms * 2 ** i.",
+    "Append min(cap_ms, raw_delay) each time."
+   ],
+   "starter": "def backoff_delays(attempts, base_ms, cap_ms):\n    # your code here\n    pass\n",
+   "solution": "def backoff_delays(attempts, base_ms, cap_ms):\n    return [min(cap_ms, base_ms * 2 ** i) for i in range(attempts)]\n"
+  }
  },
  {
   "id": "ex-ratelimit",
@@ -2987,7 +3196,18 @@
   ],
   "solution": "function rateLimit(timestamps, capacity, refillPerSec) {\n  const out = [];\n  if (timestamps.length === 0) return out;\n  let tokens = capacity;\n  let last = timestamps[0];\n  for (const t of timestamps) {\n    tokens = Math.min(capacity, tokens + ((t - last) / 1000) * refillPerSec);\n    last = t;\n    if (tokens >= 1) {\n      tokens -= 1;\n      out.push(true);\n    } else {\n      out.push(false);\n    }\n  }\n  return out;\n}\n",
   "explain": "The bucket gains tokens over time and each allowed request spends one. Capping at capacity limits how big a burst can be. Denied requests spend nothing, so a client that keeps retrying does not dig itself deeper. Simulating with timestamps instead of a real clock makes the limiter deterministic and easy to test.",
-  "connects": "Gateways in front of LLM services use token buckets to protect budgets and to share capacity fairly between users."
+  "connects": "Gateways in front of LLM services use token buckets to protect budgets and to share capacity fairly between users.",
+  "python": {
+   "fn": "rate_limit",
+   "task": "Write rate_limit(timestamps, capacity, refill_per_sec). timestamps is a non-decreasing list of request times in milliseconds. The bucket holds up to capacity tokens and starts full, at the time of the first request. For each request at time t: first add (t - last_time) / 1000 * refill_per_sec tokens, but never go above capacity (last_time is the time of the previous request, or t for the first one). Then if you have at least 1 token, take 1 token and the request is allowed (True). Otherwise it is denied (False) and no token is taken. Return a list of booleans, one per request. Empty input returns [].\nExample: capacity 2, refill 1 per second, timestamps [0, 0, 0, 1000, 1000] gives [True, True, False, True, False].",
+   "hints": [
+    "Keep two variables: tokens (start at capacity) and last (start at the first timestamp).",
+    "For each time t: tokens = min(capacity, tokens + (t - last) / 1000 * refill_per_sec); then set last = t.",
+    "If tokens >= 1, subtract 1 and append True. Otherwise append False and leave tokens as it is."
+   ],
+   "starter": "def rate_limit(timestamps, capacity, refill_per_sec):\n    # your code here\n    pass\n",
+   "solution": "def rate_limit(timestamps, capacity, refill_per_sec):\n    results = []\n    if not timestamps:\n        return results\n    tokens = capacity\n    last = timestamps[0]\n    for t in timestamps:\n        tokens = min(capacity, tokens + (t - last) / 1000 * refill_per_sec)\n        last = t\n        if tokens >= 1:\n            tokens -= 1\n            results.append(True)\n        else:\n            results.append(False)\n    return results\n"
+  }
  },
  {
   "id": "ex-evalexact",
@@ -3122,7 +3342,18 @@
   ],
   "solution": "function evalExact(predictions, references) {\n  const norm = (s) => s.toLowerCase().replace(/[^a-z0-9\\s]/g, '').replace(/\\s+/g, ' ').trim();\n  if (predictions.length === 0) return 0;\n  let hit = 0;\n  for (let i = 0; i < predictions.length; i++) {\n    if (norm(predictions[i]) === norm(references[i])) hit++;\n  }\n  return hit / predictions.length;\n}\n",
   "explain": "Normalizing first means small formatting changes like case or a trailing dot do not count as errors. The score is the fraction of pairs that match, so it is always between 0 and 1. The empty guard avoids dividing zero by zero. Exact match is strict, so many teams also add fuzzy or model-graded scores on top.",
-  "connects": "A small automatic eval like this lets you compare prompts and models before shipping, instead of guessing."
+  "connects": "A small automatic eval like this lets you compare prompts and models before shipping, instead of guessing.",
+  "python": {
+   "fn": "eval_exact",
+   "task": "Write eval_exact(predictions, references). Both are lists of strings with the same length. Normalize each string like this: make it lowercase, remove every character that is not a letter a to z, a digit, or whitespace, turn every run of whitespace into one single space, and trim the ends. A pair matches if the two normalized strings are equal. Return the number of matches divided by the number of pairs. If there are no pairs, return 0.\nExample: predictions [\"The Cat!\", \"dog\"] and references [\"the cat\", \"cat\"] return 0.5.\nNote that removing punctuation joins letters: \"it's\" becomes \"its\".",
+   "hints": [
+    "Write a normalize(s) helper and test it on its own first.",
+    "Use re.sub(r\"[^a-z0-9\\s]\", \"\", s.lower()), then \" \".join(...split()) to collapse whitespace and trim the ends.",
+    "Count pairs where normalize(p) == normalize(r), then divide by the length. Guard the empty case."
+   ],
+   "starter": "def eval_exact(predictions, references):\n    # your code here\n    pass\n",
+   "solution": "import re\n\n\ndef eval_exact(predictions, references):\n    def normalize(s):\n        s = re.sub(r\"[^a-z0-9\\s]\", \"\", s.lower())\n        return \" \".join(s.split())\n\n    if not predictions:\n        return 0\n    hits = sum(1 for p, r in zip(predictions, references) if normalize(p) == normalize(r))\n    return hits / len(predictions)\n"
+  }
  },
  {
   "id": "ex-react",
@@ -3363,7 +3594,18 @@
   ],
   "solution": "function runAgent(script, tools) {\n  const has = (o, k) => Object.prototype.hasOwnProperty.call(o, k);\n  const transcript = [];\n  for (const step of script) {\n    if ('final' in step) {\n      transcript.push('final: ' + step.final);\n      return transcript;\n    }\n    if (!has(tools, step.action)) {\n      transcript.push('error: unknown tool ' + step.action);\n    } else if (!has(tools[step.action], step.input)) {\n      transcript.push('error: no result for ' + step.input);\n    } else {\n      transcript.push(tools[step.action][step.input]);\n    }\n  }\n  return transcript;\n}\n",
   "explain": "The loop is a small version of the think, act, observe cycle. Each action step is turned into an observation by looking in the tool table, and errors become text that the model could read and react to. The final step ends the loop early. Real agents call live tools and a live model, but the control flow is the same, and a scripted version lets you test it.",
-  "connects": "Agent frameworks are built around this loop, and handling unknown tools and missing results gracefully is what keeps agents from crashing in production."
+  "connects": "Agent frameworks are built around this loop, and handling unknown tools and missing results gracefully is what keeps agents from crashing in production.",
+  "python": {
+   "fn": "run_agent",
+   "task": "Write run_agent(script, tools). script is a list of steps, each either a dict {\"action\": ..., \"input\": ...} or a dict {\"final\": ...}. tools is a dict like {\"calc\": {\"2+2\": \"4\"}}, where each tool is a lookup table (a dict) from input string to output string. Go through the script in order and build a transcript list of strings. For an action step add the observation: the output string if the tool exists and has that input; \"error: unknown tool NAME\" if the tool does not exist; \"error: no result for INPUT\" if the tool exists but the input is not in its table. For a final step add \"final: TEXT\" and stop (ignore all later steps). If the script ends without a final step, return the transcript so far. Empty script returns [].\nExample: script [{\"action\": \"calc\", \"input\": \"2+2\"}, {\"final\": \"4\"}] with tools {\"calc\": {\"2+2\": \"4\"}} returns [\"4\", \"final: 4\"].",
+   "hints": [
+    "Loop over the script with a for loop and append strings to a transcript list.",
+    "A step is final if it has a \"final\" key (use \"final\" in step). Append \"final: \" + step[\"final\"] and return right away.",
+    "For an action, check the tool with in tools, then check the input in tools[action] the same way, and append the matching string."
+   ],
+   "starter": "def run_agent(script, tools):\n    # your code here\n    pass\n",
+   "solution": "def run_agent(script, tools):\n    transcript = []\n    for step in script:\n        if \"final\" in step:\n            transcript.append(\"final: \" + step[\"final\"])\n            return transcript\n        tool = step[\"action\"]\n        if tool not in tools:\n            transcript.append(\"error: unknown tool \" + tool)\n        elif step[\"input\"] not in tools[tool]:\n            transcript.append(\"error: no result for \" + step[\"input\"])\n        else:\n            transcript.append(tools[tool][step[\"input\"]])\n    return transcript\n"
+  }
  },
  {
   "id": "ex-r-overlap",
@@ -3488,7 +3730,18 @@
   ],
   "solution": "function chunkWords(text, size, overlap) {\n  const words = text.split(/\\s+/).filter(Boolean);\n  if (words.length === 0) return [];\n  if (overlap >= size) overlap = size - 1;\n  const step = size - overlap;\n  const out = [];\n  for (let start = 0; start < words.length; start += step) {\n    out.push(words.slice(start, start + size).join(' '));\n    if (start + size >= words.length) break;\n  }\n  return out;\n}\n",
   "explain": "Words are the units, and the start index moves forward by size minus overlap each time. Stopping once a chunk touches the last word avoids a useless final chunk made only of repeated words.",
-  "connects": "Every RAG pipeline chunks text first. Overlap keeps facts that sit on a chunk border findable."
+  "connects": "Every RAG pipeline chunks text first. Overlap keeps facts that sit on a chunk border findable.",
+  "python": {
+   "fn": "chunk_words",
+   "task": "Write chunk_words(text, size, overlap). Split text on whitespace into words (ignore empty pieces). Each chunk holds up to size words joined by one space. The next chunk starts step = size - overlap words after the previous start. If overlap is not smaller than size, use overlap = size - 1 so the step is at least 1. Stop as soon as a chunk reaches the last word, so you never return a chunk that is only overlap. If there are no words, return []. Example: chunk_words(\"a b c d e\", 3, 1) is [\"a b c\", \"c d e\"].",
+   "hints": [
+    "Use text.split() with no argument to get clean words.",
+    "Loop with start += step and slice words[start:start + size].",
+    "After appending a chunk, break if start + size >= len(words)."
+   ],
+   "starter": "def chunk_words(text, size, overlap):\n    # your code\n    pass\n",
+   "solution": "def chunk_words(text, size, overlap):\n    words = text.split()\n    if not words:\n        return []\n    if overlap >= size:\n        overlap = size - 1\n    step = size - overlap\n    chunks = []\n    start = 0\n    while start < len(words):\n        chunks.append(\" \".join(words[start:start + size]))\n        if start + size >= len(words):\n            break\n        start += step\n    return chunks\n"
+  }
  },
  {
   "id": "ex-r-bm25",
@@ -3659,7 +3912,18 @@
   ],
   "solution": "function bm25(query, docs, k1, b) {\n  const tok = (s) => s.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);\n  const N = docs.length;\n  if (N === 0) return [];\n  const toks = docs.map(tok);\n  const avgdl = toks.reduce((s, t) => s + t.length, 0) / N;\n  if (avgdl === 0) return docs.map(() => 0);\n  const q = [...new Set(tok(query))];\n  return toks.map((t) => {\n    let score = 0;\n    for (const w of q) {\n      const n = toks.filter((d) => d.includes(w)).length;\n      const tf = t.filter((x) => x === w).length;\n      if (tf === 0) continue;\n      const idf = Math.log(1 + (N - n + 0.5) / (n + 0.5));\n      score += (idf * tf * (k1 + 1)) / (tf + k1 * (1 - b + (b * t.length) / avgdl));\n    }\n    return Math.round(score * 1000) / 1000;\n  });\n}\n",
   "explain": "IDF makes rare words worth more. The tf part saturates, so repeating a word ten times is not ten times better. The length part with b lowers scores of long documents.",
-  "connects": "Hybrid search mixes BM25 keyword scores with embedding scores. Most vector databases ship a BM25 index."
+  "connects": "Hybrid search mixes BM25 keyword scores with embedding scores. Most vector databases ship a BM25 index.",
+  "python": {
+   "fn": "bm25",
+   "task": "Write bm25(query, docs, k1, b). query is a string, docs is a list of strings. Tokenize both by lowercasing and splitting on anything that is not a letter or digit (a to z and 0 to 9), and drop empty tokens. Use each distinct query token once. N is the number of docs. For a token, n is how many docs contain it, idf = ln(1 + (N - n + 0.5) / (n + 0.5)), where ln is math.log. For a doc, tf is the count of the token in it, length is its token count, avgdl is the mean length over all docs. The term score is idf * tf * (k1 + 1) / (tf + k1 * (1 - b + b * length / avgdl)). A doc score is the sum of its term scores (a token with tf 0 adds 0). Return one score per doc in the same order, each rounded to 3 decimals using round half up, that is math.floor(x * 1000 + 0.5) / 1000 (do not use the built-in round, it rounds .5 to even). If docs is empty return []. If avgdl is 0 return all zeros.",
+   "hints": [
+    "Write a tokenizer first: lowercase, re.split(r\"[^a-z0-9]+\", ...), and drop empty strings.",
+    "Compute avgdl and the document frequency n for each query word before scoring.",
+    "Use the exact idf and term formula from the task, then round only the final doc score with math.floor(x * 1000 + 0.5) / 1000."
+   ],
+   "starter": "def bm25(query, docs, k1, b):\n    # your code\n    pass\n",
+   "solution": "import math\nimport re\n\n\ndef tokenize(s):\n    return [t for t in re.split(r\"[^a-z0-9]+\", s.lower()) if t]\n\n\ndef bm25(query, docs, k1, b):\n    n_docs = len(docs)\n    if n_docs == 0:\n        return []\n    toks = [tokenize(d) for d in docs]\n    avgdl = sum(len(t) for t in toks) / n_docs\n    if avgdl == 0:\n        return [0 for _ in docs]\n    query_words = list(dict.fromkeys(tokenize(query)))\n    scores = []\n    for t in toks:\n        score = 0.0\n        for w in query_words:\n            tf = t.count(w)\n            if tf == 0:\n                continue\n            n = sum(1 for d in toks if w in d)\n            idf = math.log(1 + (n_docs - n + 0.5) / (n + 0.5))\n            score += idf * tf * (k1 + 1) / (tf + k1 * (1 - b + b * len(t) / avgdl))\n        scores.append(math.floor(score * 1000 + 0.5) / 1000)\n    return scores\n"
+  }
  },
  {
   "id": "ex-r-rrf",
@@ -3877,7 +4141,18 @@
   ],
   "solution": "function rrf(rankings, k, topN) {\n  const score = {};\n  for (const list of rankings) {\n    const seen = new Set();\n    list.forEach((id, i) => {\n      if (seen.has(id)) return;\n      seen.add(id);\n      score[id] = (score[id] || 0) + 1 / (k + i + 1);\n    });\n  }\n  const r9 = (x) => Math.round(x * 1e9) / 1e9;\n  return Object.keys(score)\n    .sort((a, b) => r9(score[b]) - r9(score[a]) || (a < b ? -1 : a > b ? 1 : 0))\n    .slice(0, topN);\n}\n",
   "explain": "An id that is near the top of several lists collects several large terms. The constant k softens the gap between rank 1 and rank 2 so no single list dominates.",
-  "connects": "Hybrid retrieval in Elasticsearch, Weaviate and Qdrant uses reciprocal rank fusion to merge keyword and vector results."
+  "connects": "Hybrid retrieval in Elasticsearch, Weaviate and Qdrant uses reciprocal rank fusion to merge keyword and vector results.",
+  "python": {
+   "fn": "rrf",
+   "task": "Write rrf(rankings, k, top_n). rankings is a list of lists of string ids, best first. An id at position p (first position is rank 1) in a list adds 1 / (k + p) to that id. Sum over all lists. If an id appears twice in one list, only its first position counts. Return the ids sorted by total score, highest first. If two ids have equal scores (compare after rounding both to 9 decimals, using round half up), the smaller id by normal string comparison comes first. Return only the first top_n ids. If top_n is bigger than the number of ids, return all of them. Empty input gives [].",
+   "hints": [
+    "Use a dict to hold a running score per id.",
+    "Rank is index + 1, so the added score is 1 / (k + index + 1).",
+    "Sort with a key of (-rounded score, id), then slice [:top_n]. Remember to skip repeated ids inside one list."
+   ],
+   "starter": "def rrf(rankings, k, top_n):\n    # your code\n    pass\n",
+   "solution": "import math\n\n\ndef rrf(rankings, k, top_n):\n    score = {}\n    for ranking in rankings:\n        seen = set()\n        for i, id_ in enumerate(ranking):\n            if id_ in seen:\n                continue\n            seen.add(id_)\n            score[id_] = score.get(id_, 0) + 1 / (k + i + 1)\n\n    def round9(x):\n        return math.floor(x * 1e9 + 0.5) / 1e9\n\n    ordered = sorted(score, key=lambda id_: (-round9(score[id_]), id_))\n    return ordered[:top_n]\n"
+  }
  },
  {
   "id": "ex-r-metrics",
@@ -4068,7 +4343,18 @@
   ],
   "solution": "function retrievalMetrics(retrieved, relevant, k) {\n  const r4 = (x) => Math.round(x * 10000) / 10000;\n  if (k <= 0) return { recall: 0, mrr: 0 };\n  const rel = new Set(relevant);\n  const top = retrieved.slice(0, k);\n  const found = new Set(top.filter((id) => rel.has(id)));\n  const recall = rel.size === 0 ? 0 : found.size / rel.size;\n  const idx = top.findIndex((id) => rel.has(id));\n  const mrr = idx === -1 ? 0 : 1 / (idx + 1);\n  return { recall: r4(recall), mrr: r4(mrr) };\n}\n",
   "explain": "Both metrics only look at the top k. Recall tells you if the answer was in the context at all. MRR tells you how early it showed up, which matters when you can only send a few chunks to the model.",
-  "connects": "Retrieval evals like these run before any LLM judge. If recall is low, no prompt can fix the answers."
+  "connects": "Retrieval evals like these run before any LLM judge. If recall is low, no prompt can fix the answers.",
+  "python": {
+   "fn": "retrieval_metrics",
+   "task": "Write retrieval_metrics(retrieved, relevant, k). retrieved is a list of ids, best first. relevant is a list of ids that are correct. Look only at the first k retrieved ids and count each distinct id once. recall is (number of distinct relevant ids found in the top k) / (number of distinct relevant ids). If there are no relevant ids, recall is 0. mrr is 1 / rank of the first relevant id in the top k (first position is rank 1), or 0 if none is there. Return a dict {\"recall\": ..., \"mrr\": ...}, each rounded to 4 decimals using round half up, that is math.floor(x * 10000 + 0.5) / 10000 (do not use the built-in round, it rounds .5 to even). If k is 0 or less, both are 0.",
+   "hints": [
+    "Slice the retrieved list to the first k ids before anything else.",
+    "Put relevant in a set. Recall uses a set of the found ids so duplicates count once.",
+    "MRR is 1 / (index + 1) of the first id that is in the set, or 0 if there is none."
+   ],
+   "starter": "def retrieval_metrics(retrieved, relevant, k):\n    # your code\n    pass\n",
+   "solution": "import math\n\n\ndef retrieval_metrics(retrieved, relevant, k):\n    def round4(x):\n        return math.floor(x * 10000 + 0.5) / 10000\n\n    if k <= 0:\n        return {\"recall\": 0, \"mrr\": 0}\n    rel = set(relevant)\n    top = retrieved[:k]\n    found = {id_ for id_ in top if id_ in rel}\n    recall = len(found) / len(rel) if rel else 0\n    mrr = 0\n    for i, id_ in enumerate(top):\n        if id_ in rel:\n            mrr = 1 / (i + 1)\n            break\n    return {\"recall\": round4(recall), \"mrr\": round4(mrr)}\n"
+  }
  },
  {
   "id": "ex-r-mmr",
@@ -4327,7 +4613,18 @@
   ],
   "solution": "function mmr(rel, sim, lambda, k) {\n  const n = rel.length;\n  const picked = [];\n  const limit = Math.min(k, n);\n  while (picked.length < limit) {\n    let best = -1;\n    let bestScore = -Infinity;\n    for (let i = 0; i < n; i++) {\n      if (picked.includes(i)) continue;\n      let score;\n      if (picked.length === 0) score = rel[i];\n      else score = lambda * rel[i] - (1 - lambda) * Math.max(...picked.map((j) => sim[i][j]));\n      if (score > bestScore) { bestScore = score; best = i; }\n    }\n    picked.push(best);\n  }\n  return picked;\n}\n",
   "explain": "The score trades relevance against redundancy. Lambda near 1 ignores redundancy, lambda near 0 only cares about being different. Because you scan from index 0 and use strict greater-than, ties keep the smaller index.",
-  "connects": "MMR is built into LangChain and many vector stores. It stops the context from being filled with duplicates."
+  "connects": "MMR is built into LangChain and many vector stores. It stops the context from being filled with duplicates.",
+  "python": {
+   "fn": "mmr",
+   "task": "Write mmr(rel, sim, lam, k). rel[i] is the relevance of item i. sim[i][j] is the similarity between items i and j. lam is the lambda weight (lambda is a reserved word in Python, so the parameter is called lam). Pick items one at a time. First pick the item with the highest rel. Every later pick maximizes lam * rel[i] - (1 - lam) * (the largest sim[i][j] over items j already picked). Ties go to the smaller index. Return the picked indices in pick order. Return at most k items, and never more than len(rel). If rel is empty or k is 0 or less, return [].",
+   "hints": [
+    "The first pick is just the highest rel, with the smaller index winning ties.",
+    "For each remaining item compute lam * rel[i] - (1 - lam) * max(sim[i][j] for j in picked).",
+    "Use a strict > when comparing so the earlier index keeps a tie."
+   ],
+   "starter": "def mmr(rel, sim, lam, k):\n    # your code\n    pass\n",
+   "solution": "def mmr(rel, sim, lam, k):\n    n = len(rel)\n    picked = []\n    limit = min(k, n)\n    while len(picked) < limit:\n        best = -1\n        best_score = float(\"-inf\")\n        for i in range(n):\n            if i in picked:\n                continue\n            if not picked:\n                score = rel[i]\n            else:\n                score = lam * rel[i] - (1 - lam) * max(sim[i][j] for j in picked)\n            if score > best_score:\n                best_score = score\n                best = i\n        picked.append(best)\n    return picked\n"
+  }
  },
  {
   "id": "ex-r-dedupe",
@@ -4485,7 +4782,18 @@
   ],
   "solution": "function dedupeNear(texts, threshold) {\n  const sets = texts.map((t) => new Set(t.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean)));\n  const jac = (a, b) => {\n    if (a.size === 0 && b.size === 0) return 1;\n    let inter = 0;\n    for (const w of a) if (b.has(w)) inter++;\n    return inter / (a.size + b.size - inter);\n  };\n  const kept = [];\n  sets.forEach((s, i) => {\n    if (!kept.some((j) => jac(s, sets[j]) >= threshold)) kept.push(i);\n  });\n  return kept;\n}\n",
   "explain": "A dropped text is never used for later comparisons, only kept ones are. The threshold sets how strict you are. At 1 only texts with the same word set are removed.",
-  "connects": "Dedupe runs after retrieval and before prompt building. Large-scale versions use MinHash, which estimates this same Jaccard score fast."
+  "connects": "Dedupe runs after retrieval and before prompt building. Large-scale versions use MinHash, which estimates this same Jaccard score fast.",
+  "python": {
+   "fn": "dedupe_near",
+   "task": "Write dedupe_near(texts, threshold). For each text build a set of words: lowercase it, split on anything that is not a letter or digit (a to z and 0 to 9), drop empty pieces. Jaccard of two sets is size of intersection divided by size of union. If both sets are empty, Jaccard is 1. Go through texts in order. Keep a text unless its Jaccard with some text already kept is at least threshold. Return the indices of the kept texts in order. Empty input gives [].",
+   "hints": [
+    "Turn each text into a set of lowercase words first, using re.split(r\"[^a-z0-9]+\", ...).",
+    "Jaccard = intersection size / (size a + size b - intersection size). Both empty gives 1.",
+    "Only compare against texts you already kept, not against ones you dropped."
+   ],
+   "starter": "def dedupe_near(texts, threshold):\n    # your code\n    pass\n",
+   "solution": "import re\n\n\ndef dedupe_near(texts, threshold):\n    sets = [set(w for w in re.split(r\"[^a-z0-9]+\", t.lower()) if w) for t in texts]\n\n    def jaccard(a, b):\n        if not a and not b:\n            return 1\n        inter = len(a & b)\n        return inter / (len(a) + len(b) - inter)\n\n    kept = []\n    for i, s in enumerate(sets):\n        if not any(jaccard(s, sets[j]) >= threshold for j in kept):\n            kept.append(i)\n    return kept\n"
+  }
  },
  {
   "id": "ex-r-budget",
@@ -4631,7 +4939,18 @@
   ],
   "solution": "function buildContext(chunks, budget) {\n  let used = 0;\n  const parts = [];\n  for (const c of chunks) {\n    const tokens = c.text.split(/\\s+/).filter(Boolean).length;\n    if (used + tokens <= budget) {\n      used += tokens;\n      parts.push('[' + (parts.length + 1) + '] ' + c.text);\n    }\n  }\n  return parts.join('\\n\\n');\n}\n",
   "explain": "Skipping instead of stopping lets small later chunks fill the leftover space. Numbering by added position gives the model clean labels [1], [2], [3] with no gaps.",
-  "connects": "Real systems count tokens with the model tokenizer instead of words, but the packing logic is the same."
+  "connects": "Real systems count tokens with the model tokenizer instead of words, but the packing logic is the same.",
+  "python": {
+   "fn": "build_context",
+   "task": "Write build_context(chunks, budget). chunks is a list of dicts like {\"text\": \"...\"}, best first. Count tokens as the number of whitespace separated words in the text (an empty text is 0 tokens). Go through chunks in order and add a chunk if the running total plus its tokens is at most budget. If a chunk does not fit, skip it and keep trying the later chunks. Each added chunk is written as \"[n] text\" where n counts added chunks from 1 (not the original index), and text is the original text unchanged. Join the added chunks with a blank line, that is \"\\n\\n\". If nothing is added, return an empty string.",
+   "hints": [
+    "Count tokens with len(text.split()), which ignores extra whitespace.",
+    "Keep a running total. Add the chunk only if used + tokens <= budget, otherwise just continue the loop.",
+    "Number with len(parts) + 1 so skipped chunks do not leave gaps."
+   ],
+   "starter": "def build_context(chunks, budget):\n    # your code\n    pass\n",
+   "solution": "def build_context(chunks, budget):\n    used = 0\n    parts = []\n    for chunk in chunks:\n        tokens = len(chunk[\"text\"].split())\n        if used + tokens <= budget:\n            used += tokens\n            parts.append(\"[\" + str(len(parts) + 1) + \"] \" + chunk[\"text\"])\n    return \"\\n\\n\".join(parts)\n"
+  }
  },
  {
   "id": "ex-r-cite",
@@ -4824,7 +5143,18 @@
   ],
   "solution": "function citeAnswer(sentences) {\n  const sources = [];\n  const parts = sentences.map((s) => {\n    if (s.source === null || s.source === undefined) return s.text;\n    let n = sources.indexOf(s.source);\n    if (n === -1) { sources.push(s.source); n = sources.length - 1; }\n    return s.text + ' [' + (n + 1) + ']';\n  });\n  return { answer: parts.join(' '), sources };\n}\n",
   "explain": "The sources array doubles as the numbering table: an id number is its index plus one. Because you push on first use, the numbers follow reading order.",
-  "connects": "Citation markers let users check claims. You can also test that every [n] points to a chunk that was really retrieved."
+  "connects": "Citation markers let users check claims. You can also test that every [n] points to a chunk that was really retrieved.",
+  "python": {
+   "fn": "cite_answer",
+   "task": "Write cite_answer(sentences). sentences is a list of dicts {\"text\": ..., \"source\": ...}. source is a string id or None. Number the distinct source ids from 1 in order of first use. For each sentence, if source is not None, write the text, then a space, then \"[n]\" for its source number. If source is None, write the text unchanged. Join all sentences with one space. Return a dict {\"answer\": ..., \"sources\": ...}, where answer is the joined string and sources is the list of distinct source ids in numbered order. Empty input gives {\"answer\": \"\", \"sources\": []}.",
+   "hints": [
+    "Keep a list called sources. Use sources.index(id) (after checking with in) to see if an id already has a number.",
+    "If the id is new, append it. The number is its index + 1.",
+    "Sentences with a None source add no marker and no entry in sources."
+   ],
+   "starter": "def cite_answer(sentences):\n    # your code\n    pass\n",
+   "solution": "def cite_answer(sentences):\n    sources = []\n    parts = []\n    for s in sentences:\n        source = s.get(\"source\")\n        if source is None:\n            parts.append(s[\"text\"])\n            continue\n        if source not in sources:\n            sources.append(source)\n        parts.append(s[\"text\"] + \" [\" + str(sources.index(source) + 1) + \"]\")\n    return {\"answer\": \" \".join(parts), \"sources\": sources}\n"
+  }
  },
  {
   "id": "ex-a-validatecall",
@@ -5138,7 +5468,18 @@
   ],
   "solution": "function validateToolCall(text, tools) {\n  const isObj = (v) => typeof v === 'object' && v !== null && !Array.isArray(v);\n  const has = (o, k) => Object.prototype.hasOwnProperty.call(o, k);\n  let p;\n  try { p = JSON.parse(String(text).trim()); } catch (e) { return { ok: false, error: 'invalid json' }; }\n  if (!isObj(p)) return { ok: false, error: 'not an object' };\n  if (typeof p.tool !== 'string') return { ok: false, error: 'missing tool' };\n  if (!has(tools, p.tool)) return { ok: false, error: 'unknown tool: ' + p.tool };\n  if (!isObj(p.args)) return { ok: false, error: 'args must be an object' };\n  const spec = tools[p.tool];\n  for (const k of Object.keys(spec)) {\n    if (!has(p.args, k)) return { ok: false, error: 'missing arg: ' + k };\n    if (typeof p.args[k] !== spec[k]) return { ok: false, error: 'bad type for ' + k + ': expected ' + spec[k] };\n  }\n  for (const k of Object.keys(p.args)) {\n    if (!has(spec, k)) return { ok: false, error: 'unexpected arg: ' + k };\n  }\n  return { ok: true, tool: p.tool, args: p.args };\n}\n",
   "explain": "Model output is untrusted input. Each check guards one way the call can go wrong, and doing them in a fixed order gives the model one clear error to fix on its next try. Using an own-key check stops names like toString from slipping through, since plain objects inherit them.",
-  "connects": "Every agent framework validates tool calls against a schema before running them, and sends the error text back to the model so it can repair the call."
+  "connects": "Every agent framework validates tool calls against a schema before running them, and sends the error text back to the model so it can repair the call.",
+  "python": {
+   "fn": "validate_tool_call",
+   "task": "Write validate_tool_call(text, tools). text is a string the model wrote. tools is a dict that maps each tool name to a dict that maps each parameter name to a type, which is \"string\", \"number\" or \"boolean\". All parameters are required. A \"number\" is an int or a float, but a bool is not a number. Do these checks in order and return the first error you find as {\"ok\": False, \"error\": MESSAGE}. 1) If text (stripped) is not valid JSON, the error is \"invalid json\". 2) If the parsed value is not a dict (lists, None, numbers and strings do not count), the error is \"not an object\". 3) If the key \"tool\" is not a string (or is missing), the error is \"missing tool\". 4) If the tool name is not a key of tools, the error is \"unknown tool: NAME\". 5) If the key \"args\" is not a dict (or is missing), the error is \"args must be an object\". 6) Go through the tool parameters in the order given by tools. If a parameter is not a key of args, the error is \"missing arg: P\". If its value has the wrong type, the error is \"bad type for P: expected T\". 7) Go through the keys of args in order. The first key that is not a parameter gives the error \"unexpected arg: K\". If nothing is wrong, return {\"ok\": True, \"tool\": NAME, \"args\": ARGS}. Example: tools {\"add\": {\"a\": \"number\", \"b\": \"number\"}} and text {\"tool\":\"add\",\"args\":{\"a\":1,\"b\":2}} returns {\"ok\": True, \"tool\": \"add\", \"args\": {\"a\": 1, \"b\": 2}}.",
+   "hints": [
+    "Use try/except around json.loads. Write a small helper is_obj(v) that checks isinstance(v, dict).",
+    "Check the type names with isinstance, and remember that True and False are ints in Python, so a bool must not count as a number.",
+    "Do the checks in the exact order in the task and return as soon as one fails."
+   ],
+   "starter": "def validate_tool_call(text, tools):\n    # your code\n    pass\n",
+   "solution": "import json\n\n\ndef matches_type(value, type_name):\n    if type_name == \"string\":\n        return isinstance(value, str)\n    if type_name == \"boolean\":\n        return isinstance(value, bool)\n    if type_name == \"number\":\n        return isinstance(value, (int, float)) and not isinstance(value, bool)\n    return False\n\n\ndef validate_tool_call(text, tools):\n    try:\n        parsed = json.loads(text.strip())\n    except ValueError:\n        return {\"ok\": False, \"error\": \"invalid json\"}\n    if not isinstance(parsed, dict):\n        return {\"ok\": False, \"error\": \"not an object\"}\n    name = parsed.get(\"tool\")\n    if not isinstance(name, str):\n        return {\"ok\": False, \"error\": \"missing tool\"}\n    if name not in tools:\n        return {\"ok\": False, \"error\": \"unknown tool: \" + name}\n    args = parsed.get(\"args\")\n    if not isinstance(args, dict):\n        return {\"ok\": False, \"error\": \"args must be an object\"}\n    spec = tools[name]\n    for param, type_name in spec.items():\n        if param not in args:\n            return {\"ok\": False, \"error\": \"missing arg: \" + param}\n        if not matches_type(args[param], type_name):\n            return {\"ok\": False, \"error\": \"bad type for \" + param + \": expected \" + type_name}\n    for key in args:\n        if key not in spec:\n            return {\"ok\": False, \"error\": \"unexpected arg: \" + key}\n    return {\"ok\": True, \"tool\": name, \"args\": args}\n"
+  }
  },
  {
   "id": "ex-a-reactparse",
@@ -5304,7 +5645,18 @@
   ],
   "solution": "function parseReact(text) {\n  const out = { thought: null, action: null, input: null, final: null };\n  const labels = [['Thought:', 'thought'], ['Action Input:', 'input'], ['Action:', 'action'], ['Final Answer:', 'final']];\n  for (const raw of text.split('\\n')) {\n    const line = raw.trim();\n    if (line.startsWith('Observation:')) break;\n    for (const [label, key] of labels) {\n      if (line.startsWith(label)) {\n        if (out[key] === null) out[key] = line.slice(label.length).trim();\n        break;\n      }\n    }\n  }\n  return out;\n}\n",
   "explain": "The parser is a small line reader. Stopping at Observation matters because a model may invent the tool result, and your code must only trust real results from your own tools. Keeping only the first line for each label makes the output predictable when the model repeats itself.",
-  "connects": "ReAct style agents alternate between model text and tool results. A robust parser is the glue between the two."
+  "connects": "ReAct style agents alternate between model text and tool results. A robust parser is the glue between the two.",
+  "python": {
+   "fn": "parse_react",
+   "task": "Write parse_react(text). Split text into lines and strip each line. Read lines from the top. Stop reading at the first line that starts with \"Observation:\" (the model made that up, so ignore it and everything after it). A line that starts with \"Thought:\" sets thought, \"Action:\" sets action, \"Action Input:\" sets input, and \"Final Answer:\" sets final. In each case the value is the rest of the line, stripped. Labels are case sensitive. Only the FIRST line for each label counts, later ones are ignored. Lines with any other start are ignored. Return a dict {\"thought\": ..., \"action\": ..., \"input\": ..., \"final\": ...}, and use None for every label that was not found. Example: \"Thought: I need the weather\\nAction: weather\\nAction Input: Paris\" returns {\"thought\": \"I need the weather\", \"action\": \"weather\", \"input\": \"Paris\", \"final\": None}.",
+   "hints": [
+    "Loop over text.split(\"\\n\") and call strip() on each line.",
+    "Use startswith for each label. Check \"Action Input:\" and \"Action:\" as separate labels, they do not clash because \"Action:\" needs the colon right after Action.",
+    "Only set a field if it is still None. Break out of the loop when a line starts with \"Observation:\"."
+   ],
+   "starter": "def parse_react(text):\n    # your code\n    return {\"thought\": \"\", \"action\": \"\", \"input\": \"\", \"final\": \"\"}\n",
+   "solution": "def parse_react(text):\n    result = {\"thought\": None, \"action\": None, \"input\": None, \"final\": None}\n    labels = [\n        (\"Thought:\", \"thought\"),\n        (\"Action Input:\", \"input\"),\n        (\"Action:\", \"action\"),\n        (\"Final Answer:\", \"final\"),\n    ]\n    for raw in text.split(\"\\n\"):\n        line = raw.strip()\n        if line.startswith(\"Observation:\"):\n            break\n        for label, key in labels:\n            if line.startswith(label):\n                if result[key] is None:\n                    result[key] = line[len(label):].strip()\n                break\n    return result\n"
+  }
  },
  {
   "id": "ex-a-loop",
@@ -5708,7 +6060,18 @@
   ],
   "solution": "function runLoop(replies, tools, maxSteps) {\n  const has = (o, k) => Object.prototype.hasOwnProperty.call(o, k);\n  const observations = [];\n  let steps = 0;\n  for (const r of replies) {\n    if (has(r, 'final')) return { status: 'done', answer: r.final, steps, observations };\n    if (steps >= maxSteps) return { status: 'max_steps', answer: null, steps, observations };\n    let obs;\n    if (!has(tools, r.action)) obs = 'error: unknown tool ' + r.action;\n    else if (!has(tools[r.action], r.input)) obs = 'error: no result for ' + r.input;\n    else obs = tools[r.action][r.input];\n    observations.push(obs);\n    steps++;\n  }\n  return { status: 'out_of_replies', answer: null, steps, observations };\n}\n",
   "explain": "The loop has three ways to end: a final answer, the step limit, or no more replies. The limit is checked before a tool runs, so a runaway model can never cause more than maxSteps tool calls. A final answer costs no step, so an agent that finishes on its last allowed step is still a success.",
-  "connects": "Every production agent has a max-steps guard like this. Without it, one confused model can loop forever and run up your bill."
+  "connects": "Every production agent has a max-steps guard like this. Without it, one confused model can loop forever and run up your bill.",
+  "python": {
+   "fn": "run_loop",
+   "task": "Write run_loop(replies, tools, max_steps). replies is a list of scripted model replies, used in order. Each reply is either {\"action\": ..., \"input\": ...} or {\"final\": ...}. tools is a dict like {\"calc\": {\"2+2\": \"4\"}}, where each tool is a lookup table (dict) from an input string to an output string. Start with steps = 0 and an empty observations list. For each reply in order: if the reply has a \"final\" key, return {\"status\": \"done\", \"answer\": FINAL, \"steps\": steps, \"observations\": observations}. Otherwise it is an action. If steps is already equal to max_steps, return {\"status\": \"max_steps\", \"answer\": None, \"steps\": steps, \"observations\": observations} and do not run the tool. Otherwise run the tool, add one observation string, and add 1 to steps. The observation is the output if the tool exists and knows the input, \"error: unknown tool NAME\" if the tool does not exist, or \"error: no result for INPUT\" if the tool exists but the input is not in its table. If the replies run out without a final reply, return {\"status\": \"out_of_replies\", \"answer\": None, \"steps\": steps, \"observations\": observations}. Note that a final reply does not count as a step, so a final reply after exactly max_steps actions still succeeds. Example: replies [{\"action\": \"calc\", \"input\": \"2+2\"}, {\"final\": \"4\"}] with tools {\"calc\": {\"2+2\": \"4\"}} and max_steps 3 returns {\"status\": \"done\", \"answer\": \"4\", \"steps\": 1, \"observations\": [\"4\"]}.",
+   "hints": [
+    "Check \"final\" in reply first, with the in operator, so an empty string final still counts.",
+    "Before running an action, check steps >= max_steps and return max_steps right away.",
+    "For the observation, check that the tool name is in tools, then that the input is a key of its table."
+   ],
+   "starter": "def run_loop(replies, tools, max_steps):\n    # your code\n    pass\n",
+   "solution": "def run_loop(replies, tools, max_steps):\n    observations = []\n    steps = 0\n    for reply in replies:\n        if \"final\" in reply:\n            return {\"status\": \"done\", \"answer\": reply[\"final\"], \"steps\": steps, \"observations\": observations}\n        if steps >= max_steps:\n            return {\"status\": \"max_steps\", \"answer\": None, \"steps\": steps, \"observations\": observations}\n        name = reply[\"action\"]\n        arg = reply[\"input\"]\n        if name not in tools:\n            obs = \"error: unknown tool \" + name\n        elif arg not in tools[name]:\n            obs = \"error: no result for \" + arg\n        else:\n            obs = tools[name][arg]\n        observations.append(obs)\n        steps += 1\n    return {\"status\": \"out_of_replies\", \"answer\": None, \"steps\": steps, \"observations\": observations}\n"
+  }
  },
  {
   "id": "ex-a-retryplan",
@@ -5971,7 +6334,18 @@
   ],
   "solution": "function retryPlan(statuses, maxAttempts, baseMs, capMs) {\n  const waits = [];\n  for (let i = 0; i < maxAttempts; i++) {\n    const s = i < statuses.length ? statuses[i] : 503;\n    if (s >= 200 && s < 300) return { result: 'ok', attempts: i + 1, waits };\n    if (!(s === 429 || s >= 500)) return { result: 'failed', attempts: i + 1, waits };\n    if (i === maxAttempts - 1) return { result: 'gave_up', attempts: i + 1, waits };\n    waits.push(Math.min(capMs, baseMs * Math.pow(2, i)));\n  }\n  return { result: 'gave_up', attempts: 0, waits };\n}\n",
   "explain": "The loop decides between success, a hard failure and a retry for each attempt. Retrying a 400 is pointless, since the same request will fail again, so only 429 and 5xx are retried. The wait doubles each time up to a cap, and there is no wait after the final attempt because nothing follows it.",
-  "connects": "Agents make many API calls in a row, so one flaky call must not crash the whole run. Retry with backoff is the standard fix."
+  "connects": "Agents make many API calls in a row, so one flaky call must not crash the whole run. Retry with backoff is the standard fix.",
+  "python": {
+   "fn": "retry_plan",
+   "task": "Write retry_plan(statuses, max_attempts, base_ms, cap_ms). statuses is a list of HTTP status codes, where statuses[i] is what the server returns on attempt number i (starting at 0). If i is past the end of the list, treat the status as 503. Make at most max_attempts attempts. For each attempt: a status from 200 to 299 is a success, so stop with result \"ok\". A status of 429 or 500 or higher is retryable. Any other status (like 400 or 404) is not, so stop with result \"failed\". After a retryable failure, if you have attempts left, add a wait of min(cap_ms, base_ms * 2^i) to the waits list (i is the index of the attempt that just failed) and try again. If the last allowed attempt is also a retryable failure, stop with result \"gave_up\" and do not add a wait after it. Return a dict with the keys \"result\", \"attempts\" and \"waits\", where attempts is how many attempts were made. If max_attempts is 0, return {\"result\": \"gave_up\", \"attempts\": 0, \"waits\": []}. Example: statuses [503, 429, 200], max_attempts 5, base_ms 100, cap_ms 1000 returns {\"result\": \"ok\", \"attempts\": 3, \"waits\": [100, 200]}.",
+   "hints": [
+    "Use a for loop over i in range(max_attempts) and read statuses[i], falling back to 503 when i is past the end.",
+    "A retryable status is status == 429 or status >= 500. Success is 200 <= status < 300.",
+    "Only append a wait when i < max_attempts - 1, so the last failed attempt gives up without waiting."
+   ],
+   "starter": "def retry_plan(statuses, max_attempts, base_ms, cap_ms):\n    # Return {\"result\": ..., \"attempts\": ..., \"waits\": [...]}\n    pass\n",
+   "solution": "def retry_plan(statuses, max_attempts, base_ms, cap_ms):\n    waits = []\n    for i in range(max_attempts):\n        status = statuses[i] if i < len(statuses) else 503\n        if 200 <= status < 300:\n            return {\"result\": \"ok\", \"attempts\": i + 1, \"waits\": waits}\n        if not (status == 429 or status >= 500):\n            return {\"result\": \"failed\", \"attempts\": i + 1, \"waits\": waits}\n        if i == max_attempts - 1:\n            return {\"result\": \"gave_up\", \"attempts\": i + 1, \"waits\": waits}\n        waits.append(min(cap_ms, base_ms * 2 ** i))\n    return {\"result\": \"gave_up\", \"attempts\": 0, \"waits\": waits}\n"
+  }
  },
  {
   "id": "ex-a-route",
@@ -6407,7 +6781,18 @@
   ],
   "solution": "function routeTool(request, rules, fallback) {\n  const words = new Set(request.toLowerCase().match(/[a-z0-9]+/g) || []);\n  let best = 0;\n  let tool = fallback;\n  for (const rule of rules) {\n    let score = 0;\n    for (const k of new Set(rule.keywords)) {\n      if (words.has(k)) score++;\n    }\n    if (score > best) {\n      best = score;\n      tool = rule.tool;\n    }\n  }\n  return tool;\n}\n",
   "explain": "A Set of words gives fast whole-word checks, so \"car\" never matches \"cart\". Scoring by distinct keywords stops a word that is repeated many times from winning by volume. Replacing the best only on a strictly higher score makes ties go to the earlier rule.",
-  "connects": "Routers like this run in front of larger agents, sending easy requests to cheap tools and only using the model when no rule fits."
+  "connects": "Routers like this run in front of larger agents, sending easy requests to cheap tools and only using the model when no rule fits.",
+  "python": {
+   "fn": "route_tool",
+   "task": "Write route_tool(request, rules, fallback). rules is a list of dicts like {\"tool\": ..., \"keywords\": [...]}, where keywords is a list of single lowercase words. Turn request into lowercase and split it into words, where a word is a run of letters and digits (use re.findall(r\"[a-z0-9]+\", ...), which gives an empty list if there is no match). A rule scores 1 point for each DISTINCT keyword that appears as a whole word in the request. Keywords that are repeated in the rule count once, and a keyword only matches a whole word, so \"car\" does not match \"cart\". Return the tool of the rule with the highest score, as long as that score is above 0. If two rules have the same top score, the earlier rule wins. If no rule scores above 0, return fallback. Example: request \"What is the weather in Paris?\" with rules [{\"tool\": \"weather\", \"keywords\": [\"weather\", \"rain\"]}] returns \"weather\".",
+   "hints": [
+    "Build the word list once with re.findall(r\"[a-z0-9]+\", request.lower()) and put it in a set.",
+    "Use set(rule[\"keywords\"]) so repeated keywords count once, then count how many are in the word set.",
+    "Keep the best score and best tool. Only replace them when the new score is strictly greater, so ties keep the earlier rule."
+   ],
+   "starter": "import re\n\n\ndef route_tool(request, rules, fallback):\n    # Return the tool of the best scoring rule, or fallback\n    pass\n",
+   "solution": "import re\n\n\ndef route_tool(request, rules, fallback):\n    words = set(re.findall(r\"[a-z0-9]+\", request.lower()))\n    best = 0\n    tool = fallback\n    for rule in rules:\n        score = len(set(rule[\"keywords\"]) & words)\n        if score > best:\n            best = score\n            tool = rule[\"tool\"]\n    return tool\n"
+  }
  },
  {
   "id": "ex-a-trimchat",
@@ -6739,7 +7124,18 @@
   ],
   "solution": "function trimChat(messages, budget) {\n  const cost = (m) => m.content.split(/\\s+/).filter(Boolean).length + 3;\n  let total = 0;\n  for (const m of messages) if (m.role === 'system') total += cost(m);\n  const keep = new Set();\n  for (let i = messages.length - 1; i >= 0; i--) {\n    if (messages[i].role === 'system') continue;\n    const c = cost(messages[i]);\n    if (total + c > budget) break;\n    total += c;\n    keep.add(i);\n  }\n  return messages.filter((m, i) => m.role === 'system' || keep.has(i));\n}\n",
   "explain": "System messages are paid for first, because dropping them would change the agent behaviour. The rest of the budget goes to the newest turns, since recent context matters most. Stopping at the first message that does not fit keeps the kept history one unbroken recent block.",
-  "connects": "Agent runs grow with every tool result, so history trimming is a core part of keeping long tasks inside the context window."
+  "connects": "Agent runs grow with every tool result, so history trimming is a core part of keeping long tasks inside the context window.",
+  "python": {
+   "fn": "trim_chat",
+   "task": "Write trim_chat(messages, budget). messages is a list of dicts like {\"role\": ..., \"content\": ...} from oldest to newest. The cost of a message is the number of words in its content plus 3, where words are the pieces you get from splitting on whitespace, ignoring empty pieces (an empty content has 0 words). Every message with role \"system\" is always kept and its cost counts against the budget. Then go through the other messages from newest to oldest and keep each one while the running total (system costs plus kept costs) stays <= budget. Stop at the first message that does not fit, do not skip it to look for an older one that fits. If the system messages alone are already over the budget, still keep them and keep nothing else. Return the kept messages in their original order. Example: a system message \"be brief\" (cost 5), then \"hi\" (cost 4) and \"how are you today\" (cost 7), with budget 12 keeps the system message and the last message, since 5 + 7 = 12.",
+   "hints": [
+    "Write cost(m) = words + 3 where words = len(m[\"content\"].split()). The split() method with no argument already ignores empty pieces.",
+    "Start the total with the sum of all system costs. Then walk the non-system messages from the end and add while total + cost <= budget.",
+    "Collect the indexes you keep in a set, then return a list of the messages that are system or have a kept index, to preserve the original order."
+   ],
+   "starter": "def trim_chat(messages, budget):\n    # Return the kept messages in their original order\n    pass\n",
+   "solution": "def trim_chat(messages, budget):\n    def cost(m):\n        return len(m[\"content\"].split()) + 3\n\n    total = sum(cost(m) for m in messages if m[\"role\"] == \"system\")\n    keep = set()\n    for i in range(len(messages) - 1, -1, -1):\n        if messages[i][\"role\"] == \"system\":\n            continue\n        c = cost(messages[i])\n        if total + c > budget:\n            break\n        total += c\n        keep.add(i)\n    return [m for i, m in enumerate(messages) if m[\"role\"] == \"system\" or i in keep]\n"
+  }
  },
  {
   "id": "ex-a-findloop",
@@ -7020,7 +7416,18 @@
   ],
   "solution": "function findLoop(actions, k) {\n  let run = 0;\n  for (let i = 0; i < actions.length; i++) {\n    const same = i > 0 && actions[i].tool === actions[i - 1].tool && actions[i].input === actions[i - 1].input;\n    run = same ? run + 1 : 1;\n    if (run >= k) return i;\n  }\n  return -1;\n}\n",
   "explain": "One pass with a running count is enough. The count goes up while the action matches the one before it and resets to 1 when it does not. Returning at the first time the count reaches k gives the earliest moment a guard could have stopped the agent.",
-  "connects": "Loop detectors are a cheap safety net next to the max-steps guard. They stop an agent that is busy but making no progress."
+  "connects": "Loop detectors are a cheap safety net next to the max-steps guard. They stop an agent that is busy but making no progress.",
+  "python": {
+   "fn": "find_loop",
+   "task": "Write find_loop(actions, k). actions is a list of dicts like {\"tool\": ..., \"input\": ...} in the order they happened, where input is a string. Two actions are the same when both tool and input are equal. Find the first place where the same action has happened k times IN A ROW. Return the index (starting at 0) of the action that completes the run, which is the k-th one in that run. If there is no such run, return -1. A run of one action counts as length 1, so k = 1 returns 0 for any non-empty list. An empty list always returns -1. Example: actions [a, b, b, b, a] where a and b are different actions, with k = 3, returns 3 because indexes 1, 2 and 3 are the same. The same action that appears again later with a different action between does not make a run.",
+   "hints": [
+    "Keep a counter run that is 1 for the first action.",
+    "For each next action, compare tool and input with the previous one. If both match add 1 to run, otherwise reset run to 1.",
+    "As soon as run >= k, return the current index. Check this at index 0 too, so k = 1 works."
+   ],
+   "starter": "def find_loop(actions, k):\n    # Return the index that completes k identical actions in a row, or -1\n    pass\n",
+   "solution": "def find_loop(actions, k):\n    run = 0\n    for i, action in enumerate(actions):\n        same = (\n            i > 0\n            and action[\"tool\"] == actions[i - 1][\"tool\"]\n            and action[\"input\"] == actions[i - 1][\"input\"]\n        )\n        run = run + 1 if same else 1\n        if run >= k:\n            return i\n    return -1\n"
+  }
  },
  {
   "id": "ex-a-mergeparallel",
@@ -7413,7 +7820,18 @@
   ],
   "solution": "function mergeParallel(calls, results) {\n  const byId = new Map();\n  for (const r of results) {\n    if (!byId.has(r.id)) byId.set(r.id, r);\n  }\n  return calls.map((c) => {\n    const r = byId.get(c.id);\n    if (!r) return { id: c.id, tool: c.tool, ok: false, error: 'no result' };\n    if ('error' in r) return { id: c.id, tool: c.tool, ok: false, error: r.error };\n    return { id: c.id, tool: c.tool, ok: true, output: r.output };\n  });\n}\n",
   "explain": "A Map from id to result makes each lookup direct, and adding only unseen ids makes the first result win. Building the answer by mapping over calls, not results, is what keeps the original order. Missing results become explicit errors so the model is never left guessing.",
-  "connects": "Parallel tool calling is common in modern model APIs. The reply must match each call id to its result, in order, before the next model turn."
+  "connects": "Parallel tool calling is common in modern model APIs. The reply must match each call id to its result, in order, before the next model turn.",
+  "python": {
+   "fn": "merge_parallel",
+   "task": "Write merge_parallel(calls, results). calls is a list of dicts like {\"id\": ..., \"tool\": ...} in the order the model asked for them. results is a list of finished results in the order they arrived, each either {\"id\": ..., \"output\": ...} or {\"id\": ..., \"error\": ...}. Return a list with one entry for each call, in the order of calls. If a result exists for that id and it has an \"error\" key, the entry is {\"id\": id, \"tool\": tool, \"ok\": False, \"error\": ERROR}. If it has an \"output\" key and no \"error\" key, the entry is {\"id\": id, \"tool\": tool, \"ok\": True, \"output\": OUTPUT}. If there is no result for that id, the entry is {\"id\": id, \"tool\": tool, \"ok\": False, \"error\": \"no result\"}. If several results have the same id, only the first one in results is used. Results whose id is not in calls are ignored. Example: calls [{\"id\": \"1\", \"tool\": \"a\"}, {\"id\": \"2\", \"tool\": \"b\"}] and results [{\"id\": \"2\", \"output\": \"B\"}, {\"id\": \"1\", \"output\": \"A\"}] returns [{\"id\": \"1\", \"tool\": \"a\", \"ok\": True, \"output\": \"A\"}, {\"id\": \"2\", \"tool\": \"b\", \"ok\": True, \"output\": \"B\"}].",
+   "hints": [
+    "First build a dict from id to result. Only set an id if it is not in the dict yet, so the first result wins.",
+    "Then use a list comprehension or a loop over calls to build one entry per call, looking up the result by id.",
+    "Check \"error\" in result before checking output, and use the in operator so an empty string output still counts."
+   ],
+   "starter": "def merge_parallel(calls, results):\n    # Return one entry per call, in the order of calls\n    pass\n",
+   "solution": "def merge_parallel(calls, results):\n    by_id = {}\n    for r in results:\n        if r[\"id\"] not in by_id:\n            by_id[r[\"id\"]] = r\n\n    merged = []\n    for c in calls:\n        r = by_id.get(c[\"id\"])\n        if r is None:\n            merged.append({\"id\": c[\"id\"], \"tool\": c[\"tool\"], \"ok\": False, \"error\": \"no result\"})\n        elif \"error\" in r:\n            merged.append({\"id\": c[\"id\"], \"tool\": c[\"tool\"], \"ok\": False, \"error\": r[\"error\"]})\n        else:\n            merged.append({\"id\": c[\"id\"], \"tool\": c[\"tool\"], \"ok\": True, \"output\": r[\"output\"]})\n    return merged\n"
+  }
  },
  {
   "id": "ex-e-template",
@@ -7579,7 +7997,18 @@
   ],
   "solution": "function fillTemplate(template, vars) {\n  const missing = [];\n  const text = template.replace(/\\{\\{\\s*(\\w+)\\s*\\}\\}/g, (whole, name) => {\n    if (Object.prototype.hasOwnProperty.call(vars, name)) return String(vars[name]);\n    if (!missing.includes(name)) missing.push(name);\n    return whole;\n  });\n  return { text, missing };\n}\n",
   "explain": "One pass of replace with a callback means the inserted values are never scanned again, so a value that looks like a placeholder is safe. The hasOwnProperty check lets 0 and the empty string count as real values, which a simple truthy check would get wrong. Returning the original match for missing names keeps the text easy to debug.",
-  "connects": "Prompt templates are everywhere in LLM apps. Catching missing variables early avoids sending a broken prompt that costs money and gives a bad answer."
+  "connects": "Prompt templates are everywhere in LLM apps. Catching missing variables early avoids sending a broken prompt that costs money and gives a bad answer.",
+  "python": {
+   "fn": "fill_template",
+   "task": "Write fill_template(template, variables). template is a string that may contain placeholders written as {{name}}. A name is made of letters, digits and underscores (a to z, A to Z, 0 to 9 and _), and spaces are allowed just inside the braces, so {{ name }} is the same placeholder as {{name}}. variables is a dict mapping names to strings or numbers. Replace every placeholder whose name is a key of variables with str(value). An empty string counts as a real value, and so does the number 0. Leave a placeholder unchanged (exactly as written, including its spaces) when its name is not a key of variables. Replacement text is never scanned again, so a value that contains {{x}} stays as it is. Text that does not match the placeholder pattern, such as {{ two words }} or {{}} or {single}, is left alone and is not a placeholder. Return a dict with the keys \"text\" and \"missing\". text is the filled string. missing is a list of the missing names without duplicates, in the order they first appear. Example: fill_template(\"Hi {{name}}, {{greeting}}\", {\"name\": \"Ann\"}) returns {\"text\": \"Hi Ann, {{greeting}}\", \"missing\": [\"greeting\"]}.",
+   "hints": [
+    "re.sub with a function as the replacement can find and replace every placeholder in one pass.",
+    "Use the pattern r\"\\{\\{\\s*([A-Za-z0-9_]+)\\s*\\}\\}\". In the function, check if the name is in variables (a dict key test, so 0 and empty strings count).",
+    "If the name exists return str(variables[name]). Otherwise add the name to missing (only if it is not there yet) and return match.group(0) unchanged."
+   ],
+   "starter": "import re\n\n\ndef fill_template(template, variables):\n    # Return {\"text\": ..., \"missing\": [...]}\n    pass\n",
+   "solution": "import re\n\nPLACEHOLDER = re.compile(r\"\\{\\{\\s*([A-Za-z0-9_]+)\\s*\\}\\}\")\n\n\ndef fill_template(template, variables):\n    missing = []\n\n    def replace(match):\n        name = match.group(1)\n        if name in variables:\n            return str(variables[name])\n        if name not in missing:\n            missing.append(name)\n        return match.group(0)\n\n    text = PLACEHOLDER.sub(replace, template)\n    return {\"text\": text, \"missing\": missing}\n"
+  }
  },
  {
   "id": "ex-e-tokenf1",
@@ -7683,7 +8112,18 @@
   ],
   "solution": "function tokenF1(prediction, reference) {\n  const toks = (s) => s.toLowerCase().split(/[^a-z0-9]+/).filter((t) => t !== '');\n  const p = toks(prediction);\n  const r = toks(reference);\n  if (p.length === 0 && r.length === 0) return 1;\n  if (p.length === 0 || r.length === 0) return 0;\n  const counts = {};\n  for (const t of r) counts[t] = (counts[t] || 0) + 1;\n  let common = 0;\n  for (const t of p) {\n    if (counts[t] > 0) { common++; counts[t]--; }\n  }\n  if (common === 0) return 0;\n  const precision = common / p.length;\n  const recall = common / r.length;\n  const f1 = (2 * precision * recall) / (precision + recall);\n  return Math.round(f1 * 10000) / 10000;\n}\n",
   "explain": "Counting overlap as a multiset stops a repeated word from being credited more times than it appears in the reference. Precision punishes extra words and recall punishes missing words, and F1 balances the two. The empty cases need their own rules because the formula would divide by zero.",
-  "connects": "Token F1 is the score used for SQuAD style question answering, and teams use it as a cheap first check when comparing prompts and models."
+  "connects": "Token F1 is the score used for SQuAD style question answering, and teams use it as a cheap first check when comparing prompts and models.",
+  "python": {
+   "fn": "token_f1",
+   "task": "Write token_f1(prediction, reference). Both are strings. To get tokens, make the string lowercase, split it on every run of characters that are not a to z or 0-9, and drop empty pieces. So \"It's 42!\" gives [\"it\", \"s\", \"42\"]. Count the common tokens as a multiset: for each distinct token, take the smaller of its count in the prediction and its count in the reference, and add these up. If both token lists are empty return 1. If only one is empty return 0. If the common count is 0 return 0. Otherwise precision = common / number of prediction tokens, recall = common / number of reference tokens, and the answer is 2 * precision * recall / (precision + recall). Round the final answer to 4 decimal places (round half up, so add 0.5 after multiplying by 10000 and take the floor, rather than using Python's round). Example: token_f1(\"a b c d\", \"a b\") has common 2, precision 0.5, recall 1, so it returns 0.6667.",
+   "hints": [
+    "Write a tokens(s) helper first and check it on its own.",
+    "Use re.split(r\"[^a-z0-9]+\", s.lower()) and keep only the pieces that are not empty. Build a Counter for the reference tokens.",
+    "Walk over the prediction tokens. When the reference count for a token is above 0, add 1 to common and subtract 1 from that count. Then compute precision, recall and F1, and round with math.floor(x * 10000 + 0.5) / 10000."
+   ],
+   "starter": "import math\nimport re\nfrom collections import Counter\n\n\ndef token_f1(prediction, reference):\n    # Return the token F1 score rounded to 4 decimal places\n    pass\n",
+   "solution": "import math\nimport re\nfrom collections import Counter\n\n\ndef tokens(s):\n    return [t for t in re.split(r\"[^a-z0-9]+\", s.lower()) if t != \"\"]\n\n\ndef token_f1(prediction, reference):\n    pred = tokens(prediction)\n    ref = tokens(reference)\n    if not pred and not ref:\n        return 1\n    if not pred or not ref:\n        return 0\n    common = sum((Counter(pred) & Counter(ref)).values())\n    if common == 0:\n        return 0\n    precision = common / len(pred)\n    recall = common / len(ref)\n    f1 = 2 * precision * recall / (precision + recall)\n    return math.floor(f1 * 10000 + 0.5) / 10000\n"
+  }
  },
  {
   "id": "ex-e-passk",
@@ -7816,7 +8256,18 @@
   ],
   "solution": "function passAtK(n, c, k) {\n  if (n - c < k) return 1;\n  let prod = 1;\n  for (let i = n - c + 1; i <= n; i++) prod *= 1 - k / i;\n  return Math.round((1 - prod) * 1000000) / 1000000;\n}\n",
   "explain": "Sampling k answers without replacement fails only when all k are wrong. Writing that chance as a product avoids huge factorials, so it stays stable for big n. The early return covers the case where there are not enough wrong answers to fill k slots.",
-  "connects": "pass@k is the standard score for code models on benchmarks like HumanEval, and it shows how much retries help a system."
+  "connects": "pass@k is the standard score for code models on benchmarks like HumanEval, and it shows how much retries help a system.",
+  "python": {
+   "fn": "pass_at_k",
+   "task": "Write pass_at_k(n, c, k). n is the number of samples, c is how many of them are correct (0 <= c <= n), and k is the number of tries (1 <= k <= n). The exact answer is 1 - C(n - c, k) / C(n, k), where C is the number of combinations. Compute it like this. If n - c < k return 1. Otherwise start with prod = 1 and, for every integer i from n - c + 1 up to n, multiply prod by (1 - k / i). The answer is 1 - prod, rounded to 6 decimal places (round half up, so add 0.5 after multiplying by 1000000 and take the floor, rather than using Python's round). With c = 0 the loop does nothing, so the answer is 0. Example: pass_at_k(5, 1, 3) is 1 - 0.4 = 0.6, because only i = 5 is used and 1 - 3 / 5 = 0.4.",
+   "hints": [
+    "If there are fewer than k wrong samples, every group of k contains a correct one, so the answer is 1.",
+    "The chance that all k picks are wrong is the product of (1 - k / i) for i from n - c + 1 to n. In Python that is range(n - c + 1, n + 1).",
+    "Return math.floor((1 - prod) * 1000000 + 0.5) / 1000000 after the loop."
+   ],
+   "starter": "import math\n\n\ndef pass_at_k(n, c, k):\n    # Return the pass@k estimate rounded to 6 decimal places\n    pass\n",
+   "solution": "import math\n\n\ndef pass_at_k(n, c, k):\n    if n - c < k:\n        return 1\n    prod = 1\n    for i in range(n - c + 1, n + 1):\n        prod *= 1 - k / i\n    return math.floor((1 - prod) * 1000000 + 0.5) / 1000000\n"
+  }
  },
  {
   "id": "ex-e-extractjson",
@@ -7968,7 +8419,18 @@
   ],
   "solution": "function extractJson(text) {\n  for (let i = 0; i < text.length; i++) {\n    if (text[i] !== '{') continue;\n    let depth = 0, inStr = false, esc = false, end = -1;\n    for (let j = i; j < text.length; j++) {\n      const ch = text[j];\n      if (inStr) {\n        if (esc) esc = false;\n        else if (ch === '\\\\') esc = true;\n        else if (ch === '\"') inStr = false;\n      } else if (ch === '\"') inStr = true;\n      else if (ch === '{') depth++;\n      else if (ch === '}') { depth--; if (depth === 0) { end = j; break; } }\n    }\n    if (end === -1) continue;\n    try { return JSON.parse(text.slice(i, end + 1)); } catch (e) { /* try next start */ }\n  }\n  return null;\n}\n",
   "explain": "A depth counter that respects strings finds the end of each candidate object even when the text inside contains braces. Trying every \"{\" from the left means a bad outer piece still lets a good inner object through. Returning null tells the caller to retry the model call.",
-  "connects": "Structured output pipelines need this kind of cleanup, or a retry step, when a model adds extra words around the JSON it was asked to return."
+  "connects": "Structured output pipelines need this kind of cleanup, or a retry step, when a model adds extra words around the JSON it was asked to return.",
+  "python": {
+   "fn": "extract_json",
+   "task": "Write extract_json(text). Look for the first valid JSON object in the text and return the parsed value (a dict), or None if there is none. Work like this. Go through the positions of text from left to right. At each position that holds \"{\", scan forward to find the matching \"}\" by counting depth: \"{\" adds 1, \"}\" subtracts 1, and the match is where depth returns to 0. While scanning, ignore braces that are inside a double-quoted string, and remember that a backslash inside a string escapes the next character (so \\\" does not end the string). If no matching \"}\" is found, move on to the next \"{\". Otherwise try json.loads on the text from the \"{\" to its matching \"}\". If it parses, return the result. If it raises an error, move on to the next \"{\" position (which may be inside the piece that failed). Example: extract_json('Sure: {\"a\": 1} ok') returns {\"a\": 1}. Example: extract_json('{ oops {\"x\": 1} }') returns {\"x\": 1} because the outer piece is not valid JSON.",
+   "hints": [
+    "Split the work: one helper finds the matching \"}\" for a \"{\", and the main loop tries json.loads on each piece.",
+    "While scanning, keep three variables: depth, in_string and escaped. Only count braces when in_string is False.",
+    "Wrap json.loads in try/except ValueError. On failure or when no match is found, just continue the outer loop with the next index."
+   ],
+   "starter": "import json\n\n\ndef extract_json(text):\n    # Return the first valid JSON object found in text, or None\n    return \"not implemented\"\n",
+   "solution": "import json\n\n\ndef find_closing_brace(text, start):\n    \"\"\"Return the index of the \"}\" that matches the \"{\" at start, or -1.\"\"\"\n    depth = 0\n    in_string = False\n    escaped = False\n    for j in range(start, len(text)):\n        ch = text[j]\n        if in_string:\n            if escaped:\n                escaped = False\n            elif ch == \"\\\\\":\n                escaped = True\n            elif ch == '\"':\n                in_string = False\n        elif ch == '\"':\n            in_string = True\n        elif ch == \"{\":\n            depth += 1\n        elif ch == \"}\":\n            depth -= 1\n            if depth == 0:\n                return j\n    return -1\n\n\ndef extract_json(text):\n    for i, ch in enumerate(text):\n        if ch != \"{\":\n            continue\n        end = find_closing_brace(text, i)\n        if end == -1:\n            continue\n        try:\n            return json.loads(text[i:end + 1])\n        except ValueError:\n            pass\n    return None\n"
+  }
  },
  {
   "id": "ex-e-guardrail",
@@ -8129,7 +8591,18 @@
   ],
   "solution": "function checkGuardrail(text) {\n  const clean = text.toLowerCase().replace(/\\s+/g, ' ');\n  const phrases = ['ignore previous instructions', 'ignore all previous instructions', 'disregard the system prompt', 'reveal your system prompt'];\n  const flags = [];\n  if (phrases.some((p) => clean.includes(p))) flags.push('injection');\n  if (/[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}/i.test(text)) flags.push('email');\n  if (/\\b\\d{3}-\\d{3}-\\d{4}\\b/.test(text)) flags.push('phone');\n  if (/\\b\\d{3}-\\d{2}-\\d{4}\\b/.test(text)) flags.push('ssn');\n  return { flags, safe: flags.length === 0 };\n}\n",
   "explain": "Normalising case and whitespace stops trivial tricks like extra spaces or new lines. The word boundaries in the phone and ssn patterns stop them from matching inside longer numbers. Pattern lists like this are easy to bypass, so they are a first layer and not a full defence.",
-  "connects": "The OWASP list for LLM apps names prompt injection and sensitive data leaks as top risks. Input filters, output filters and least privilege work together."
+  "connects": "The OWASP list for LLM apps names prompt injection and sensitive data leaks as top risks. Input filters, output filters and least privilege work together.",
+  "python": {
+   "fn": "check_guardrail",
+   "task": "Write check_guardrail(text). Return a dict with the keys \"flags\" and \"safe\". flags is a list of strings in this fixed order, with each name at most once: \"injection\", \"email\", \"phone\", \"ssn\". Add \"injection\" when the text contains one of these phrases: \"ignore previous instructions\", \"ignore all previous instructions\", \"disregard the system prompt\", \"reveal your system prompt\". For this check, make the text lowercase and turn every run of whitespace (spaces, tabs, new lines) into one space first. Add \"email\" when the original text matches the regular expression r\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}\" with re.search, ignoring case and using re.ASCII. Add \"phone\" when it matches r\"\\b\\d{3}-\\d{3}-\\d{4}\\b\" (re.search with re.ASCII). Add \"ssn\" when it matches r\"\\b\\d{3}-\\d{2}-\\d{4}\\b\" (re.search with re.ASCII). safe is True only when flags is empty. Example: check_guardrail(\"Mail me at jo@example.com\") returns {\"flags\": [\"email\"], \"safe\": False}.",
+   "hints": [
+    "Build the flags list step by step, in the fixed order, so you never need to sort it.",
+    "For the phrase check use clean = re.sub(r\"\\s+\", \" \", text.lower()) and any(p in clean for p in phrases).",
+    "Use re.search(pattern, text, flags) on the original text for email, phone and ssn. Return {\"flags\": flags, \"safe\": len(flags) == 0}."
+   ],
+   "starter": "import re\n\n\ndef check_guardrail(text):\n    # Return {\"flags\": [...], \"safe\": ...}\n    pass\n",
+   "solution": "import re\n\nPHRASES = [\n    \"ignore previous instructions\",\n    \"ignore all previous instructions\",\n    \"disregard the system prompt\",\n    \"reveal your system prompt\",\n]\nEMAIL = re.compile(r\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}\", re.IGNORECASE | re.ASCII)\nPHONE = re.compile(r\"\\b\\d{3}-\\d{3}-\\d{4}\\b\", re.ASCII)\nSSN = re.compile(r\"\\b\\d{3}-\\d{2}-\\d{4}\\b\", re.ASCII)\n\n\ndef check_guardrail(text):\n    clean = re.sub(r\"\\s+\", \" \", text.lower())\n    flags = []\n    if any(p in clean for p in PHRASES):\n        flags.append(\"injection\")\n    if EMAIL.search(text):\n        flags.append(\"email\")\n    if PHONE.search(text):\n        flags.append(\"phone\")\n    if SSN.search(text):\n        flags.append(\"ssn\")\n    return {\"flags\": flags, \"safe\": len(flags) == 0}\n"
+  }
  },
  {
   "id": "ex-e-sse",
@@ -8335,7 +8808,18 @@
   ],
   "solution": "function parseSSE(text) {\n  const lines = text.split('\\n').map((l) => (l.endsWith('\\r') ? l.slice(0, -1) : l));\n  lines.pop();\n  const events = [];\n  let name = 'message';\n  let data = [];\n  for (const line of lines) {\n    if (line === '') {\n      if (data.length > 0) events.push({ event: name, data: data.join('\\n') });\n      name = 'message';\n      data = [];\n    } else if (line[0] === ':') {\n      continue;\n    } else {\n      const idx = line.indexOf(':');\n      if (idx === -1) continue;\n      const field = line.slice(0, idx);\n      let value = line.slice(idx + 1);\n      if (value[0] === ' ') value = value.slice(1);\n      if (field === 'data') data.push(value);\n      else if (field === 'event') name = value;\n    }\n  }\n  return events;\n}\n",
   "explain": "The stream is a tiny state machine: collect fields until an empty line, then emit. Ignoring the unfinished last line makes the parser safe to call on a partly received buffer. Removing only one space keeps the exact text of the token.",
-  "connects": "Chat UIs read the stream from an LLM API this way to show tokens while they are generated, and the last data line is often [DONE]."
+  "connects": "Chat UIs read the stream from an LLM API this way to show tokens while they are generated, and the last data line is often [DONE].",
+  "python": {
+   "fn": "parse_sse",
+   "task": "Write parse_sse(text). text is the raw stream received so far. Split it into lines at \"\\n\" and remove one trailing \"\\r\" from each line if present. Only lines that end with \"\\n\" count, so ignore any text after the last \"\\n\". An empty line ends the current event. A line that starts with \":\" is a comment and is ignored. Any other line is split at its first \":\" into a field and a value. If the line has no \":\" ignore it. If the value starts with one space, remove that one space (only one). The field \"data\" adds the value as a data line. The field \"event\" sets the event name. All other fields are ignored. When an event ends, if it has at least one data line, add {\"event\": event, \"data\": data} to the result list, where event is the event name (default \"message\") and data is the data lines joined with \"\\n\". Whether or not it was added, then reset the name to \"message\" and clear the data lines. An event that never gets its empty line is not returned. Example: parse_sse(\"event: token\\ndata: Hi\\n\\ndata: a\\ndata: b\\n\\n\") returns [{\"event\": \"token\", \"data\": \"Hi\"}, {\"event\": \"message\", \"data\": \"a\\nb\"}].",
+   "hints": [
+    "Split on \"\\n\", strip a trailing \"\\r\" from each line, and drop the last piece (it is not a finished line).",
+    "Keep two variables: name (default \"message\") and a list of data lines. On an empty line, append an event if there are data lines, then reset both.",
+    "Use line.find(\":\") to split field and value, and remove one leading space from the value only if there is one."
+   ],
+   "starter": "def parse_sse(text):\n    # Return a list of {\"event\": ..., \"data\": ...}\n    pass\n",
+   "solution": "def parse_sse(text):\n    lines = text.split(\"\\n\")\n    lines.pop()  # the last piece is not a finished line\n    lines = [line[:-1] if line.endswith(\"\\r\") else line for line in lines]\n\n    events = []\n    name = \"message\"\n    data = []\n    for line in lines:\n        if line == \"\":\n            if data:\n                events.append({\"event\": name, \"data\": \"\\n\".join(data)})\n            name = \"message\"\n            data = []\n        elif line[0] == \":\":\n            continue\n        else:\n            idx = line.find(\":\")\n            if idx == -1:\n                continue\n            field = line[:idx]\n            value = line[idx + 1:]\n            if value.startswith(\" \"):\n                value = value[1:]\n            if field == \"data\":\n                data.append(value)\n            elif field == \"event\":\n                name = value\n    return events\n"
+  }
  },
  {
   "id": "ex-e-macro",
@@ -8530,7 +9014,18 @@
   ],
   "solution": "function macroMetrics(actual, predicted) {\n  const n = actual.length;\n  if (n === 0) return { accuracy: 0, macroPrecision: 0, macroRecall: 0, macroF1: 0 };\n  const labels = [...new Set([...actual, ...predicted])];\n  let correct = 0;\n  for (let i = 0; i < n; i++) if (actual[i] === predicted[i]) correct++;\n  let sp = 0, sr = 0, sf = 0;\n  for (const L of labels) {\n    let tp = 0, fp = 0, fn = 0;\n    for (let i = 0; i < n; i++) {\n      if (predicted[i] === L && actual[i] === L) tp++;\n      else if (predicted[i] === L) fp++;\n      else if (actual[i] === L) fn++;\n    }\n    const p = tp + fp === 0 ? 0 : tp / (tp + fp);\n    const r = tp + fn === 0 ? 0 : tp / (tp + fn);\n    const f = p + r === 0 ? 0 : (2 * p * r) / (p + r);\n    sp += p; sr += r; sf += f;\n  }\n  const rd = (x) => Math.round(x * 10000) / 10000;\n  return { accuracy: rd(correct / n), macroPrecision: rd(sp / labels.length), macroRecall: rd(sr / labels.length), macroF1: rd(sf / labels.length) };\n}\n",
   "explain": "Each label gets its own precision, recall and F1 as if it were the positive class. Averaging them without weights means a rare label counts as much as a common one, so macro scores drop when a small class is handled badly, while accuracy can hide it. Labels that appear only in the predictions still count as classes with score 0.",
-  "connects": "Routers and intent classifiers in LLM systems are checked with per label scores, and eval tools report macro F1 next to accuracy."
+  "connects": "Routers and intent classifiers in LLM systems are checked with per label scores, and eval tools report macro F1 next to accuracy.",
+  "python": {
+   "fn": "macro_metrics",
+   "task": "Write macro_metrics(actual, predicted). Both are lists of string labels with the same length. Find the labels: every distinct value that appears in actual or in predicted. For each label L count tp (actual and predicted are both L), fp (predicted is L but actual is not) and fn (actual is L but predicted is not). precision = tp / (tp + fp), recall = tp / (tp + fn), f1 = 2 * precision * recall / (precision + recall). Whenever a division would have zero on the bottom, use 0 for that value. The macro scores are the plain averages over all labels of precision, recall and f1. accuracy is the number of positions where actual equals predicted, divided by the length. Return a dict with the keys \"accuracy\", \"macroPrecision\", \"macroRecall\" and \"macroF1\" (written exactly like that), each rounded to 4 decimal places (round half up, so add 0.5 after multiplying by 10000 and take the floor, rather than using Python's round). For empty lists return all four as 0. Example: actual [\"a\", \"a\"], predicted [\"a\", \"z\"] gives accuracy 0.5, macroPrecision 0.5, macroRecall 0.25, macroF1 0.3333, because label a has precision 1, recall 0.5, f1 0.6667 and label z has all zeros.",
+   "hints": [
+    "First build the list of distinct labels from both lists, for example with set(actual) | set(predicted).",
+    "For each label loop over all positions and count tp, fp and fn. Write a small safe divide that returns 0 when the bottom is 0.",
+    "Add up precision, recall and f1 over the labels, divide each sum by the number of labels, and round at the very end with math.floor(x * 10000 + 0.5) / 10000."
+   ],
+   "starter": "import math\n\n\ndef macro_metrics(actual, predicted):\n    # Return {\"accuracy\": ..., \"macroPrecision\": ..., \"macroRecall\": ..., \"macroF1\": ...}\n    pass\n",
+   "solution": "import math\n\n\ndef round4(x):\n    return math.floor(x * 10000 + 0.5) / 10000\n\n\ndef safe_div(top, bottom):\n    return 0 if bottom == 0 else top / bottom\n\n\ndef macro_metrics(actual, predicted):\n    n = len(actual)\n    if n == 0:\n        return {\"accuracy\": 0, \"macroPrecision\": 0, \"macroRecall\": 0, \"macroF1\": 0}\n\n    labels = set(actual) | set(predicted)\n    correct = sum(1 for a, p in zip(actual, predicted) if a == p)\n\n    sum_p = sum_r = sum_f = 0\n    for label in labels:\n        tp = fp = fn = 0\n        for a, p in zip(actual, predicted):\n            if p == label and a == label:\n                tp += 1\n            elif p == label:\n                fp += 1\n            elif a == label:\n                fn += 1\n        precision = safe_div(tp, tp + fp)\n        recall = safe_div(tp, tp + fn)\n        f1 = safe_div(2 * precision * recall, precision + recall)\n        sum_p += precision\n        sum_r += recall\n        sum_f += f1\n\n    count = len(labels)\n    return {\n        \"accuracy\": round4(correct / n),\n        \"macroPrecision\": round4(sum_p / count),\n        \"macroRecall\": round4(sum_r / count),\n        \"macroF1\": round4(sum_f / count),\n    }\n"
+  }
  },
  {
   "id": "ex-e-latency",
@@ -8720,6 +9215,17 @@
   ],
   "solution": "function latencySummary(values) {\n  const n = values.length;\n  if (n === 0) return { p50: 0, p95: 0, max: 0, mean: 0 };\n  const s = values.slice().sort((a, b) => a - b);\n  const pct = (p) => s[Math.max(1, Math.ceil((p * n) / 100)) - 1];\n  let sum = 0;\n  for (const v of s) sum += v;\n  return { p50: pct(50), p95: pct(95), max: s[n - 1], mean: Math.round((sum / n) * 100) / 100 };\n}\n",
   "explain": "Sorting a copy keeps the caller data safe. The nearest rank rule picks a real value from the list, and using integers in p * n / 100 avoids float surprises. The tail values show the slow requests that users remember, while the mean can look fine.",
-  "connects": "Latency targets for LLM endpoints are usually written as p50 and p95, and they guide choices like streaming, caching and model size."
+  "connects": "Latency targets for LLM endpoints are usually written as p50 and p95, and they guide choices like streaming, caching and model size.",
+  "python": {
+   "fn": "latency_summary",
+   "task": "Write latency_summary(values). values is a list of numbers (milliseconds). Do not change the input list. Sort a copy from small to large. The percentile p (an integer from 1 to 100) uses the nearest rank method: rank = math.ceil(p * n / 100), where n is the number of values, but never less than 1, and the result is sorted_values[rank - 1]. Return a dict with the keys \"p50\", \"p95\", \"max\" and \"mean\". max is the largest value. mean is the sum divided by n, rounded to 2 decimal places (round half up, so add 0.5 after multiplying by 100 and take the floor, rather than using Python's round). For an empty list return {\"p50\": 0, \"p95\": 0, \"max\": 0, \"mean\": 0}. Example: for [100, 200, 300, 400, 500], p50 uses rank ceil(250 / 100) = 3 so it is 300, p95 uses rank ceil(475 / 100) = 5 so it is 500, max is 500 and mean is 300.",
+   "hints": [
+    "Copy first with sorted(values) so the original order is kept.",
+    "Write a small pct(p) helper: rank = max(1, math.ceil(p * n / 100)), return ordered[rank - 1].",
+    "Handle the empty list first. The mean is math.floor(sum(values) / n * 100 + 0.5) / 100."
+   ],
+   "starter": "import math\n\n\ndef latency_summary(values):\n    # Return {\"p50\": ..., \"p95\": ..., \"max\": ..., \"mean\": ...}\n    pass\n",
+   "solution": "import math\n\n\ndef latency_summary(values):\n    n = len(values)\n    if n == 0:\n        return {\"p50\": 0, \"p95\": 0, \"max\": 0, \"mean\": 0}\n\n    ordered = sorted(values)\n\n    def pct(p):\n        rank = max(1, math.ceil(p * n / 100))\n        return ordered[rank - 1]\n\n    mean = math.floor(sum(ordered) / n * 100 + 0.5) / 100\n    return {\"p50\": pct(50), \"p95\": pct(95), \"max\": ordered[-1], \"mean\": mean}\n"
+  }
  }
 ]

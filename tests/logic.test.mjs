@@ -552,3 +552,25 @@ test('code editor helpers: tokens, syntax problems, re-indent', () => {
   assert.equal(indentAt('  if (x) {\n    foo', 17), '    ');
   assert.ok(tokenize('a / b / c').every((t) => t.t !== 'str'));
 });
+
+import { spawnSync } from 'node:child_process';
+import { runPyLocal } from '../scripts/py-verify.mjs';
+test('python exercises: every solution passes and every starter fails (real python3)', { skip: spawnSync('python3', ['--version']).status !== 0 }, () => {
+  const ex = JSON.parse(readFileSync(new URL('../data/exercises.json', import.meta.url), 'utf8'));
+  assert.ok(ex.every((e) => e.python && e.python.fn && e.python.starter && e.python.solution && e.python.task && e.python.hints.length === e.hints.length), 'every exercise has a complete Python version');
+  for (const e of ex) {
+    const sol = runPyLocal(e.python.solution, e.python.fn, e.cases, e.tol || 0);
+    assert.ok(!sol.compileError && sol.results.length === e.cases.length && sol.results.every((r) => r.pass), `${e.id} python solution passes`);
+    const st = runPyLocal(e.python.starter, e.python.fn, e.cases, e.tol || 0);
+    assert.ok(!st.compileError && st.results.every((r) => !r.pass), `${e.id} python starter fails`);
+  }
+});
+
+test('python editor helpers', () => {
+  assert.match(highlight('def f(a):\n    return None # x', 'python'), /tok-kw">def[\s\S]*tok-fn">f[\s\S]*tok-kw">None[\s\S]*tok-com/);
+  assert.deepEqual(checkSyntax('def f(a):\n    if a:\n        return [1,\n  2]\n', 'python'), []);
+  assert.match(checkSyntax('def f(a)\n    return a\n', 'python')[0].message, /":"/);
+  assert.match(checkSyntax('x = """abc\n', 'python')[0].message, /triple/);
+  assert.equal(checkSyntax('s = "it\'s # not a comment"\nelse_value = 1\n', 'python').length, 0);
+  assert.equal(reindent('def f():\t\n\treturn 1   \n\n\n', 2, 'python'), 'def f():\n    return 1\n');
+});

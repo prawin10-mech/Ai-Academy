@@ -21,7 +21,7 @@ export default function Practice() {
       <div className="stack">
         <div className="eyebrow">{passed} of {EXERCISES.length} passed</div>
         <h1>Practice lab</h1>
-        <p className="lead">Write a small function, run it, and it is tested on the spot, right in your browser. These are the building blocks of real AI systems: similarity search, evals, prompts, tool calls, rate limits.</p>
+        <p className="lead">Write a small function in Python or JavaScript, run it, and it is tested on the spot, right in your browser. These are the building blocks of real AI systems: similarity search, evals, prompts, tool calls, rate limits.</p>
         <div className="bar"><i style={{ width: `${Math.round((100 * passed) / EXERCISES.length)}%` }} /></div>
       </div>
       <div className="filters">
@@ -48,7 +48,7 @@ export default function Practice() {
                 {p && p.passed && <span className={`pill ${p.peeked ? 'warn' : 'ok'}`}>{p.peeked ? 'Passed with solution' : 'Passed'}</span>}
               </div>
               <h3>{e.title}</h3>
-              <span className="meta">{e.minutes} min · {p ? `${p.attempts || 0} runs` : 'not started'}</span>
+              <span className="meta">{e.python ? 'Python + JS' : 'JS'} · {e.minutes} min · {p ? `${p.attempts || 0} runs` : 'not started'}</span>
               <span className="meta">{e.story}</span>
             </Link>
           );

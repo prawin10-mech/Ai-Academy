@@ -5,7 +5,7 @@ A free, public learning site that takes a developer to job-ready AI application 
 - Accounts and guest mode (guests keep progress in their browser and can sign up later without losing it)
 - A personalised path: tell it what you know and it skips or fast-tracks topics
 - 26-week roadmap, 35 job-focused courses, 13 optional deep dives, plain-language explanations
-- Practice lab with 46 coding exercises tested in your browser (hidden test cases, timeout, no network)
+- Practice lab with 46 coding exercises in Python or JavaScript, tested in your browser (hidden test cases, 3 second timeout, no network). Python runs on Pyodide, loaded from the jsDelivr CDN on first use; the editor has line numbers, colours, auto-indent and syntax warnings
 - Career page: readiness score, portfolio projects, interview practice
 - AI Radar: new model launches (OpenAI, Google, Meta, xAI, Groq and more)
 - Daily Telegram digest per learner, linked with one tap
@@ -70,6 +70,6 @@ Without `MONGODB_URI` the app uses a local file store (`.data/academy.json`), fi
 ## Known limits
 
 - No password reset and no email verification yet. Users can change their password when signed in.
-- Practice exercises are JavaScript only.
+- Python exercises run on Pyodide (standard library only, no numpy). The first Python run downloads about 10 MB, then it is cached. Pyodide is pinned to v0.26.4 in `lib/pyrunner.js`.
 - Rate limits and the daily job are sized for thousands of learners, not millions.
 - No course can guarantee a job. The readiness score measures evidence you have produced.

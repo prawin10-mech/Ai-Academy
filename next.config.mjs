@@ -32,7 +32,7 @@ const nextConfig = {
       { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains' },
     ];
     // The practice runner has its own policy (see app/api/runner/route.js), so it is left out here.
-    return [{ source: '/((?!api/runner).*)', headers: isProd ? [...common, { key: 'Content-Security-Policy', value: csp }] : common }];
+    return [{ source: '/((?!api/runner|api/pyrunner).*)', headers: isProd ? [...common, { key: 'Content-Security-Policy', value: csp }] : common }];
   },
 };
 export default nextConfig;
