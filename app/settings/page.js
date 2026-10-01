@@ -16,6 +16,7 @@ export default function Settings() {
   const [pw, setPw] = useState({ current: '', next: '' });
   const [del, setDel] = useState('');
   const [fb, setFb] = useState('');
+  const [tg, setTg] = useState(null);
 
   // While a link is pending, check every 3 seconds so the page updates the moment you press Start in Telegram.
   const pending = !!link && !(user && user.telegramLinked);
@@ -56,10 +57,16 @@ export default function Settings() {
   const makeLink = () => call(async () => {
     const r = await api('/api/telegram/link', { method: 'POST' });
     const d = await r.json();
-    if (r.ok) setLink(d.url); else setMsg(d.error || 'Could not create a link.');
+    if (r.ok) { setLink(d.url); if (d.warning) setMsg('Link ready, but the bot is not connected to the site yet: ' + d.warning); } else setMsg(d.error || 'Could not create a link.');
   });
   const unlink = () => call(async () => { const r = await api('/api/telegram/unlink', { method: 'POST' }); const d = await r.json(); if (r.ok) { refreshUser(d.user); setLink(null); setMsg('Telegram unlinked.'); } });
   const refresh = () => call(async () => { const r = await api('/api/auth/me'); const d = await r.json(); if (d.user) refreshUser(d.user); setMsg(d.user && d.user.telegramLinked ? 'Telegram is linked.' : 'Not linked yet. Open the link in Telegram and press Start.'); });
+  const connectBot = () => call(async () => {
+    const r = await api('/api/telegram/setup', { method: 'POST' });
+    const d = await r.json().catch(() => ({}));
+    setTg(d);
+    setMsg(r.ok && d.diagnostics && !d.diagnostics.problems.length ? 'Bot connected. Now press Link Telegram and Start.' : (d.reason || d.error || 'Connected, but some problems remain. See below.'));
+  });
   const sendTest = () => call(async () => { const r = await api('/api/telegram/test', { method: 'POST' }); const d = await r.json().catch(() => ({})); setMsg(r.ok ? 'Test message sent. Check Telegram.' : d.error || 'Could not send the test message.'); });
   const changePw = () => call(async () => { const r = await api('/api/auth/password', { method: 'POST', body: JSON.stringify(pw) }); const d = await r.json(); setMsg(r.ok ? 'Password changed. Other devices were signed out.' : d.error); if (r.ok) setPw({ current: '', next: '' }); });
   const sendFb = () => call(async () => { const r = await api('/api/feedback', { method: 'POST', body: JSON.stringify({ message: fb, page: 'settings' }) }); const d = await r.json(); setMsg(r.ok ? 'Thank you. Your report was sent.' : d.error); if (r.ok) setFb(''); });
@@ -115,6 +122,22 @@ export default function Settings() {
               {link && <button className="btn" onClick={refresh}>Check link</button>}
             </div>
           </>
+        )}
+        {user && user.admin && (
+          <div className="stack" style={{ borderTop: '1px solid var(--line, #8883)', paddingTop: 12 }}>
+            <strong>Owner: bot connection</strong>
+            <p className="lead" style={{ fontSize: '0.88rem' }}>If the bot does not answer /start, press this. It registers the site with Telegram and checks the setup.</p>
+            <div className="row"><button className="btn primary" onClick={connectBot}>Connect bot now</button></div>
+            {tg && tg.diagnostics && (
+              <ul className="stack" style={{ margin: 0, paddingLeft: 20, fontSize: '0.9rem' }}>
+                <li>Bot: {tg.diagnostics.botUsername ? `@${tg.diagnostics.botUsername}` : 'not reachable'}</li>
+                <li>Webhook: {tg.diagnostics.webhookUrl || 'none'}</li>
+                {tg.diagnostics.lastError && <li>Last delivery error: {tg.diagnostics.lastError}</li>}
+                {tg.diagnostics.problems.map((p, i) => <li key={i}>⚠ {p}</li>)}
+                {!tg.diagnostics.problems.length && <li>✓ Everything looks right.</li>}
+              </ul>
+            )}
+          </div>
         )}
         <p className="lead" style={{ fontSize: '0.88rem' }}>Send /stop to the bot at any time to unlink. Your notes are never sent.</p>
       </div>

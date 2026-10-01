@@ -574,3 +574,18 @@ test('python editor helpers', () => {
   assert.equal(checkSyntax('s = "it\'s # not a comment"\nelse_value = 1\n', 'python').length, 0);
   assert.equal(reindent('def f():\t\n\treturn 1   \n\n\n', 2, 'python'), 'def f():\n    return 1\n');
 });
+
+import { registerWebhook } from '../lib/telegram.js';
+test('registerWebhook: explains missing config, skips when already right, sets when wrong', async () => {
+  const env = { TELEGRAM_BOT_TOKEN: 't', TELEGRAM_WEBHOOK_SECRET: 'sec_1' };
+  assert.match((await registerWebhook({ baseUrl: 'https://a.app', env: { TELEGRAM_BOT_TOKEN: 't' } })).reason, /WEBHOOK_SECRET/);
+  assert.equal((await registerWebhook({ baseUrl: 'http://a.app', env })).ok, false);
+  const calls = [];
+  const mk = (info) => async (url, opts) => { calls.push(url.split('/').pop()); const m = url.split('/').pop(); return { json: async () => (m === 'getWebhookInfo' ? { ok: true, result: info } : { ok: true }) }; };
+  let r = await registerWebhook({ baseUrl: 'https://a.app/', env, fetchFn: mk({ url: 'https://a.app/api/telegram/webhook' }) });
+  assert.deepEqual([r.ok, r.changed], [true, false]);
+  calls.length = 0;
+  r = await registerWebhook({ baseUrl: 'https://a.app', env, fetchFn: mk({ url: '' }), commands: [['start', 'x']] });
+  assert.deepEqual([r.ok, r.changed], [true, true]);
+  assert.deepEqual(calls, ['getWebhookInfo', 'setWebhook', 'setMyCommands']);
+});

@@ -37,7 +37,7 @@ Secrets live only in Vercel. Never commit them.
 ## Telegram
 
 1. Create a bot with @BotFather and set the variables above.
-2. Register the webhook once: `node --env-file=.env.local scripts/set-webhook.mjs https://your-app.vercel.app`
+2. Connect the bot. Easiest: sign in as the owner (ADMIN_EMAIL), open Settings and press **Connect bot now**. It also self-registers the first time anyone presses Link Telegram. Or from a terminal: `node --env-file=.env.local scripts/set-webhook.mjs https://your-app.vercel.app`
 3. Learners open Settings, tap Link Telegram, and press Start in the bot. `/stop` unlinks.
 
 **If Telegram is not working:** sign in with your `ADMIN_EMAIL` account and open `/api/health`. The `telegram.problems` list says what is wrong in plain words (bad token, wrong bot username, webhook not registered, secret mismatch). You can also run `node --env-file=.env.local scripts/telegram-check.mjs https://your-app.vercel.app`. The webhook secret may only contain letters, numbers, `_` and `-`.
