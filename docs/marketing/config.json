@@ -1,0 +1,7 @@
+{
+  "siteUrl": "",
+  "audience": "Web developers (MERN, JavaScript) who want to become AI engineers. Also students and career switchers in India and the UAE.",
+  "voice": "Plain, friendly, honest. First person from the builder. No hype, no promises of jobs.",
+  "channels": ["LinkedIn", "X", "Reddit", "Dev.to", "WhatsApp and Telegram groups"],
+  "notes": "Set siteUrl to the live address (for example https://your-name.vercel.app) so drafts contain real links."
+}
