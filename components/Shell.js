@@ -37,6 +37,7 @@ export default function Shell({ children }) {
         <span className="status" role="status">{mode === 'guest' ? `Guest · ${sync}` : sync}</span>
         <nav className="nav sub top2" aria-label="More">
           {MORE.map(([href, label]) => <Link key={href} href={href} aria-current={active(href) ? 'page' : undefined}>{label}</Link>)}
+          {user && user.admin && <Link href="/admin" aria-current={active('/admin') ? 'page' : undefined}>Owner</Link>}
           {mode === 'guest'
             ? <button className="linkbtn" onClick={async () => { await logout(); }}>Create account</button>
             : <button className="linkbtn" onClick={async () => { await logout(); router.push('/'); }}>Sign out{user && user.name ? ` (${user.name})` : ''}</button>}

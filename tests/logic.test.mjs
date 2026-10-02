@@ -589,3 +589,24 @@ test('registerWebhook: explains missing config, skips when already right, sets w
   assert.deepEqual([r.ok, r.changed], [true, true]);
   assert.deepEqual(calls, ['getWebhookInfo', 'setWebhook', 'setMyCommands']);
 });
+
+import { computeStats, maskEmail } from '../lib/adminStats.js';
+test('admin stats: counts, activity windows, masking', () => {
+  const now = Date.UTC(2026, 9, 2, 12);
+  const H = 3600000;
+  const users = [
+    { id: 'a', email: 'alice@x.com', name: 'Alice', createdAt: now - 2 * H, telegramChatId: '1', digest: true },
+    { id: 'b', email: 'bob@x.com', createdAt: now - 3 * 86400000, digest: true },
+    { id: 'c', email: 'cy@x.com', createdAt: now - 40 * 86400000, telegramChatId: '2', digest: false },
+  ];
+  const states = { a: { updatedAt: now - H, profile: true, done: { l1: true, l2: true }, practice: { e1: { passed: true }, e2: { passed: false } } }, c: { updatedAt: now - 10 * 86400000, done: { l1: true } } };
+  const s = computeStats(users, states, now);
+  assert.equal(s.total, 3); assert.equal(s.newToday, 1); assert.equal(s.new7d, 2); assert.equal(s.new30d, 2);
+  assert.equal(s.active24h, 1); assert.equal(s.active7d, 1); assert.equal(s.active30d, 2);
+  assert.equal(s.onboarded, 1); assert.equal(s.telegramLinked, 2); assert.equal(s.digestOn, 1);
+  assert.equal(s.lessonsDone, 3); assert.equal(s.exercisesPassed, 1);
+  assert.equal(s.signupsPerDay.length, 14); assert.equal(s.signupsPerDay.reduce((a, d) => a + d.count, 0), 2);
+  assert.equal(s.recent[0].name, 'Alice'); assert.ok(!JSON.stringify(s).includes('alice@'));
+  assert.equal(maskEmail('alice@x.com'), 'al***@x.com');
+  assert.deepEqual(computeStats([], {}, now).total, 0);
+});
