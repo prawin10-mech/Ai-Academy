@@ -610,3 +610,38 @@ test('admin stats: counts, activity windows, masking', () => {
   assert.equal(maskEmail('alice@x.com'), 'al***@x.com');
   assert.deepEqual(computeStats([], {}, now).total, 0);
 });
+
+import { cardParams, cardQuery, siteUrl } from '../lib/site.js';
+test('share card params are clamped and the name is cleaned', () => {
+  const c = cardParams({ w: '99', s: '-4', l: 'abc', p: '12', n: '<b>Ann</b> & co ' + 'x'.repeat(40) });
+  assert.equal(c.week, 26); assert.equal(c.streak, 0); assert.equal(c.lessons, 0); assert.equal(c.solved, 12);
+  assert.ok(c.name.length <= 20 && !/[<>&]/.test(c.name));
+  assert.equal(cardParams({}).week, 1);
+  assert.equal(cardQuery({ week: 3, streak: 2, lessons: 5, solved: 1, name: '' }), 'w=3&s=2&l=5&p=1');
+  assert.equal(siteUrl({ APP_URL: 'https://a.app/' }), 'https://a.app');
+  assert.equal(siteUrl({ VERCEL_PROJECT_PRODUCTION_URL: 'b.vercel.app' }), 'https://b.vercel.app');
+});
+
+test('admin stats: retention, funnel, streaks and content', () => {
+  const now = Date.UTC(2026, 9, 10, 12);
+  const D = 86400000;
+  const iso = (t) => new Date(t).toISOString().slice(0, 10);
+  const users = [
+    { id: 'a', email: 'a@x.com', createdAt: now - 10 * D },
+    { id: 'b', email: 'b@x.com', createdAt: now - 10 * D },
+    { id: 'c', email: 'c@x.com', createdAt: now - 1 * D },
+  ];
+  const states = {
+    a: { updatedAt: now, profile: true, done: { l1: true }, days: { [iso(now)]: 1, [iso(now - D)]: 1, [iso(now - 8 * D)]: 1 }, practice: { e1: { attempts: 2, passed: true, js: true, py: false } } },
+    b: { updatedAt: now - 9 * D, profile: false, done: {}, days: { [iso(now - 10 * D)]: 1 }, practice: { e1: { attempts: 1, passed: false, js: true } } },
+  };
+  const cat = { exercises: [{ id: 'e1', title: 'E1' }], courses: [{ id: 'c1', title: 'C1', lessons: ['l1', 'l2'] }] };
+  const s = computeStats(users, states, now, 0, cat);
+  assert.deepEqual(s.retention.d7, { eligible: 2, returned: 1, pct: 50 });
+  assert.equal(s.retention.d30.pct, null);
+  assert.deepEqual(s.funnel.map((f) => f.count), [3, 1, 1, 1, 0, 1]);
+  assert.equal(s.streaks.onStreak, 1); assert.equal(s.streaks.best, 2);
+  assert.equal(s.content.popularExercises[0].tried, 2);
+  assert.equal(s.content.topCourses[0].starters, 1);
+  assert.equal(s.languages.js, 2);
+});

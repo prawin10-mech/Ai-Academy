@@ -1,4 +1,7 @@
+import { siteUrl } from '../lib/site.js';
+
 export default function sitemap() {
-  const base = process.env.APP_URL || '';
-  return base ? [{ url: base, lastModified: new Date() }, { url: `${base}/privacy`, lastModified: new Date() }] : [];
+  const base = siteUrl();
+  const now = new Date();
+  return ['', '/ai-engineer-roadmap', '/privacy'].map((path) => ({ url: `${base}${path}`, lastModified: now }));
 }

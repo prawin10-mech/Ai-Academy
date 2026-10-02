@@ -62,10 +62,11 @@ export default function AuthScreen({ onLogin, onRegister, onGuest }) {
             <button className="btn primary" type="submit" disabled={busy}>{busy ? 'One moment' : tab === 'register' ? 'Create free account' : 'Sign in'}</button>
           </form>
           <div className="stack" style={{ gap: 8 }}>
-            <button className="linkbtn" onClick={onGuest}>Try it without an account</button>
+            <button className="btn" type="button" onClick={() => { onGuest(); window.location.assign('/practice/ex-dot'); }}>Try a free coding exercise now</button>
+            <button className="linkbtn" onClick={onGuest}>Or look around without an account</button>
             <span className="lead" style={{ fontSize: '0.88rem' }}>Guest progress stays in this browser only. Create an account any time to keep it and sync across devices.</span>
           </div>
-          <p className="lead" style={{ fontSize: '0.85rem' }}>By continuing you agree to the <Link href="/privacy">privacy and terms</Link>.</p>
+          <p className="lead" style={{ fontSize: '0.85rem' }}>By continuing you agree to the <Link href="/privacy">privacy and terms</Link>. <Link href="/ai-engineer-roadmap">See the full 26-week roadmap</Link>.</p>
         </div>
       </main>
     </div>

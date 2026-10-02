@@ -73,3 +73,12 @@ Without `MONGODB_URI` the app uses a local file store (`.data/academy.json`), fi
 - Python exercises run on Pyodide (standard library only, no numpy). The first Python run downloads about 10 MB, then it is cached. Pyodide is pinned to v0.26.4 in `lib/pyrunner.js`.
 - Rate limits and the daily job are sized for thousands of learners, not millions.
 - No course can guarantee a job. The readiness score measures evidence you have produced.
+
+
+## Growth and sharing
+- Share preview: every link shows a card (image, title, description) in chat apps and social sites. Set `APP_URL` so the addresses are right.
+- Public pages that work without signing in: `/ai-engineer-roadmap` (the shareable roadmap), `/s` (a shared progress card) and `/privacy`. They are in the sitemap (except `/s`).
+- Share my progress: Progress page, builds `/api/card`, an image of week, streak and counts. The first name is shown only if the learner ticks the box.
+- Analytics: the layout loads Vercel Web Analytics from `/_vercel/insights/script.js`. Turn it on in Vercel (project, Analytics). No package is needed and it uses no cookies.
+- Owner page (`/admin`): users, sign-ups, retention, drop-off funnel, hardest exercises and courses, site health, user search with reset or delete, and a CSV of the numbers (no emails).
+- Launch kit with ready-to-post drafts: `docs/LAUNCH-KIT.md`.

@@ -1,4 +1,5 @@
+import { siteUrl } from '../lib/site.js';
+
 export default function robots() {
-  const base = process.env.APP_URL || '';
-  return { rules: [{ userAgent: '*', allow: ['/', '/privacy'], disallow: ['/api/'] }], ...(base ? { sitemap: `${base}/sitemap.xml` } : {}) };
+  return { rules: [{ userAgent: '*', allow: ['/', '/ai-engineer-roadmap', '/privacy'], disallow: ['/api/', '/s'] }], sitemap: `${siteUrl()}/sitemap.xml` };
 }

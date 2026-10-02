@@ -38,6 +38,8 @@ export const EXERCISES = exercises;
 export const PROJECTS = projects;
 export const INTERVIEW = interview;
 export const ROADMAP = roadmap;
+// Pages anyone can open without signing in (privacy, the shareable roadmap, shared progress cards).
+const PUBLIC_PATHS = ['/privacy', '/ai-engineer-roadmap', '/s'];
 
 const LESSONS = {};
 courses.forEach((c) => c.lessons.forEach((l, idx) => { LESSONS[l.id] = { course: c, lesson: l, idx }; }));
@@ -309,7 +311,7 @@ export default function Providers({ children }) {
       <div className="stack"><div className="skel" style={{ height: 18, width: 120 }} /><div className="skel" style={{ height: 36, width: '60%' }} /><div className="skel" style={{ height: 16, width: '85%' }} /><div className="skel" style={{ height: 120 }} /><div className="skel" style={{ height: 120 }} /></div>
     </main></div>
   );
-  if (mode === 'anon' && pathname === '/privacy') return <div className="shell"><main style={{ paddingBlock: 32 }}>{children}</main></div>;
+  if (mode === 'anon' && PUBLIC_PATHS.includes(pathname)) return <div className="shell"><main style={{ paddingBlock: 32 }}>{children}</main></div>;
   if (mode === 'anon') return <AuthScreen onLogin={login} onRegister={register} onGuest={continueGuest} />;
   return <Ctx.Provider value={value}><Shell>{children}</Shell></Ctx.Provider>;
 }

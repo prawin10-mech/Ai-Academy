@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { COURSES, TOPICS, useAcademy } from '../../components/Providers.js';
+import ShareCard from '../../components/ShareCard.js';
 import { answersFor, courseProgress, evaluate, level, mastery } from '../../lib/scoring.js';
 
 export default function Progress() {
@@ -26,6 +27,8 @@ export default function Progress() {
           </div>
         )}
       </div>
+
+      <ShareCard />
 
       <section className="stack">
         <h2>Topic mastery</h2>

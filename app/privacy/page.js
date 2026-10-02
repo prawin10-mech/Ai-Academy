@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export const metadata = { title: 'Privacy and terms · AI Engineer Academy' };
+export const metadata = { title: 'Privacy and terms' };
 
 export default function Privacy() {
   return (
@@ -18,6 +18,12 @@ export default function Privacy() {
 
       <h2>Services used</h2>
       <p>Hosting on Vercel, a database on MongoDB Atlas, and the Telegram Bot API if you link it. Videos play from YouTube (privacy-enhanced mode) and papers open from arXiv. Those sites have their own policies.</p>
+
+      <h2>Visitor statistics</h2>
+      <p>If the owner turns on Vercel Web Analytics, it counts page views without cookies and without following you across sites. Nothing you type is included.</p>
+
+      <h2>Sharing</h2>
+      <p>The Share my progress feature creates a link and a picture with your week, streak and counts. Your first name appears only if you tick the box. Anyone with the link can see it, so share it only where you want to.</p>
 
       <h2>Your control</h2>
       <p>In Settings you can download all your data, unlink Telegram, and delete your account. Deleting removes your account, progress, notes and logs from our database. Logs also expire automatically after 90 days.</p>
