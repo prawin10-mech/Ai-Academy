@@ -6,7 +6,8 @@ export const metadata = {
   title: 'AI engineer roadmap for web developers: 26 weeks',
   description: 'A free, week-by-week roadmap from web developer to AI engineer: Python for AI, LLM apps, RAG, agents, evals and production. Practice in Python and JavaScript.',
   alternates: { canonical: '/ai-engineer-roadmap' },
-  openGraph: { title: 'AI engineer roadmap for web developers: 26 weeks', description: 'Week-by-week plan: LLM apps, RAG, agents, evals and production.', type: 'article' },
+  openGraph: { title: 'AI engineer roadmap for web developers: 26 weeks', description: 'Week-by-week plan: LLM apps, RAG, agents, evals and production.', type: 'article', images: [{ url: '/opengraph-image', width: 1200, height: 630 }] },
+  twitter: { card: 'summary_large_image', images: ['/opengraph-image'] },
 };
 
 const jsonLd = {
