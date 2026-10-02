@@ -1,0 +1,1 @@
+2026-10-02 | angle: OpenAI pulled GPT-6.1 Astra, agents need permissions/logs/evals | threads: levels.fyi AI-or-SWE, Blind too-late-to-learn-AI, Dev.to build-AI-agent-2026, HN career change (read only)
