@@ -1,6 +1,16 @@
 {
- "updated": "2026-09-30",
+ "updated": "2026-10-03",
  "items": [
+  {
+   "date": "2026-09-30",
+   "title": "Gemini 4 Argon",
+   "vendor": "Google",
+   "summary": "Google announced Gemini 4 Argon on Sept 30. Google says it raises the output limit to 1M tokens (up from 64K), and it is rolling out first to trusted cyber defenders, then to paid API customers and Google AI Ultra. Introductory price is $2 input and $10 output per million tokens, rising to $4 and $20 later.",
+   "why": "Test long-output tasks like big code changes and reports on it, and compare cost per finished task against GPT-6.1 Sol and Claude Sonnet 5.5 before you pick a model.",
+   "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+   "name": "Gemini 4 Argon",
+   "what": "Google announced Gemini 4 Argon on Sept 30. Google says it raises the output limit to 1M tokens (up from 64K), and it is rolling out first to trusted cyber defenders, then to paid API customers and Google AI Ultra. Introductory price is $2 input and $10 output per million tokens, rising to $4 and $20 later."
+  },
   {
    "date": "2026-09-29",
    "title": "GPT-6.1 Sol",
