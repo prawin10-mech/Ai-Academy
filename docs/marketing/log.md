@@ -1,2 +1,3 @@
 2026-10-02 | angle: OpenAI pulled GPT-6.1 Astra, agents need permissions/logs/evals | threads: levels.fyi AI-or-SWE, Blind too-late-to-learn-AI, Dev.to build-AI-agent-2026, HN career change (read only)
 2026-10-03 | angle: AI agents now hit your APIs (Transluce report), rate limits/auth/logs | threads: Dev.to Anoohya learning-by-building, Dev.to gdpp roadmap, Blind front-end pivot, HN web-dev pivot (read only)
+2026-10-04 | angle: DigitalOcean Agent Droplets (Oct 1), easy agent hosting so cost/timeouts/tools/evals matter | threads: HN 49098829, HN 42879429, Dev.to Arham Ghori roadmap, Dev.to Blessing Njoku roadmap (all old, none within 48h)
