@@ -2,3 +2,4 @@
 2026-10-03 | angle: AI agents now hit your APIs (Transluce report), rate limits/auth/logs | threads: Dev.to Anoohya learning-by-building, Dev.to gdpp roadmap, Blind front-end pivot, HN web-dev pivot (read only)
 2026-10-04 | angle: DigitalOcean Agent Droplets (Oct 1), easy agent hosting so cost/timeouts/tools/evals matter | threads: HN 49098829, HN 42879429, Dev.to Arham Ghori roadmap, Dev.to Blessing Njoku roadmap (all old, none within 48h)
 2026-10-18 | angle: model prices/choices keep changing (Gemini 4 Argon paid API, Reflection Beam), keep model swappable + 20-task eval | threads: Dev.to techieonvacation, HN 40866311, Dev.to chisom_ejiba, Dev.to saqibshah (none within 48h)
+2026-10-19 | angle: Opsin $21M (Oct 15) agents act now, write the tool list like an access policy | threads: Dev.to klement_gunndu stack, Dev.to Devin Rosario RAG, Dev.to Michael Levan RAG ops (all old, none within 48h)
