@@ -4,3 +4,4 @@
 2026-10-18 | angle: model prices/choices keep changing (Gemini 4 Argon paid API, Reflection Beam), keep model swappable + 20-task eval | threads: Dev.to techieonvacation, HN 40866311, Dev.to chisom_ejiba, Dev.to saqibshah (none within 48h)
 2026-10-19 | angle: Opsin $21M (Oct 15) agents act now, write the tool list like an access policy | threads: Dev.to klement_gunndu stack, Dev.to Devin Rosario RAG, Dev.to Michael Levan RAG ops (all old, none within 48h)
 2026-10-20 | angle: web search is now a metered tool call (DeepSeek Search/Fetch $0.75 per 1k), cap/cache/log agent calls | threads: Blind where-should-i-start, Dev.to samuel_ochaba roadmap, Dev.to happycoding753, Dev.to yogini16 (none within 48h)
+2026-10-21 | angle: Notion agents reported to run 24h+ (Oct 20), give long agent jobs a budget, checkpoints, logs, stop button | threads: Dev.to ankit_rattan, Dev.to cypriantinasheaarons, Dev.to amd87 (all old, none within 48h)
