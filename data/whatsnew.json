@@ -1,6 +1,16 @@
 {
- "updated": "2026-10-03",
+ "updated": "2026-10-21",
  "items": [
+  {
+   "date": "2026-10-20",
+   "title": "Voxtral 3",
+   "vendor": "Mistral",
+   "summary": "Mistral released Voxtral 3 on Oct 20, a family of speech to text and text to speech models plus a voice agent SDK built on LiveKit. Mistral lists batch transcription from $0.0035 per minute and voice agent API from $0.04 per minute, and says each turn finishes in under one second.",
+   "why": "Build a small voice agent that chains transcription, a tool call and speech output, and measure latency and cost per minute before you claim it works.",
+   "url": "https://mistral.ai/news/voxtral-3/",
+   "name": "Voxtral 3",
+   "what": "Mistral released Voxtral 3 on Oct 20, a family of speech to text and text to speech models plus a voice agent SDK built on LiveKit. Mistral lists batch transcription from $0.0035 per minute and voice agent API from $0.04 per minute, and says each turn finishes in under one second."
+  },
   {
    "date": "2026-09-30",
    "title": "Gemini 4 Argon",
