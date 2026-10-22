@@ -1,6 +1,16 @@
 {
- "updated": "2026-10-21",
+ "updated": "2026-10-22",
  "items": [
+  {
+   "date": "2026-10-20",
+   "title": "12-hour prompt caching in the OpenAI API",
+   "vendor": "OpenAI",
+   "summary": "OpenAI added 12-hour prompt caching to the Responses API on Oct 20. Per the changelog, 12-hour cache writes cost 2.5x the normal input token price, so it pays off when the same long prefix is reused hours apart.",
+   "why": "Work out the break-even point: count how many reuses of a long system prompt or tool list it takes for the cheaper cached reads to beat the higher write cost.",
+   "url": "https://developers.openai.com/api/docs/changelog",
+   "name": "12-hour prompt caching in the OpenAI API",
+   "what": "OpenAI added 12-hour prompt caching to the Responses API on Oct 20. Per the changelog, 12-hour cache writes cost 2.5x the normal input token price, so it pays off when the same long prefix is reused hours apart."
+  },
   {
    "date": "2026-10-20",
    "title": "Voxtral 3",
