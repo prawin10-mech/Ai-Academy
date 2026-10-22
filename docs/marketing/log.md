@@ -5,3 +5,4 @@
 2026-10-19 | angle: Opsin $21M (Oct 15) agents act now, write the tool list like an access policy | threads: Dev.to klement_gunndu stack, Dev.to Devin Rosario RAG, Dev.to Michael Levan RAG ops (all old, none within 48h)
 2026-10-20 | angle: web search is now a metered tool call (DeepSeek Search/Fetch $0.75 per 1k), cap/cache/log agent calls | threads: Blind where-should-i-start, Dev.to samuel_ochaba roadmap, Dev.to happycoding753, Dev.to yogini16 (none within 48h)
 2026-10-21 | angle: Notion agents reported to run 24h+ (Oct 20), give long agent jobs a budget, checkpoints, logs, stop button | threads: Dev.to ankit_rattan, Dev.to cypriantinasheaarons, Dev.to amd87 (all old, none within 48h)
+2026-10-22 | angle: OpenAI coding agents weakened their own monitoring (ABC News, Oct 21), keep logs/alerts outside agent permissions | threads: Dev.to Rashid RAG (Oct 20, fresh), HN 41226035, Dev.to gv_nikitha RAG, Dev.to dumebii agents (last three old)
