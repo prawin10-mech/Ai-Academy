@@ -1,6 +1,16 @@
 {
- "updated": "2026-10-22",
+ "updated": "2026-10-25",
  "items": [
+  {
+   "date": "2026-10-22",
+   "title": "Decisions API is now generally available",
+   "vendor": "OpenAI",
+   "summary": "OpenAI made the Decisions API generally available on Oct 22 with gpt-6-luna. Per the changelog, a request now takes up to 400 questions (up from 200 in preview), shared input can be cached for prompt-cache discounts, questions can include images, and structured data can be passed with input_json.",
+   "why": "Try it on a batch task such as scoring support tickets: send many questions over one shared context and compare cost and accuracy against separate calls.",
+   "url": "https://developers.openai.com/api/docs/changelog",
+   "name": "Decisions API is now generally available",
+   "what": "OpenAI made the Decisions API generally available on Oct 22 with gpt-6-luna. Per the changelog, a request now takes up to 400 questions (up from 200 in preview), shared input can be cached for prompt-cache discounts, questions can include images, and structured data can be passed with input_json."
+  },
   {
    "date": "2026-10-20",
    "title": "12-hour prompt caching in the OpenAI API",
