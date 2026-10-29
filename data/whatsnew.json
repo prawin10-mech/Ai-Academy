@@ -1,6 +1,46 @@
 {
- "updated": "2026-10-28",
+ "updated": "2026-10-29",
  "items": [
+  {
+   "date": "2026-10-28",
+   "title": "Gemini 4 Carbon announced, limited access",
+   "vendor": "Google",
+   "summary": "Google announced Gemini 4 Carbon on Oct 28, which it calls its strongest model, built for long running agent work and cybersecurity. Access is limited to a small group of cyber defenders for now, and developers do not have it yet. Announced pricing is $2 input and $10 output per million tokens at launch, rising to $4 and $20 later.",
+   "why": "Do not plan around it yet, but learn how long-horizon agents are tested (multi-step plans, prompt injection, overreach) because employers will ask.",
+   "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/",
+   "name": "Gemini 4 Carbon announced, limited access",
+   "what": "Google announced Gemini 4 Carbon on Oct 28, which it calls its strongest model, built for long running agent work and cybersecurity. Access is limited to a small group of cyber defenders for now, and developers do not have it yet. Announced pricing is $2 input and $10 output per million tokens at launch, rising to $4 and $20 later."
+  },
+  {
+   "date": "2026-10-27",
+   "title": "Anthropic adds a 40% government discount on Claude",
+   "vendor": "Anthropic",
+   "summary": "Anthropic expanded its GSA partnership on Oct 27. Government buyers get 40% off Claude Enterprise, Claude for Government and the Claude API, including state, local and tribal governments.",
+   "why": "Public sector AI roles may grow, so practice building agents with audit logs and clear data handling.",
+   "url": "https://www.anthropic.com/news/expanding-partnership-gsa",
+   "name": "Anthropic adds a 40% government discount on Claude",
+   "what": "Anthropic expanded its GSA partnership on Oct 27. Government buyers get 40% off Claude Enterprise, Claude for Government and the Claude API, including state, local and tribal governments."
+  },
+  {
+   "date": "2026-10-27",
+   "title": "Liquid AI releases the LFM3 open-weight family",
+   "vendor": "Liquid AI",
+   "summary": "Liquid AI released six LFM3 models of about 2B parameters each for text, vision, audio and decision tasks. Weights are on Hugging Face and run with llama.cpp, MLX and vLLM. Speed and benchmark claims are vendor-reported.",
+   "why": "Try a small local model on one of your tasks and compare quality and cost with a hosted API.",
+   "url": "https://www.liquid.ai/blog/lfm3",
+   "name": "Liquid AI releases the LFM3 open-weight family",
+   "what": "Liquid AI released six LFM3 models of about 2B parameters each for text, vision, audio and decision tasks. Weights are on Hugging Face and run with llama.cpp, MLX and vLLM. Speed and benchmark claims are vendor-reported."
+  },
+  {
+   "date": "2026-10-27",
+   "title": "Google DeepMind announces Genie 4 world model",
+   "vendor": "Google DeepMind",
+   "summary": "Google DeepMind announced Genie 4 on Oct 27, a world model for real-time interactive simulation with native audio. It is in limited testing, with Gemini API and AI Studio access for early partners listed as coming soon.",
+   "why": "Low priority for most app engineers. Just know that world models are a new category, and watch for API access.",
+   "url": "https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/",
+   "name": "Google DeepMind announces Genie 4 world model",
+   "what": "Google DeepMind announced Genie 4 on Oct 27, a world model for real-time interactive simulation with native audio. It is in limited testing, with Gemini API and AI Studio access for early partners listed as coming soon."
+  },
   {
    "date": "2026-10-26",
    "title": "GPT-6.1 Terra added to the OpenAI API",
