@@ -1,6 +1,16 @@
 {
- "updated": "2026-10-29",
+ "updated": "2026-11-07",
  "items": [
+  {
+   "date": "2026-11-05",
+   "title": "Personal Finance in Claude (beta)",
+   "vendor": "Anthropic",
+   "summary": "Anthropic released Personal Finance in Claude as a beta on Nov 5. Users on Pro, Max and Ultra plans in the US can link bank, card, loan and investment accounts and ask Claude questions about their money.",
+   "why": "Study how apps connect to sensitive user data safely (read-only access, permissions, no training on private data), because employers expect AI engineers to design this.",
+   "url": "https://support.claude.com/en/articles/12138966-release-notes",
+   "name": "Personal Finance in Claude (beta)",
+   "what": "Anthropic released Personal Finance in Claude as a beta on Nov 5. Users on Pro, Max and Ultra plans in the US can link bank, card, loan and investment accounts and ask Claude questions about their money."
+  },
   {
    "date": "2026-10-28",
    "title": "Gemini 4 Carbon announced, limited access",
