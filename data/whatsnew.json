@@ -1,6 +1,16 @@
 {
- "updated": "2026-11-07",
+ "updated": "2026-11-12",
  "items": [
+  {
+   "date": "2026-11-10",
+   "title": "DeepMind releases machine-code proofs for Signal",
+   "vendor": "Google DeepMind",
+   "summary": "Google DeepMind published a repository with AI-generated Lean proofs of security for the compiled machine code of Signal's libsignal, under two security models. The README says it is not an official Google product, and reports say the paper is dated Nov 10.",
+   "why": "Learn how AI-written code can be checked by a proof tool, because employers want engineers who verify AI output instead of trusting it.",
+   "url": "https://github.com/google-deepmind/code-verification",
+   "name": "DeepMind releases machine-code proofs for Signal",
+   "what": "Google DeepMind published a repository with AI-generated Lean proofs of security for the compiled machine code of Signal's libsignal, under two security models. The README says it is not an official Google product, and reports say the paper is dated Nov 10."
+  },
   {
    "date": "2026-11-05",
    "title": "Personal Finance in Claude (beta)",
